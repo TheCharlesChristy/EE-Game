@@ -1,0 +1,295 @@
+/* HomePage Template Styles - Multi-Team Gaming System */
+/* Optimized for large screen viewing and distance readability */
+
+/* CSS Variables following the style guide */
+:root {
+  /* Primary Blues */
+  --primary-dark-blue: #1a365d;
+  --primary-medium-blue: #2d5aa0;
+  --primary-light-blue: #4299e1;
+  
+  /* Neutrals */
+  --background-white: #ffffff;
+  --background-light: #f7fafc;
+  --text-dark: #2d3748;
+  --text-medium: #4a5568;
+  --text-light: #718096;
+  
+  /* System Colors */
+  --success-green: #38a169;
+  --warning-orange: #ed8936;
+  --error-red: #e53e3e;
+  
+  /* Typography */
+  --font-primary: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-display: 4rem;        /* 64px */
+  --font-size-large: 3rem;          /* 48px */
+  --font-size-medium: 2rem;         /* 32px */
+  --font-size-body: 1.5rem;         /* 24px */
+  --font-size-small: 1.25rem;       /* 20px */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 1rem;      /* 16px */
+  --space-md: 1.5rem;    /* 24px */
+  --space-lg: 2rem;      /* 32px */
+  --space-xl: 3rem;      /* 48px */
+  --space-2xl: 4rem;     /* 64px */
+  --space-3xl: 6rem;     /* 96px */
+}
+
+/* Base Layout Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--background-light) 0%, #e2e8f0 100%);
+  color: var(--text-dark);
+  line-height: var(--line-height-normal);
+}
+
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* Typography Classes */
+.text-display {
+  font-size: var(--font-size-display);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--primary-dark-blue);
+}
+
+.text-large {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  line-height: var(--line-height-normal);
+  color: var(--text-dark);
+}
+
+.text-medium {
+  font-size: var(--font-size-medium);
+  font-weight: 500;
+  line-height: var(--line-height-normal);
+  color: var(--text-dark);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  line-height: var(--line-height-normal);
+  color: var(--text-medium);
+}
+
+.text-small {
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  line-height: var(--line-height-normal);
+  color: var(--text-light);
+}
+
+/* Home Page Layout */
+.home-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) 0;
+}
+
+.status-section {
+  margin-bottom: var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.navigation-section {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.page-title {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-dark-blue), var(--primary-medium-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.team-management-section {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+/* Footer Styles */
+.home-footer {
+  background: var(--primary-dark-blue);
+  color: white;
+  padding: var(--space-lg) 0;
+  text-align: center;
+}
+
+.home-footer .text-small {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --font-size-display: 3rem;        /* 48px */
+    --font-size-large: 2.5rem;        /* 40px */
+    --font-size-medium: 1.75rem;      /* 28px */
+    --font-size-body: 1.25rem;        /* 20px */
+    --font-size-small: 1rem;          /* 16px */
+  }
+  
+  .container {
+    padding: var(--space-md);
+  }
+  
+  .home-content {
+    padding: var(--space-lg) 0;
+  }
+  
+  .page-title {
+    margin-bottom: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-display: 2.5rem;      /* 40px */
+    --font-size-large: 2rem;          /* 32px */
+    --font-size-medium: 1.5rem;       /* 24px */
+    --font-size-body: 1rem;           /* 16px */
+    --font-size-small: 0.875rem;      /* 14px */
+  }
+  
+  .status-section,
+  .navigation-section,
+  .team-management-section {
+    margin-bottom: var(--space-lg);
+  }
+}
+
+/* Accessibility Features */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-high-contrast: high) {
+  :root {
+    --background-white: #ffffff;
+    --background-light: #f8f9fa;
+    --text-dark: #000000;
+    --text-medium: #2d3748;
+    --primary-dark-blue: #000080;
+    --primary-medium-blue: #0066cc;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+*:focus {
+  outline: 3px solid var(--primary-light-blue);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary-dark-blue);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Loading state styles */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid var(--primary-light-blue);
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state styles */
+.error-state {
+  background: rgba(229, 62, 62, 0.1);
+  border: 2px solid var(--error-red);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--error-red);
+}
+
+.error-state .error-icon {
+  font-size: var(--font-size-large);
+  margin-bottom: var(--space-md);
+}
+
+.error-state .error-message {
+  font-size: var(--font-size-body);
+  font-weight: 500;
+}
+
+/* Success state styles */
+.success-state {
+  background: rgba(56, 161, 105, 0.1);
+  border: 2px solid var(--success-green);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--success-green);
+}
+
+.success-state .success-icon {
+  font-size: var(--font-size-large);
+  margin-bottom: var(--space-md);
+}

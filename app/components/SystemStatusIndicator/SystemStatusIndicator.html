@@ -1,0 +1,111 @@
+<div class="system-status-indicator" role="status" aria-live="polite">
+    <div class="status-container">
+        <!-- Overall System Status -->
+        <div class="status-item system-health">
+            <div class="status-icon" id="systemHealthIcon">
+                <span class="icon-symbol">●</span>
+            </div>
+            <div class="status-info">
+                <h3 class="status-title">System Health</h3>
+                <p class="status-description" id="systemHealthText">Checking...</p>
+            </div>
+        </div>
+        
+        <!-- Hardware Connection Status -->
+        <div class="status-item hardware-status">
+            <div class="status-icon" id="hardwareStatusIcon">
+                <span class="icon-symbol">🔧</span>
+            </div>
+            <div class="status-info">
+                <h3 class="status-title">Hardware</h3>
+                <p class="status-description" id="hardwareStatusText">Initializing...</p>
+                <div class="gpio-status" id="gpioStatus" style="display: none;">
+                    <small class="status-detail">GPIO Connections: <span id="gpioCount">0</span>/8</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Network/WebSocket Status -->
+        <div class="status-item network-status">
+            <div class="status-icon" id="networkStatusIcon">
+                <span class="icon-symbol">📶</span>
+            </div>
+            <div class="status-info">
+                <h3 class="status-title">Connection</h3>
+                <p class="status-description" id="networkStatusText">Connecting...</p>
+                <div class="connection-detail" id="connectionDetail" style="display: none;">
+                    <small class="status-detail">Latency: <span id="latencyValue">--</span>ms</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Status -->
+        <div class="status-item team-status">
+            <div class="status-icon" id="teamStatusIcon">
+                <span class="icon-symbol">👥</span>
+            </div>
+            <div class="status-info">
+                <h3 class="status-title">Teams</h3>
+                <p class="status-description" id="teamStatusText">No teams registered</p>
+                <div class="team-detail" id="teamDetail" style="display: none;">
+                    <small class="status-detail">Registered: <span id="teamCount">0</span> teams</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Expandable Details Section -->
+    <div class="status-details" id="statusDetails" style="display: none;">
+        <button class="details-toggle" id="detailsToggle" aria-expanded="false">
+            <span class="toggle-text">Show Details</span>
+            <span class="toggle-icon">▼</span>
+        </button>
+        
+        <div class="details-content" id="detailsContent">
+            <div class="details-grid">
+                <!-- System Details -->
+                <div class="detail-section">
+                    <h4 class="detail-title">System Information</h4>
+                    <ul class="detail-list">
+                        <li>Version: <span id="systemVersion">v1.0 MVP</span></li>
+                        <li>Uptime: <span id="systemUptime">--</span></li>
+                        <li>Last Update: <span id="lastUpdate">Never</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Hardware Details -->
+                <div class="detail-section">
+                    <h4 class="detail-title">Hardware Status</h4>
+                    <div class="gpio-grid" id="gpioGrid">
+                        <!-- GPIO pin status will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Network Details -->
+                <div class="detail-section">
+                    <h4 class="detail-title">Network Information</h4>
+                    <ul class="detail-list">
+                        <li>Status: <span id="detailNetworkStatus">Unknown</span></li>
+                        <li>Protocol: <span id="networkProtocol">WebSocket</span></li>
+                        <li>Reconnect Attempts: <span id="reconnectAttempts">0</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Game Availability -->
+                <div class="detail-section">
+                    <h4 class="detail-title">Game Availability</h4>
+                    <ul class="detail-list" id="gameAvailability">
+                        <li>Reaction Timer: <span class="game-status" data-game="reaction-timer">Checking...</span></li>
+                        <li>Wheel Game: <span class="game-status" data-game="wheel-game">Checking...</span></li>
+                        <li>Quiz Game: <span class="game-status" data-game="quiz-game">Checking...</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alert Messages -->
+    <div class="status-alerts" id="statusAlerts" role="alert" aria-live="assertive">
+        <!-- Alert messages will be inserted here -->
+    </div>
+</div>

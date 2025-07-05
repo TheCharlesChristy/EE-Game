@@ -1,0 +1,55 @@
+<div class="team-management-button-container">
+    <button class="team-management-button btn-large" 
+            id="teamManagementBtn"
+            aria-label="Team Management - Register and configure teams"
+            data-team-count="0">
+        
+        <!-- Button Icon -->
+        <div class="btn-icon-section">
+            <span class="btn-icon">👥</span>
+            <div class="team-count-badge" id="teamCountBadge">
+                <span class="badge-number" id="badgeNumber">0</span>
+            </div>
+        </div>
+        
+        <!-- Button Content -->
+        <div class="btn-content">
+            <h3 class="btn-title">Team Management</h3>
+            <p class="btn-description" id="teamBtnDescription">No teams registered</p>
+            
+            <!-- Team Status Indicators -->
+            <div class="team-status-indicators" id="teamStatusIndicators">
+                <!-- Team status dots will be populated here -->
+            </div>
+        </div>
+        
+        <!-- Status Indicator -->
+        <div class="btn-status-indicator" id="btnStatusIndicator">
+            <div class="status-dot status-warning" id="statusDot"></div>
+            <span class="status-text" id="statusText">Setup Required</span>
+        </div>
+    </button>
+    
+    <!-- Quick Team Summary (appears when teams are registered) -->
+    <div class="team-summary" id="teamSummary" style="display: none;">
+        <h4 class="summary-title">Registered Teams</h4>
+        <div class="team-list" id="teamList">
+            <!-- Team items will be populated here -->
+        </div>
+        <div class="summary-actions">
+            <button class="quick-action-btn" id="addTeamBtn" aria-label="Quick add team">
+                <span class="action-icon">➕</span>
+                <span class="action-text">Add Team</span>
+            </button>
+            <button class="quick-action-btn" id="testHardwareBtn" aria-label="Test hardware connections">
+                <span class="action-icon">🔧</span>
+                <span class="action-text">Test Hardware</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Error/Warning Messages -->
+    <div class="team-alerts" id="teamAlerts" role="alert" aria-live="polite">
+        <!-- Alert messages will be inserted here -->
+    </div>
+</div>
