@@ -1,50 +1,19 @@
 <header class="page-header" role="banner">
     <div class="container">
         <div class="header-content">
-            <!-- Brand/Logo Section -->
-            <div class="brand-section">
-                <h1 class="brand-title">
-                    <span class="brand-icon">⚡</span>
-                    Multi-Team Gaming System
-                </h1>
-                <div class="system-version">v1.0 MVP</div>
+            <!-- App Name -->
+            <div class="app-name-section">
+                <h1 class="app-name">Electronic Engineering Game</h1>
             </div>
-            
-            <!-- Navigation Breadcrumb -->
-            <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="breadcrumb-link">Home</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Game Selection
-                    </li>
-                </ol>
-            </nav>
+
+            <!-- Page Title -->
+            <div class="brand-logo-section">
+                <img src="/static/my-logo.svg" class="brand-logo" alt="Multi-Team Gaming System Logo">
+            </div>
             
             <!-- Header Actions -->
             <div class="header-actions">
-                <!-- System Time Display -->
-                <div class="system-time" id="systemTime">
-                    <span class="time-label">System Time:</span>
-                    <span class="time-value" id="timeValue">--:--:--</span>
-                </div>
-                
-                <!-- Settings/Admin Access -->
-                <button class="header-action-btn settings-btn" 
-                        aria-label="System Settings" 
-                        title="Access system settings">
-                    <span class="btn-icon">⚙️</span>
-                    <span class="btn-text">Settings</span>
-                </button>
-                
-                <!-- Help/Info Button -->
-                <button class="header-action-btn help-btn" 
-                        aria-label="Help and Information" 
-                        title="View help and system information">
-                    <span class="btn-icon">❓</span>
-                    <span class="btn-text">Help</span>
-                </button>
+                <button id="header_button" class="manage-teams-button" onclick="handle_header_click()">Manage Teams</button>
             </div>
         </div>
     </div>

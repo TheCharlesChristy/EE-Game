@@ -30,20 +30,31 @@ class TemplateBuilder:
     4. Return complete HTML string
     """
     
-    def __init__(self, components_root: str = "app/components"):
+    def __init__(self, components_root: str = "components"):
         """Initialize with component directory path."""
-        self.components_root = Path(components_root)
-        self.templates_root = Path("app/templates")
+        # Get the base app directory (parent of server directory)
+        app_dir = Path(__file__).parent.parent
         
-        # Setup Jinja2 environment
+        self.components_root = app_dir / components_root
+        self.templates_root = app_dir / "templates"
+        
+        print(f"TemplateBuilder initialized:")
+        print(f"  App dir: {app_dir}")
+        print(f"  Components root: {self.components_root}")
+        print(f"  Templates root: {self.templates_root}")
+        print(f"  Templates root exists: {self.templates_root.exists()}")
+        
+        # Setup Jinja2 environment with absolute paths
         self.jinja_env = Environment(
-            loader=FileSystemLoader(['app/templates', 'app']),
+            loader=FileSystemLoader([str(self.templates_root), str(app_dir)]),
             autoescape=True
         )
         
         # Verify directories exist
         if not self.components_root.exists():
-            raise FileNotFoundError(f"Components directory not found: {components_root}")
+            raise FileNotFoundError(f"Components directory not found: {self.components_root}")
+        if not self.templates_root.exists():
+            raise FileNotFoundError(f"Templates directory not found: {self.templates_root}")
     
     def build_template(self, template_name: str) -> str:
         """

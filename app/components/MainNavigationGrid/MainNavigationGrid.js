@@ -202,7 +202,7 @@ class MainNavigationGrid {
         }
         
         // Check team requirements
-        const game = this.availableGames.find(g => g.id === gameId);
+        const game = Array.isArray(this.availableGames) ? this.availableGames.find(g => g.id === gameId) : null;
         if (game && this.teamCount < game.minTeams) {
             this.showError(`This game requires at least ${game.minTeams} teams. Please register more teams.`);
             button.dataset.status = 'requires-teams';
@@ -295,7 +295,7 @@ class MainNavigationGrid {
      */
     updateGameButtonStatus(button) {
         const gameId = button.dataset.game;
-        const game = this.availableGames.find(g => g.id === gameId);
+        const game = Array.isArray(this.availableGames) ? this.availableGames.find(g => g.id === gameId) : null;
         const statusElement = button.querySelector('.game-status');
         
         // Determine button state
