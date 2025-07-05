@@ -1,0 +1,56 @@
+<div class="team-registration-form">
+  <div class="form-header">
+    <h3>Add New Team</h3>
+    <div class="team-limit-indicator">
+      <span class="current-count">0</span>/<span class="max-count">8</span> teams
+    </div>
+  </div>
+  
+  <form class="registration-form" novalidate>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="teamName" class="form-label">Team Name</label>
+        <input 
+          type="text" 
+          id="teamName" 
+          name="teamName" 
+          class="form-input" 
+          placeholder="Enter team name..."
+          maxlength="50"
+          required
+        />
+        <div class="input-feedback"></div>
+      </div>
+      
+      <div class="form-group team-color-preview">
+        <label class="form-label">Team Color</label>
+        <div class="color-indicator">
+          <span class="color-circle"></span>
+          <span class="color-name">Auto-assigned</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="gpio-pin-selector-container">
+        <!-- GPIOPinSelector will be embedded here -->
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" disabled>
+        Add Team
+      </button>
+      <button type="button" class="btn btn-secondary cancel-btn" style="display: none;">
+        Cancel
+      </button>
+    </div>
+  </form>
+  
+  <div class="form-limit-reached" style="display: none;">
+    <div class="limit-message">
+      <h4>Maximum Teams Reached</h4>
+      <p>You have reached the maximum limit of 8 teams. Remove a team to add a new one.</p>
+    </div>
+  </div>
+</div>

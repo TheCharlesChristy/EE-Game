@@ -1,0 +1,239 @@
+/* TeamConfigurationList Component Styles */
+.team-configuration-list {
+  background: var(--background-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-lg);
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--background-medium);
+}
+
+.list-header h3 {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.team-count {
+  font-size: var(--font-size-body);
+  color: var(--text-medium);
+  background: var(--background-light);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.no-teams-message {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  color: var(--text-medium);
+  font-style: italic;
+}
+
+.teams-list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.team-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--background-light);
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  transition: all var(--transition-normal);
+}
+
+.team-item:hover {
+  background: var(--background-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.team-item.editing {
+  border-color: var(--primary-light-blue);
+  background: var(--background-white);
+}
+
+.team-color-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--background-white);
+  box-shadow: 0 0 0 1px var(--background-medium);
+  flex-shrink: 0;
+}
+
+.team-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.team-name {
+  font-size: var(--font-size-medium);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xs);
+  word-break: break-word;
+}
+
+.team-details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.team-pin {
+  font-size: var(--font-size-small);
+  color: var(--text-medium);
+  background: var(--background-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--background-medium);
+  font-family: var(--font-monospace);
+}
+
+.team-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-small);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.status-indicator.connected {
+  background: var(--secondary-green);
+}
+
+.status-indicator.disconnected {
+  background: var(--error-red);
+}
+
+.status-indicator.testing {
+  background: var(--warning-yellow);
+  animation: pulse 1s infinite;
+}
+
+.team-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--background-white);
+  color: var(--text-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  font-size: 14px;
+}
+
+.action-btn:hover {
+  background: var(--background-medium);
+  color: var(--text-dark);
+}
+
+.action-btn.edit:hover {
+  background: var(--primary-light-blue);
+  color: white;
+}
+
+.action-btn.delete:hover {
+  background: var(--error-red);
+  color: white;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Status badges */
+.team-status-badge {
+  font-size: var(--font-size-small);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team-status-badge.ready {
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--secondary-green);
+}
+
+.team-status-badge.error {
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-red);
+}
+
+.team-status-badge.testing {
+  background: rgba(236, 201, 75, 0.1);
+  color: #b7791f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-configuration-list {
+    padding: var(--space-md);
+  }
+  
+  .list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .team-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .team-details {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .team-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  
+  .team-actions .action-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

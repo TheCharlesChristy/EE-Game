@@ -1,0 +1,68 @@
+<div class="gpio-pin-selector">
+  <div class="pin-selector-header">
+    <label class="pin-selector-label">GPIO Pin Assignment</label>
+    <div class="pin-availability-indicator">
+      <span class="available-count">0</span> available pins
+    </div>
+  </div>
+  
+  <div class="pin-selection-mode">
+    <div class="selection-tabs">
+      <button type="button" class="tab-btn active" data-mode="dropdown">
+        📋 Dropdown
+      </button>
+      <button type="button" class="tab-btn" data-mode="visual">
+        🔌 Visual Layout
+      </button>
+    </div>
+  </div>
+  
+  <div class="pin-input-container">
+    <!-- Dropdown Mode -->
+    <div class="dropdown-mode active">
+      <select class="pin-dropdown" name="selectedPin">
+        <option value="">Select a GPIO pin...</option>
+      </select>
+      <div class="pin-conflict-warning" style="display: none;">
+        ⚠️ This pin is already assigned to another team
+      </div>
+    </div>
+    
+    <!-- Visual Mode -->
+    <div class="visual-mode">
+      <div class="gpio-layout">
+        <div class="gpio-board">
+          <div class="board-header">Raspberry Pi GPIO Layout</div>
+          <div class="pin-grid">
+            <!-- GPIO pins will be generated here -->
+          </div>
+        </div>
+      </div>
+      <div class="pin-legend">
+        <div class="legend-item">
+          <span class="legend-color available"></span>
+          <span>Available</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color used"></span>
+          <span>Used by Other Team</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color selected"></span>
+          <span>Selected for This Team</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color reserved"></span>
+          <span>System Reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="selected-pins-display">
+    <div class="selected-pins-header">Selected Pin:</div>
+    <div class="selected-pins-list">
+      <span class="no-selection">None selected</span>
+    </div>
+  </div>
+</div>

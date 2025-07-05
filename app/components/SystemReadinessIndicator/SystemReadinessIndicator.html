@@ -1,0 +1,35 @@
+<div class="system-readiness-indicator">
+  <div class="readiness-status">
+    <div class="status-icon">
+      <span class="status-indicator"></span>
+    </div>
+    <div class="status-content">
+      <h3 class="status-title">System Status</h3>
+      <p class="status-message">Checking system readiness...</p>
+    </div>
+  </div>
+  
+  <div class="readiness-checklist">
+    <h4>System Requirements</h4>
+    <div class="checklist-item" data-requirement="teams">
+      <span class="check-icon">✓</span>
+      <span class="check-text">At least 2 teams registered</span>
+      <span class="check-status">0/2</span>
+    </div>
+    <div class="checklist-item" data-requirement="hardware">
+      <span class="check-icon">✓</span>
+      <span class="check-text">All hardware connections verified</span>
+      <span class="check-status">0/0</span>
+    </div>
+    <div class="checklist-item" data-requirement="pins">
+      <span class="check-icon">✓</span>
+      <span class="check-text">GPIO pin assignments valid</span>
+      <span class="check-status">Valid</span>
+    </div>
+  </div>
+  
+  <div class="blocking-issues" style="display: none;">
+    <h4>Issues Preventing Game Start</h4>
+    <ul class="issues-list"></ul>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Management - Multi-Team Gaming System</title>
+</head>
+<body class="full-screen">
+  <div class="container">
+    <!-- Page Header -->
+    {% include "components/PageHeader/PageHeader.html" %}
+    
+    <main class="team-management-main">
+      <div class="page-title-section">
+        <h1>Team Management</h1>
+        <p class="page-subtitle">Register teams, configure GPIO pins, and test hardware connections</p>
+      </div>
+      
+      <div class="management-layout">
+        <!-- Left Column: Team Registration and Configuration -->
+        <div class="management-column registration-column">
+          <!-- System Readiness Indicator -->
+          {% include "components/SystemReadinessIndicator/SystemReadinessIndicator.html" %}
+          
+          <!-- Team Registration Form -->
+          {% include "components/TeamRegistrationForm/TeamRegistrationForm.html" %}
+          
+          <!-- Team Configuration List -->
+          {% include "components/TeamConfigurationList/TeamConfigurationList.html" %}
+        </div>
+        
+        <!-- Right Column: Hardware Testing -->
+        <div class="management-column testing-column">
+          <!-- Hardware Test Panel -->
+          {% include "components/HardwareTestPanel/HardwareTestPanel.html" %}
+        </div>
+      </div>
+      
+      <!-- Navigation Controls -->
+      {% include "components/NavigationControls/NavigationControls.html" %}
+    </main>
+  </div>
+</body>
+</html>

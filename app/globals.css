@@ -11,6 +11,16 @@
   --warning-yellow: #ecc94b;
   --error-red: #e53e3e;
   
+  /* Team Colors */
+  --team-1-red: #e53e3e;
+  --team-2-blue: #4299e1;
+  --team-3-green: #38a169;
+  --team-4-yellow: #ecc94b;
+  --team-5-purple: #9f7aea;
+  --team-6-orange: #ed8936;
+  --team-7-pink: #ed64a6;
+  --team-8-brown: #a0522d;
+  
   /* Background Colors */
   --background-white: #ffffff;
   --background-light: #f7fafc;
