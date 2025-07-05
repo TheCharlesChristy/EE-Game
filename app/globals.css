@@ -79,20 +79,12 @@
   --z-tooltip: 2000;
 }
 
-/* Global Reset and Base Styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 html {
   font-size: 16px;
   line-height: var(--line-height-normal);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -102,6 +94,14 @@ body {
   line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: var(--space-lg) var(--space-md);
+  gap: var(--space-2xl);
 }
 
 /* Full-screen layout */

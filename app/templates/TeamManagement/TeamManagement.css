@@ -26,11 +26,12 @@
   margin: 0 auto;
 }
 
-.management-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.team-management-layout {
+  display: flex;
+  flex-direction: row;
   gap: var(--space-2xl);
-  align-items: start;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--space-2xl);
 }
 
@@ -38,148 +39,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-}
-
-.registration-column {
-  /* Left column with team registration and configuration */
-  position: relative;
-}
-
-.testing-column {
-  /* Right column with hardware testing functionality */
-  position: relative;
-}
-
-/* Page-specific component adjustments */
-.team-management-main .system-readiness-indicator {
-  position: sticky;
-  top: var(--space-lg);
-  z-index: 10;
-}
-
-.team-management-main .hardware-test-panel {
-  position: sticky;
-  top: var(--space-lg);
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-
-/* Responsive Layout */
-@media (max-width: 1200px) {
-  .management-layout {
-    gap: var(--space-lg);
-  }
-  
-  .page-title-section h1 {
-    font-size: var(--font-size-xl);
-  }
-}
-
-@media (max-width: 968px) {
-  .management-layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-  
-  .team-management-main .system-readiness-indicator,
-  .team-management-main .hardware-test-panel {
-    position: static;
-    max-height: none;
-  }
-  
-  .page-title-section {
-    margin-bottom: var(--space-xl);
-  }
-  
-  .page-title-section h1 {
-    font-size: var(--font-size-large);
-  }
-  
-  .page-subtitle {
-    font-size: var(--font-size-body);
-  }
-}
-
-@media (max-width: 768px) {
-  .team-management-main {
-    padding: var(--space-md) 0;
-  }
-  
-  .management-layout {
-    gap: var(--space-md);
-  }
-  
-  .management-column {
-    gap: var(--space-md);
-  }
-  
-  .page-title-section {
-    margin-bottom: var(--space-lg);
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title-section h1 {
-    font-size: var(--font-size-medium);
-  }
-  
-  .page-subtitle {
-    font-size: var(--font-size-small);
-  }
-  
-  .management-layout {
-    gap: var(--space-sm);
-  }
-  
-  .management-column {
-    gap: var(--space-sm);
-  }
-}
-
-/* Loading states */
-.team-management-main.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.team-management-main.loading::after {
-  content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border: 4px solid var(--background-medium);
-  border-top: 4px solid var(--primary-medium-blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  z-index: 1000;
-}
-
-@keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Focus management for accessibility */
-.team-management-main:focus-within .system-readiness-indicator {
-  box-shadow: var(--shadow-lg);
-}
-
-/* Print styles */
-@media print {
-  .team-management-main .navigation-controls,
-  .team-management-main .hardware-test-panel {
-    display: none;
-  }
-  
-  .management-layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-  
-  .page-title-section {
-    margin-bottom: var(--space-lg);
-  }
+  flex: 1;
+  height: 100%;
 }
