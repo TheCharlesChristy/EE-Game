@@ -86,7 +86,7 @@ class Pin:
         """Turn off the pin (for output pins)."""
         self.set_output(False)
 
-    def register_callback(self, callback: callable | None = None, callback_args: Optional[List[Any]] = None):
+    def register_callback(self, callback: Union[callable, None] = None, callback_args: Optional[List[Any]] = None):
         """Register a callback for input pins."""
         if self.mode == "input":
             if callback and isinstance(self.gpio_pin, Button):

@@ -1,0 +1,22 @@
+2025-07-06 21:25:02,259 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:25:02,259 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:25:09,290 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:25:10,367 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:25:10,370 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:25:21,407 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:37:15,575 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:37:15,578 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-06 21:37:15,579 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-06 21:37:15,579 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:37:15,890 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:37:15,919 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:37:15,919 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:37:20,728 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:20] "GET / HTTP/1.1" 200 -
+2025-07-06 21:37:20,993 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:20] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:37:51,167 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:51] "GET / HTTP/1.1" 200 -
+2025-07-06 21:37:51,390 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:51] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:37:54,350 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:54] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:37:54,683 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:54] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -

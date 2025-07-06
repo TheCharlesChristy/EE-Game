@@ -147,3 +147,21 @@ class Team:
         """
         if hasattr(self, 'reset_pin'):
             self.reset_pin.turn_on()
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Convert the team object to a dictionary for JSON serialization.
+        
+        Returns:
+            Dict[str, Any]: Dictionary representation of the team with current hardware states.
+        """
+        return {
+            'team_id': self.team_id,
+            'name': self.name,
+            'team_color': self.team_color,
+            'latch_pin': self.latch_pin.pin_number if hasattr(self, 'latch_pin') else None,
+            'reset_pin': self.reset_pin.pin_number if hasattr(self, 'reset_pin') else None,
+            'led_pin': self.led_pin.pin_number if hasattr(self, 'led_pin') else None,
+            'latch_state': self.latch_pin.gpio_pin.is_active if hasattr(self, 'latch_pin') and hasattr(self.latch_pin, 'gpio_pin') else False,
+            'led_state': self.led_pin.gpio_pin.is_active if hasattr(self, 'led_pin') and hasattr(self.led_pin, 'gpio_pin') else False
+        }
