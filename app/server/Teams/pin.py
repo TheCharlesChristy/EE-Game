@@ -101,9 +101,7 @@ class Pin:
             raise ValueError("Cannot register callback on an output pin")
 
     def close(self):
-        """Close the GPIO pin."""
+        """Close the pin and release resources."""
         if hasattr(self, 'gpio_pin'):
             self.gpio_pin.close()
             del self.gpio_pin
-        else:
-            raise ValueError("Pin is not initialized or already closed")

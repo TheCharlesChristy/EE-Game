@@ -145,8 +145,14 @@ class Team:
         """
         Reset the latch pin.
         """
-        if hasattr(self, 'reset_pin'):
-            self.reset_pin.turn_on()
+        def _reset():
+            if hasattr(self, 'reset_pin'):
+                self.reset_pin.turn_on()
+                time.sleep(0.1)
+                self.reset_pin.turn_off()
+        
+        thread = threading.Thread(target=_reset)
+        thread.start()
 
     def to_dict(self) -> Dict[str, Any]:
         """

@@ -14,7 +14,7 @@ class TeamConfigurationList {
     this.editModal = null;
     this.editForm = null;
     this.currentEditingTeam = null;
-    this.availablePins = [];
+    // Removed this.availablePins - we'll request from server when needed
     this.availablePinsListenerSet = false;
     
     this.teams = new Map();
@@ -45,7 +45,7 @@ class TeamConfigurationList {
     this.setupEventListeners();
     this.setupModalEventListeners();
     this.updateDisplay();
-    this.loadAvailablePins();
+    // Removed loadAvailablePins() - we'll request pins only when needed
   }
 
   setupEventListeners() {
@@ -86,6 +86,18 @@ class TeamConfigurationList {
 
       socket.on('team_error', (error) => {
         this.handleTeamError(error);
+      });
+
+      socket.on('team_status', (status) => {
+        this.handleTeamStatus(status);
+      });
+
+      socket.on('latch_reset', (data) => {
+        this.handleLatchReset(data);
+      });
+
+      socket.on('led_state_changed', (data) => {
+        this.handleLedStateChanged(data);
       });
     }
   }
@@ -128,6 +140,82 @@ class TeamConfigurationList {
     const message = error.message || error;
     this.showMessage(`Error: ${message}`, 'error');
     console.error('Team operation error:', error);
+  }
+
+  handleTeamStatus(status) {
+    const teamId = status.team_id;
+    const team = this.teams.get(teamId);
+    
+    if (team) {
+      // Update team state with hardware status
+      team.latch_state = status.latch_state || false;
+      team.led_state = status.led_state || false;
+      
+      // Update the display to show new states
+      this.updateTeamStateDisplay(teamId);
+      
+      console.log(`Team ${teamId} status updated:`, status);
+      this.showMessage(`Team "${team.name}" status updated`, 'success');
+    }
+  }
+
+  handleLatchReset(data) {
+    const teamId = data.team_id;
+    const team = this.teams.get(teamId);
+    
+    if (team) {
+      // Update latch state to false (reset)
+      team.latch_state = false;
+      this.updateTeamStateDisplay(teamId);
+      
+      console.log(`Latch reset for team ${teamId}`);
+      this.showMessage(`Latch reset for team "${team.name}"`, 'success');
+    }
+  }
+
+  handleLedStateChanged(data) {
+    const teamId = data.team_id;
+    const ledState = data.led_state;
+    const team = this.teams.get(teamId);
+    
+    if (team) {
+      // Update LED state
+      team.led_state = ledState;
+      this.updateTeamStateDisplay(teamId);
+      
+      console.log(`LED ${ledState ? 'turned on' : 'turned off'} for team ${teamId}`);
+      this.showMessage(`LED ${ledState ? 'turned on' : 'turned off'} for team "${team.name}"`, 'success');
+    }
+  }
+
+  updateTeamStateDisplay(teamId) {
+    const team = this.teams.get(teamId);
+    if (!team) return;
+    
+    const teamElement = document.querySelector(`[data-team-id="${teamId}"]`);
+    if (!teamElement) return;
+    
+    // Find or create hardware state display
+    let stateDisplay = teamElement.querySelector('.hardware-state');
+    if (!stateDisplay) {
+      stateDisplay = document.createElement('div');
+      stateDisplay.className = 'hardware-state';
+      
+      const teamDetails = teamElement.querySelector('.team-details');
+      if (teamDetails) {
+        teamDetails.appendChild(stateDisplay);
+      }
+    }
+    
+    // Update state display
+    stateDisplay.innerHTML = `
+      <span class="state-item latch-state ${team.latch_state ? 'active' : 'inactive'}">
+        🔒 Latch: ${team.latch_state ? 'Latched' : 'Open'}
+      </span>
+      <span class="state-item led-state ${team.led_state ? 'active' : 'inactive'}">
+        💡 LED: ${team.led_state ? 'On' : 'Off'}
+      </span>
+    `;
   }
 
   showMessage(message, type = 'info') {
@@ -272,15 +360,30 @@ class TeamConfigurationList {
         <button type="button" class="action-btn delete" title="Remove Team" data-action="delete">
           🗑️
         </button>
+        <button type="button" class="action-btn update-state" title="Update State" data-action="update-state">
+          🔄
+        </button>
+        <button type="button" class="action-btn reset-latch" title="Reset Latch" data-action="reset-latch">
+          🔓
+        </button>
+        <button type="button" class="action-btn toggle-led" title="Toggle LED" data-action="toggle-led">
+          💡
+        </button>
       </div>
     `;
     
     // Add event listeners to action buttons
     const editBtn = teamItem.querySelector('[data-action="edit"]');
     const deleteBtn = teamItem.querySelector('[data-action="delete"]');
+    const updateStateBtn = teamItem.querySelector('[data-action="update-state"]');
+    const resetLatchBtn = teamItem.querySelector('[data-action="reset-latch"]');
+    const toggleLedBtn = teamItem.querySelector('[data-action="toggle-led"]');
     
     editBtn.addEventListener('click', () => this.editTeam(team.id));
     deleteBtn.addEventListener('click', () => this.confirmDeleteTeam(team.id));
+    updateStateBtn.addEventListener('click', () => this.updateTeamState(team.id));
+    resetLatchBtn.addEventListener('click', () => this.resetTeamLatch(team.id));
+    toggleLedBtn.addEventListener('click', () => this.toggleTeamLed(team.id));
     
     return teamItem;
   }
@@ -339,12 +442,15 @@ class TeamConfigurationList {
     if (colorInput) colorInput.value = this.convertTeamColorToHex(team.color);
     if (colorPreview) colorPreview.style.backgroundColor = team.color;
     
-    // Populate pin selectors with available options
-    this.updatePinSelectors();
-    
-    if (pin1Select) pin1Select.value = team.latch_pin || '';
-    if (pin2Select) pin2Select.value = team.led_pin || '';
-    if (pin3Select) pin3Select.value = team.reset_pin || '';
+    // Request fresh pins from server and then populate selectors
+    this.requestAvailablePins((availablePins) => {
+      this.updatePinSelectors(availablePins);
+      
+      // Set the team's current pins after selectors are populated
+      if (pin1Select) pin1Select.value = team.latch_pin || '';
+      if (pin2Select) pin2Select.value = team.led_pin || '';
+      if (pin3Select) pin3Select.value = team.reset_pin || '';
+    });
   }
 
   convertTeamColorToHex(cssColor) {
@@ -421,10 +527,14 @@ class TeamConfigurationList {
       });
     }
     
-    // Pin validation
+    // Pin validation and real-time updates
     const pinSelects = this.editForm.querySelectorAll('select[name^="pin"]');
     pinSelects.forEach(select => {
-      select.addEventListener('change', () => this.validatePins());
+      select.addEventListener('change', () => {
+        this.validatePins();
+        // Request fresh pins and update all selectors to reflect new availability
+        setTimeout(() => this.updatePinSelectors(), 100);
+      });
     });
   }
 
@@ -483,29 +593,30 @@ class TeamConfigurationList {
       return false;
     }
     
-    const pins = [pin1, pin2, pin3];
-    const uniquePins = new Set(pins);
+    const selectedPins = [parseInt(pin1), parseInt(pin2), parseInt(pin3)];
+    const uniquePins = new Set(selectedPins);
     
-    if (uniquePins.size !== pins.length) {
+    if (uniquePins.size !== selectedPins.length) {
       feedback.textContent = 'Each pin must be unique';
       feedback.className = 'input-feedback error';
       return false;
     }
     
-    // Check if pins are available (excluding current team's pins)
-    const currentTeamPins = [
-      this.currentEditingTeam.latch_pin,
-      this.currentEditingTeam.led_pin,
-      this.currentEditingTeam.reset_pin
-    ].filter(pin => pin);
-    
-    const unavailablePins = pins.filter(pin => {
-      return !this.availablePins.includes(parseInt(pin)) && 
-             !currentTeamPins.includes(parseInt(pin));
+    // Get pins currently used by OTHER teams (excluding the team being edited)
+    const usedByOtherTeams = new Set();
+    this.teams.forEach(team => {
+      if (team.id !== (this.currentEditingTeam?.id)) {
+        if (team.latch_pin) usedByOtherTeams.add(team.latch_pin);
+        if (team.led_pin) usedByOtherTeams.add(team.led_pin);
+        if (team.reset_pin) usedByOtherTeams.add(team.reset_pin);
+      }
     });
     
-    if (unavailablePins.length > 0) {
-      feedback.textContent = `Pins ${unavailablePins.join(', ')} are not available`;
+    // Check if any selected pins are already used by other teams
+    const conflictingPins = selectedPins.filter(pin => usedByOtherTeams.has(pin));
+    
+    if (conflictingPins.length > 0) {
+      feedback.textContent = `Pins ${conflictingPins.join(', ')} are already in use by other teams`;
       feedback.className = 'input-feedback error';
       return false;
     }
@@ -544,63 +655,96 @@ class TeamConfigurationList {
     }
   }
 
-  loadAvailablePins() {
-    // Start with a comprehensive fallback pin list
-    this.availablePins = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
-    
-    // Request available pins from backend
+  requestAvailablePins(callback) {
+    // Always request fresh pins from the server - no caching
     if (typeof socket !== 'undefined') {
-      socket.emit('get_available_pins');
+      // Remove any existing listener to avoid duplicates
+      socket.off('available_pins');
       
-      // Set up listener for available pins (only once)
-      if (!this.availablePinsListenerSet) {
-        socket.on('available_pins', (data) => {
-          // Handle both formats: array directly or wrapped in object
-          if (Array.isArray(data)) {
-            this.availablePins = data;
-          } else if (data && Array.isArray(data.pins)) {
-            this.availablePins = data.pins;
-          } else {
-            console.warn('Unexpected available_pins data format:', data);
+      // Set up one-time listener for this request
+      socket.once('available_pins', (data) => {
+        let availablePins = [];
+        
+        // Handle both formats: array directly or wrapped in object
+        if (Array.isArray(data)) {
+          availablePins = data;
+        } else if (data && Array.isArray(data.pins)) {
+          availablePins = data.pins;
+        } else {
+          console.warn('Unexpected available_pins data format, using fallback:', data);
+          // Fallback to comprehensive pin range
+          availablePins = [];
+          for (let pin = 2; pin <= 27; pin++) {
+            availablePins.push(pin);
           }
-          
-          console.log('Received available pins:', this.availablePins);
-          this.updatePinSelectors();
-        });
-        this.availablePinsListenerSet = true;
+        }
+        
+        console.log('Received fresh available pins from server:', availablePins);
+        
+        // Call the callback with the fresh pins
+        if (callback) {
+          callback(availablePins);
+        }
+      });
+      
+      // Request fresh pins from server
+      socket.emit('get_available_pins');
+    } else {
+      // Fallback for when socket is not available
+      console.warn('Socket.IO not available, using fallback pin range');
+      const fallbackPins = [];
+      for (let pin = 2; pin <= 27; pin++) {
+        fallbackPins.push(pin);
+      }
+      
+      if (callback) {
+        callback(fallbackPins);
       }
     }
-    
-    // Always update pin selectors with fallback list initially
-    this.updatePinSelectors();
   }
 
-  updatePinSelectors() {
+  updatePinSelectors(availablePins = null) {
     if (!this.editForm) return;
     
+    // If no pins provided, request them fresh from server
+    if (!availablePins) {
+      this.requestAvailablePins((pins) => {
+        this.updatePinSelectors(pins);
+      });
+      return;
+    }
+    
     const pinSelects = this.editForm.querySelectorAll('select[name^="pin"]');
+    
+    // Get currently selected pins in the form to avoid conflicts
+    const currentlySelectedPins = new Set();
+    pinSelects.forEach(select => {
+      if (select.value) {
+        currentlySelectedPins.add(parseInt(select.value));
+      }
+    });
     
     pinSelects.forEach(select => {
       const currentValue = select.value;
       select.innerHTML = '<option value="">Select Pin</option>';
       
-      // Get currently used pins (excluding current team being edited)
-      const usedPins = new Set();
+      // Get pins currently used by OTHER teams (excluding current team being edited)
+      const usedByOtherTeams = new Set();
       this.teams.forEach(team => {
         if (team.id !== (this.currentEditingTeam?.id)) {
-          if (team.latch_pin) usedPins.add(team.latch_pin);
-          if (team.led_pin) usedPins.add(team.led_pin);
-          if (team.reset_pin) usedPins.add(team.reset_pin);
+          if (team.latch_pin) usedByOtherTeams.add(team.latch_pin);
+          if (team.led_pin) usedByOtherTeams.add(team.led_pin);
+          if (team.reset_pin) usedByOtherTeams.add(team.reset_pin);
         }
       });
       
       // Create a comprehensive set of all pins to show
       const pinsToShow = new Set();
       
-      // Add all available pins from the system
-      this.availablePins.forEach(pin => pinsToShow.add(pin));
+      // Add all available pins from the server
+      availablePins.forEach(pin => pinsToShow.add(pin));
       
-      // Add current team's pins to ensure they appear
+      // Add current team's original pins to ensure they appear
       if (this.currentEditingTeam) {
         if (this.currentEditingTeam.latch_pin) pinsToShow.add(this.currentEditingTeam.latch_pin);
         if (this.currentEditingTeam.led_pin) pinsToShow.add(this.currentEditingTeam.led_pin);
@@ -625,13 +769,17 @@ class TeamConfigurationList {
         const option = document.createElement('option');
         option.value = pin;
         
-        // Mark used pins (but allow current team's pins)
-        const isUsedByOtherTeam = usedPins.has(pin);
-        const isCurrentTeamPin = this.currentEditingTeam && 
+        // Check different types of conflicts
+        const isUsedByOtherTeam = usedByOtherTeams.has(pin);
+        const isSelectedInForm = currentlySelectedPins.has(pin) && parseInt(currentValue) !== pin;
+        const isCurrentTeamOriginalPin = this.currentEditingTeam && 
           [this.currentEditingTeam.latch_pin, this.currentEditingTeam.led_pin, this.currentEditingTeam.reset_pin].includes(pin);
         
-        if (isUsedByOtherTeam && !isCurrentTeamPin) {
-          option.textContent = `GPIO ${pin} (In Use)`;
+        if (isUsedByOtherTeam) {
+          option.textContent = `GPIO ${pin} (Used by another team)`;
+          option.disabled = true;
+        } else if (isSelectedInForm) {
+          option.textContent = `GPIO ${pin} (Selected in form)`;
           option.disabled = true;
         } else {
           option.textContent = `GPIO ${pin}`;
@@ -640,8 +788,8 @@ class TeamConfigurationList {
         select.appendChild(option);
       });
       
-      // Restore previous value if it exists
-      if (currentValue && select.querySelector(`option[value="${currentValue}"]`)) {
+      // Restore previous value if it exists and is not disabled
+      if (currentValue && select.querySelector(`option[value="${currentValue}"]:not([disabled])`)) {
         select.value = currentValue;
       }
     });
@@ -670,6 +818,46 @@ class TeamConfigurationList {
         });
         this.element.dispatchEvent(event);
       }
+    }
+  }
+
+  updateTeamState(teamId) {
+    if (typeof socket !== 'undefined') {
+      socket.emit('get_team_status', { team_id: teamId });
+    } else {
+      console.warn('Socket.IO not available for updating team state');
+    }
+  }
+
+  resetTeamLatch(teamId) {
+    const team = this.teams.get(teamId);
+    if (!team) return;
+    
+    if (typeof socket !== 'undefined') {
+      socket.emit('reset_latch', { team_id: teamId });
+      
+      // Update the team state after reset
+      setTimeout(() => {
+        this.updateTeamState(teamId);
+      }, 500); // Give the hardware time to respond
+    } else {
+      console.warn('Socket.IO not available for resetting latch');
+    }
+  }
+
+  toggleTeamLed(teamId) {
+    const team = this.teams.get(teamId);
+    if (!team) return;
+    
+    if (typeof socket !== 'undefined') {
+      socket.emit('toggle_led', { team_id: teamId });
+      
+      // Update the team state after toggle
+      setTimeout(() => {
+        this.updateTeamState(teamId);
+      }, 500); // Give the hardware time to respond
+    } else {
+      console.warn('Socket.IO not available for toggling LED');
     }
   }
 

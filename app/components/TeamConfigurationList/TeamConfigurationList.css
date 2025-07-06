@@ -166,6 +166,21 @@
   color: white;
 }
 
+.action-btn.update-state:hover {
+  background: var(--primary-medium-blue);
+  color: white;
+}
+
+.action-btn.reset-latch:hover {
+  background: var(--warning-yellow);
+  color: white;
+}
+
+.action-btn.toggle-led:hover {
+  background: var(--secondary-green);
+  color: white;
+}
+
 .action-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -194,6 +209,43 @@
 .team-status-badge.testing {
   background: rgba(236, 201, 75, 0.1);
   color: #b7791f;
+}
+
+/* Hardware State Display */
+.hardware-state {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-xs);
+}
+
+.state-item {
+  font-size: var(--font-size-small);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.state-item.active {
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--secondary-green);
+  border: 1px solid rgba(56, 161, 105, 0.3);
+}
+
+.state-item.inactive {
+  background: rgba(160, 174, 192, 0.1);
+  color: var(--text-medium);
+  border: 1px solid var(--background-medium);
+}
+
+.latch-state.active {
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-red);
+  border: 1px solid rgba(229, 62, 62, 0.3);
 }
 
 /* Responsive Design */
@@ -235,6 +287,17 @@
   .team-actions .action-btn {
     width: 40px;
     height: 40px;
+  }
+  
+  .team-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .hardware-state {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
   }
 }
 

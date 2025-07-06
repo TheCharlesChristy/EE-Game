@@ -394,7 +394,6 @@ class TeamRegistrationForm {
 
   handleTeamUpdated(teamData) {
     this.form.classList.remove('loading');
-    this.exitEditMode();
     
     // Emit update event for other components
     const event = new CustomEvent('team_updated', {
