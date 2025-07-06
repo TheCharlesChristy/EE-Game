@@ -85,13 +85,36 @@ class TemplateBuilder:
         # Load global CSS first
         global_css = self._load_global_css()
         css_content = []
+        js_content = []
         
         if global_css.strip():
             css_content.append(f"/* Global Styles */\n{global_css}")
+
+        # Add global JS if it exists
+        global_js_file = Path("app/globals.js")
+        if global_js_file.exists():
+            with open(global_js_file, 'r', encoding='utf-8') as f:
+                global_js = f.read()
+            if global_js.strip():
+                js_content.append(f"/* Global Scripts */\n{global_js}")
+
+        # Add template CSS
+        template_css_file = self.templates_root / template_name / f"{template_name}.css"
+        if template_css_file.exists():
+            with open(template_css_file, 'r', encoding='utf-8') as f:
+                template_css = f.read()
+            if template_css.strip():
+                css_content.append(f"/* {template_name} Template Styles */\n{template_css}")
+
+        # Add the template JS
+        template_js_file = self.templates_root / template_name / f"{template_name}.js"
+        if template_js_file.exists():
+            with open(template_js_file, 'r', encoding='utf-8') as f:
+                template_js = f.read()
+            if template_js.strip():
+                js_content.append(f"/* {template_name} Template Scripts */\n{template_js}")
         
-        # Add component CSS
-        js_content = []
-        
+        # Load CSS and JS for each component
         for component_name in components:
             css = self._load_component_css(component_name)
             js = self._load_component_js(component_name)

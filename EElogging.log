@@ -20,3 +20,118 @@
 2025-07-06 21:37:51,390 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:51] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
 2025-07-06 21:37:54,350 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:54] "GET /team-management HTTP/1.1" 200 -
 2025-07-06 21:37:54,683 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:37:54] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:38:53,598 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:38:53] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:38:53,882 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:38:53] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:40:18,373 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:40:18,498 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:40:18,821 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:40:18,851 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:40:18,851 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:40:24,873 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:40:25,311 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:40:26,008 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:40:26,046 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:40:26,047 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:40:30,060 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:40:30,182 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:40:30,496 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:40:30,525 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:40:30,525 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:40:47,579 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:40:47,714 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:40:48,033 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:40:48,062 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:40:48,063 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:40:59,095 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:40:59,216 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:40:59,575 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:40:59,603 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:40:59,604 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:41:05,700 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:41:05] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:41:06,070 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:41:06] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:42:04,915 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:42:04] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:42:05,298 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:42:05] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:44:32,030 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:44:32] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:44:32,363 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:44:32] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:44:50,913 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:44:50] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:44:51,299 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:44:51] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:46:22,857 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/TemplateBuilder.py', reloading
+2025-07-06 21:46:22,984 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:46:23,541 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:46:23,572 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:46:23,573 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:46:30,761 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:46:30] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:46:31,062 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:46:31] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:49:38,056 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:49:38] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:49:38,389 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:49:38] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:49:53,614 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:49:53,642 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-06 21:49:53,643 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-06 21:49:53,643 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:49:53,995 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:49:54,030 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:49:54,032 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:49:56,622 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:49:56] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 21:49:56,968 - werkzeug - INFO - 127.0.0.1 - - [06/Jul/2025 21:49:56] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 21:51:58,308 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/team_endpoints.py', reloading
+2025-07-06 21:51:58,466 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:51:58,825 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:51:58,828 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:51:58,829 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:52:25,920 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:52:26,044 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:52:26,585 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:52:26,614 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:52:26,620 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:52:26,620 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:53:33,785 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/team_endpoints.py', reloading
+2025-07-06 21:53:33,917 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:53:34,442 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:53:34,471 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:53:34,475 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:53:34,475 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:53:44,503 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:53:44,628 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:53:44,960 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:53:44,989 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:53:44,992 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:53:44,992 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:53:52,012 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:53:52,155 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:53:52,493 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:53:52,529 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:53:52,533 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:53:52,535 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:54:21,603 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/session_endpoints.py', reloading
+2025-07-06 21:54:21,737 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:54:22,074 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:54:22,104 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:54:22,107 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:54:22,107 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:54:23,113 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-06 21:54:23,240 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:54:23,573 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:54:23,602 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:54:23,605 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:54:23,605 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:54:46,658 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/session_endpoints.py', reloading
+2025-07-06 21:54:46,859 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:54:47,319 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:54:47,354 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:54:47,362 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:54:47,362 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:55:00,396 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/session_endpoints.py', reloading
+2025-07-06 21:55:00,519 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:55:00,844 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:55:00,875 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:55:00,878 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:55:00,879 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-06 21:55:12,919 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/socketio/session_endpoints.py', reloading
+2025-07-06 21:55:13,050 - werkzeug - INFO -  * Restarting with stat
+2025-07-06 21:55:13,663 - engineio.server - INFO - Server initialized for threading.
+2025-07-06 21:55:13,693 - werkzeug - WARNING - WebSocket transport not available. Install simple-websocket for improved performance.
+2025-07-06 21:55:13,699 - werkzeug - WARNING -  * Debugger is active!
+2025-07-06 21:55:13,700 - werkzeug - INFO -  * Debugger PIN: 678-565-641

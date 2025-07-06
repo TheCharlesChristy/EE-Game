@@ -6,6 +6,9 @@
   <title>Team Management - Multi-Team Gaming System</title>
 </head>
 <body class="full-screen">
+  <!-- Include socketio -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  
   <!-- Page Header -->
   {% include "components/PageHeader/PageHeader.html" %}
   
@@ -14,16 +17,10 @@
       <h1>Team Management</h1>
       <p class="page-subtitle">Register teams, configure GPIO pins, and test hardware connections</p>
     </div>
-
-    <!-- System Readiness Indicator -->
-    {% include "components/SystemReadinessIndicator/SystemReadinessIndicator.html" %}
     
     {% include "components/TeamRegistrationForm/TeamRegistrationForm.html" %}
   
     {% include "components/TeamConfigurationList/TeamConfigurationList.html" %}
-
-    <!-- Hardware Test Panel -->
-    {% include "components/HardwareTestPanel/HardwareTestPanel.html" %}
   </main>
 </body>
 </html>

@@ -16,6 +16,7 @@ from EEGame.app.server.services.data_service import DataService
 from EEGame.app.server.services.team_manager import TeamManager
 from EEGame.app.server.socketio.socketio_emitter import SocketIOEmitter
 from EEGame.app.server.socketio.team_endpoints import create_team_endpoints
+from EEGame.app.server.socketio.session_endpoints import create_session_endpoints
 import os
 from pathlib import Path
 
@@ -66,8 +67,13 @@ class Server:
         self.app.config['DEBUG'] = self.debug
         self.app.config['SECRET_KEY'] = 'dev-key-change-in-production'
         
-        # Initialize SocketIO
-        self.socketio = SocketIO(self.app, cors_allowed_origins="*")
+        # Initialize SocketIO with additional configuration
+        self.socketio = SocketIO(
+            self.app, 
+            cors_allowed_origins="*",
+            logger=True,
+            engineio_logger=True
+        )
         
         # Initialize the SocketIO emitter
         self.emitter = SocketIOEmitter(self.socketio)
@@ -76,6 +82,7 @@ class Server:
         init_page_routes(self.app)
         
         # Initialize SocketIO endpoints
+        create_session_endpoints(self.app, self.socketio, self.team_manager, self.emitter)
         create_team_endpoints(self.app, self.socketio, self.team_manager, self.emitter)
         
         return self.app
