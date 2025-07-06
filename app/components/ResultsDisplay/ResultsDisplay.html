@@ -1,0 +1,64 @@
+<div class="results-display" id="resultsDisplay">
+    <div class="results-display__header">
+        <h3 class="results-display__title" id="resultsTitle">Round Results</h3>
+        <div class="results-display__round-info" id="roundInfo">
+            Round 1 Complete
+        </div>
+    </div>
+    
+    <div class="results-display__content" id="resultsContent">
+        <div class="results-display__round-results" id="roundResults">
+            <!-- Round results will be populated here -->
+        </div>
+        
+        <div class="results-display__game-stats" id="gameStats" style="display: none;">
+            <div class="results-display__stats-grid">
+                <div class="results-display__stat-item">
+                    <span class="results-display__stat-value" id="totalRoundsPlayed">0</span>
+                    <span class="results-display__stat-label">Rounds Played</span>
+                </div>
+                <div class="results-display__stat-item">
+                    <span class="results-display__stat-value" id="averageTime">—</span>
+                    <span class="results-display__stat-label">Avg. Reaction Time</span>
+                </div>
+                <div class="results-display__stat-item">
+                    <span class="results-display__stat-value" id="fastestTime">—</span>
+                    <span class="results-display__stat-label">Fastest Time</span>
+                </div>
+                <div class="results-display__stat-item">
+                    <span class="results-display__stat-value" id="teamsEliminated">0</span>
+                    <span class="results-display__stat-label">Teams Eliminated</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-display__winner-announcement" id="winnerAnnouncement" style="display: none;">
+            <div class="results-display__winner-content">
+                <div class="results-display__winner-icon">🏆</div>
+                <h2 class="results-display__winner-title">Game Winner!</h2>
+                <div class="results-display__winner-team" id="winnerTeam">Team Name</div>
+                <div class="results-display__winner-stats" id="winnerStats">
+                    Completed all rounds with the fastest average time
+                </div>
+            </div>
+            <div class="results-display__confetti" id="confetti"></div>
+        </div>
+    </div>
+    
+    <div class="results-display__actions" id="resultsActions">
+        <button class="results-display__button results-display__button--primary" 
+                id="continueBtn" style="display: none;">
+            Continue to Next Round
+        </button>
+        
+        <button class="results-display__button results-display__button--secondary" 
+                id="newGameBtn" style="display: none;">
+            Start New Game
+        </button>
+        
+        <button class="results-display__button results-display__button--neutral" 
+                id="backToMenuBtn">
+            Back to Menu
+        </button>
+    </div>
+</div>

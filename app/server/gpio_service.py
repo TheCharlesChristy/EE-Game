@@ -223,6 +223,71 @@ class GPIOService:
             })
             return True
         return False
+    
+    def get_led_status(self, team_id):
+        """Get the current LED status for a team."""
+        if team_id in self.pin_config:
+            led_pin = self.pin_config[team_id]['led']
+            try:
+                # In simulation mode, we'll track state separately
+                if not HARDWARE_AVAILABLE:
+                    return {
+                        'state': 'off',  # Default state
+                        'pin': led_pin,
+                        'connection': 'connected'
+                    }
+                else:
+                    # For real hardware, we can't read output pin state reliably
+                    return {
+                        'state': 'unknown',  # Would need to track this separately
+                        'pin': led_pin,
+                        'connection': 'connected'
+                    }
+            except Exception:
+                return {
+                    'state': 'error',
+                    'pin': led_pin,
+                    'connection': 'error'
+                }
+        return None
+    
+    def test_all_leds(self, duration_ms=1000):
+        """Test all LEDs by turning them on for the specified duration."""
+        try:
+            # Turn on all LEDs
+            for team_id in self.pin_config.keys():
+                self.control_led(team_id, True)
+            
+            # Wait for duration
+            time.sleep(duration_ms / 1000.0)
+            
+            # Turn off all LEDs
+            for team_id in self.pin_config.keys():
+                self.control_led(team_id, False)
+            
+            return True
+        except Exception as e:
+            print(f"LED test failed: {e}")
+            return False
+    
+    def reset_all_leds(self):
+        """Turn off all LEDs."""
+        try:
+            for team_id in self.pin_config.keys():
+                self.control_led(team_id, False)
+            return True
+        except Exception as e:
+            print(f"LED reset failed: {e}")
+            return False
+    
+    def set_led_flashing(self, team_id, enabled=True):
+        """Set an LED to flash (simplified implementation - just turns on/off)."""
+        if enabled:
+            # For this MVP, we'll just turn the LED on
+            # A full implementation would use threading for flashing
+            return self.control_led(team_id, True)
+        else:
+            return self.control_led(team_id, False)
 
 
 # Global service instance

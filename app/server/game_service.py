@@ -77,6 +77,10 @@ class GameService:
             active_teams
         )
         
+        # Emit screen state change to red
+        self.websocket.socketio.emit('screen_state_change', {'state': 'red'})
+        self.websocket.socketio.emit('game_phase_update', {'phase': 'preparing'})
+        
         # Wait random delay (2-8 seconds)
         delay = random.uniform(2.0, 8.0)
         time.sleep(delay)
@@ -84,6 +88,13 @@ class GameService:
         # Turn on all LEDs (green screen moment)
         for team_id in active_teams:
             self.gpio.control_led(team_id, True)
+        
+        # Emit screen state change to green and LED status
+        self.websocket.socketio.emit('screen_state_change', {'state': 'green'})
+        self.websocket.socketio.emit('game_phase_update', {'phase': 'active'})
+        self.websocket.socketio.emit('led_status_update', {
+            'teams': [{'team_id': tid, 'led_status': 'on'} for tid in active_teams]
+        })
         
         start_time = time.time()
         button_presses = []
@@ -112,6 +123,13 @@ class GameService:
         for team_id in active_teams:
             self.gpio.control_led(team_id, False)
         
+        # Emit LED status update and screen state
+        self.websocket.socketio.emit('led_status_update', {
+            'teams': [{'team_id': tid, 'led_status': 'off'} for tid in active_teams]
+        })
+        self.websocket.socketio.emit('screen_state_change', {'state': 'waiting'})
+        self.websocket.socketio.emit('game_phase_update', {'phase': 'complete'})
+        
         # Process results
         self.process_reaction_results(active_teams, button_presses)
     
@@ -119,12 +137,50 @@ class GameService:
         """Process reaction timer round results."""
         pressed_teams = {press['team_id'] for press in button_presses}
         
+        round_results = []
+        
         # Teams that didn't press lose a life
         for team_id in active_teams:
             if team_id not in pressed_teams:
                 self.game_state['teams'][team_id]['lives'] -= 1
                 if self.game_state['teams'][team_id]['lives'] <= 0:
                     self.game_state['teams'][team_id]['eliminated'] = True
+                
+                round_results.append({
+                    'team_id': team_id,
+                    'pressed': False,
+                    'eliminated': self.game_state['teams'][team_id]['eliminated'],
+                    'lives': self.game_state['teams'][team_id]['lives']
+                })
+            else:
+                # Find the button press for this team
+                press_data = next((p for p in button_presses if p['team_id'] == team_id), None)
+                round_results.append({
+                    'team_id': team_id,
+                    'pressed': True,
+                    'reaction_time': press_data['reaction_time'] if press_data else None,
+                    'eliminated': False,
+                    'lives': self.game_state['teams'][team_id]['lives']
+                })
+        
+        # Broadcast round results
+        self.websocket.socketio.emit('round_complete', {
+            'round': self.game_state['round'],
+            'results': round_results,
+            'eliminated_teams': [r['team_id'] for r in round_results if r['eliminated']]
+        })
+        
+        # Update team status
+        self.websocket.socketio.emit('team_status_update', {
+            'teams': [
+                {
+                    'team_id': team_id,
+                    'lives': data['lives'],
+                    'eliminated': data['eliminated']
+                }
+                for team_id, data in self.game_state['teams'].items()
+            ]
+        })
     
     def end_reaction_timer(self):
         """End the reaction timer game."""
@@ -140,24 +196,104 @@ class GameService:
         else:
             winner_data = None
         
-        # Create final standings
-        final_standings = []
-        for i, (team_id, team_data) in enumerate(active_teams):
-            from .data_service import data_service
-            team = data_service.get_team_by_id(team_id)
-            final_standings.append({
-                "team_id": team_id,
-                "team_name": team['name'],
-                "position": i + 1,
-                "lives_remaining": team_data['lives']
+        # Broadcast game end
+        self.websocket.socketio.emit('game_ended', {
+            'winner': winner_data,
+            'final_standings': self.get_final_standings(),
+            'game_stats': self.get_game_statistics()
+        })
+        
+        if winner_data:
+            self.websocket.socketio.emit('winner_announced', {
+                'winner': winner_data
             })
         
-        # Broadcast game end
-        self.websocket.broadcast_game_ended(winner_data, final_standings)
-        
-        # Reset game state
+        # Clean up
         self.current_game = None
         self.game_state = {}
+    
+    def stop_current_game(self):
+        """Stop the currently running game."""
+        if self.current_game:
+            self.current_game = None
+            if self.game_thread and self.game_thread.is_alive():
+                # Game thread will exit on next iteration
+                pass
+            
+            # Turn off all LEDs
+            self.gpio.reset_all_leds()
+            
+            # Emit stop events
+            self.websocket.socketio.emit('game_state_change', {'state': 'stopped'})
+            self.websocket.socketio.emit('screen_state_change', {'state': 'waiting'})
+            
+            return {"status": "success", "message": "Game stopped"}
+        else:
+            return {"status": "error", "message": "No game currently running"}
+    
+    def reset_game(self):
+        """Reset the current game state."""
+        self.stop_current_game()
+        
+        # Reset GPIO
+        self.gpio.reset_all_leds()
+        
+        # Clear game state
+        self.game_state = {}
+        
+        # Emit reset events
+        self.websocket.socketio.emit('game_state_change', {'state': 'waiting'})
+        self.websocket.socketio.emit('screen_state_change', {'state': 'waiting'})
+        
+        return {"status": "success", "message": "Game reset"}
+    
+    def abort_game(self):
+        """Emergency abort the current game."""
+        result = self.stop_current_game()
+        
+        # Emit abort event
+        self.websocket.socketio.emit('game_state_change', {'state': 'aborted'})
+        self.websocket.socketio.emit('error_occurred', {
+            'message': 'Game aborted by operator',
+            'type': 'abort'
+        })
+        
+        return result
+    
+    def get_final_standings(self):
+        """Get final game standings."""
+        if not self.game_state or 'teams' not in self.game_state:
+            return []
+        
+        teams = []
+        for team_id, data in self.game_state['teams'].items():
+            from .data_service import data_service
+            team_info = data_service.get_team_by_id(team_id)
+            teams.append({
+                'team_id': team_id,
+                'team_name': team_info['name'] if team_info else f'Team {team_id}',
+                'lives': data['lives'],
+                'eliminated': data['eliminated'],
+                'rounds_survived': self.game_state['round'] if not data['eliminated'] else 
+                                 self.game_state['round'] - 1
+            })
+        
+        # Sort by elimination status and lives remaining
+        teams.sort(key=lambda x: (x['eliminated'], -x['lives'], -x['rounds_survived']))
+        return teams
+    
+    def get_game_statistics(self):
+        """Get game statistics."""
+        if not self.game_state:
+            return {}
+        
+        return {
+            'total_rounds': self.game_state.get('round', 0),
+            'teams_eliminated': len([t for t in self.game_state.get('teams', {}).values() 
+                                   if t.get('eliminated')]),
+            'average_time': self.game_state.get('time_limit_ms', 200),
+            'game_duration': time.time() - self.game_state.get('start_time', time.time())
+        }
     
     # Wheel Game
     def start_wheel_game(self, team_ids: List[int]) -> Dict:
@@ -537,11 +673,84 @@ class GameService:
         return {"can_start": len(issues) == 0, "issues": issues}
     
     def stop_current_game(self):
-        """Stop the current game."""
+        """Stop the currently running game."""
         if self.current_game:
             self.current_game = None
-            self.game_state = {}
+            if self.game_thread and self.game_thread.is_alive():
+                # Game thread will exit on next iteration
+                pass
             
             # Turn off all LEDs
-            for team_id in range(1, 9):  # Up to 8 teams
-                self.gpio.control_led(team_id, False)
+            self.gpio.reset_all_leds()
+            
+            # Emit stop events
+            self.websocket.socketio.emit('game_state_change', {'state': 'stopped'})
+            self.websocket.socketio.emit('screen_state_change', {'state': 'waiting'})
+            
+            return {"status": "success", "message": "Game stopped"}
+        else:
+            return {"status": "error", "message": "No game currently running"}
+    
+    def reset_game(self):
+        """Reset the current game state."""
+        self.stop_current_game()
+        
+        # Reset GPIO
+        self.gpio.reset_all_leds()
+        
+        # Clear game state
+        self.game_state = {}
+        
+        # Emit reset events
+        self.websocket.socketio.emit('game_state_change', {'state': 'waiting'})
+        self.websocket.socketio.emit('screen_state_change', {'state': 'waiting'})
+        
+        return {"status": "success", "message": "Game reset"}
+    
+    def abort_game(self):
+        """Emergency abort the current game."""
+        result = self.stop_current_game()
+        
+        # Emit abort event
+        self.websocket.socketio.emit('game_state_change', {'state': 'aborted'})
+        self.websocket.socketio.emit('error_occurred', {
+            'message': 'Game aborted by operator',
+            'type': 'abort'
+        })
+        
+        return result
+    
+    def get_final_standings(self):
+        """Get final game standings."""
+        if not self.game_state or 'teams' not in self.game_state:
+            return []
+        
+        teams = []
+        for team_id, data in self.game_state['teams'].items():
+            from .data_service import data_service
+            team_info = data_service.get_team_by_id(team_id)
+            teams.append({
+                'team_id': team_id,
+                'team_name': team_info['name'] if team_info else f'Team {team_id}',
+                'lives': data['lives'],
+                'eliminated': data['eliminated'],
+                'rounds_survived': self.game_state['round'] if not data['eliminated'] else 
+                                 self.game_state['round'] - 1
+            })
+        
+        # Sort by elimination status and lives remaining
+        teams.sort(key=lambda x: (x['eliminated'], -x['lives'], -x['rounds_survived']))
+        return teams
+    
+    def get_game_statistics(self):
+        """Get game statistics."""
+        if not self.game_state:
+            return {}
+        
+        return {
+            'total_rounds': self.game_state.get('round', 0),
+            'teams_eliminated': len([t for t in self.game_state.get('teams', {}).values() 
+                                   if t.get('eliminated')]),
+            'average_time': self.game_state.get('time_limit_ms', 200),
+            'game_duration': time.time() - self.game_state.get('start_time', time.time())
+        }

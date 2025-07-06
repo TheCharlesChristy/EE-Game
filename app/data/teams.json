@@ -1,4 +1,41 @@
 {
-  "teams": [],
-  "next_team_id": 1
+  "teams": [
+    {
+      "id": 1,
+      "name": "Team Alpha",
+      "captain": "Alice",
+      "member_count": 4,
+      "timestamp": "2025-01-06T20:00:00Z",
+      "buzzer_pin": 2,
+      "led_pin": 3
+    },
+    {
+      "id": 2,
+      "name": "Team Beta",
+      "captain": "Bob",
+      "member_count": 3,
+      "timestamp": "2025-01-06T20:01:00Z",
+      "buzzer_pin": 4,
+      "led_pin": 5
+    },
+    {
+      "id": 3,
+      "name": "Team Gamma",
+      "captain": "Charlie",
+      "member_count": 5,
+      "timestamp": "2025-01-06T20:02:00Z",
+      "buzzer_pin": 6,
+      "led_pin": 7
+    },
+    {
+      "id": 4,
+      "name": "Team Delta",
+      "captain": "Diana",
+      "member_count": 4,
+      "timestamp": "2025-01-06T20:03:00Z",
+      "buzzer_pin": 8,
+      "led_pin": 9
+    }
+  ],
+  "next_team_id": 5
 }

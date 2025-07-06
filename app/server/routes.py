@@ -81,6 +81,19 @@ def init_app(app, socketio):
         except Exception as e:
             return f"Error loading team management page: {str(e)}", 500
     
+    @app.route('/reaction-game')
+    def reaction_game():
+        """Serve the reaction timer game page."""
+        try:
+            app.logger.info("=== REACTION GAME PAGE REQUEST ===")
+            html = template_builder.build_template('ReactionGame')
+            app.logger.info("Reaction game template built successfully")
+            return html
+        except Exception as e:
+            app.logger.error(f"Error loading reaction game page: {str(e)}")
+            app.logger.exception("Full traceback:")
+            return f"Error loading reaction game page: {str(e)}", 500
+    
     # System Status API
     @app.route('/api/system/status')
     def get_system_status():

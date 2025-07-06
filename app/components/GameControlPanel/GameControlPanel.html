@@ -1,0 +1,71 @@
+<div class="game-control-panel" id="gameControlPanel">
+    <div class="game-control-panel__header">
+        <h3 class="game-control-panel__title">Game Controls</h3>
+        <div class="game-control-panel__status" id="gameStatus">
+            <div class="game-control-panel__status-indicator" id="gameStatusIndicator"></div>
+            <span class="game-control-panel__status-text" id="gameStatusText">Waiting</span>
+        </div>
+    </div>
+    
+    <div class="game-control-panel__main-controls">
+        <button class="game-control-panel__button game-control-panel__button--primary" 
+                id="startGameBtn" disabled>
+            <span class="game-control-panel__button-icon">▶</span>
+            <span class="game-control-panel__button-text">Start Game</span>
+        </button>
+        
+        <button class="game-control-panel__button game-control-panel__button--secondary" 
+                id="stopGameBtn" disabled>
+            <span class="game-control-panel__button-icon">⏸</span>
+            <span class="game-control-panel__button-text">Stop Game</span>
+        </button>
+        
+        <button class="game-control-panel__button game-control-panel__button--secondary" 
+                id="resetGameBtn">
+            <span class="game-control-panel__button-icon">↺</span>
+            <span class="game-control-panel__button-text">Reset</span>
+        </button>
+    </div>
+    
+    <div class="game-control-panel__secondary-controls">
+        <button class="game-control-panel__button game-control-panel__button--danger" 
+                id="abortGameBtn" disabled>
+            <span class="game-control-panel__button-icon">⏹</span>
+            <span class="game-control-panel__button-text">Emergency Abort</span>
+        </button>
+        
+        <button class="game-control-panel__button game-control-panel__button--neutral" 
+                id="navigationBtn">
+            <span class="game-control-panel__button-icon">⌂</span>
+            <span class="game-control-panel__button-text">Main Menu</span>
+        </button>
+    </div>
+    
+    <div class="game-control-panel__game-state" id="gameStateInfo">
+        <div class="game-control-panel__breadcrumb">
+            <span class="game-control-panel__breadcrumb-item">Main Menu</span>
+            <span class="game-control-panel__breadcrumb-separator">›</span>
+            <span class="game-control-panel__breadcrumb-item game-control-panel__breadcrumb-item--current">
+                Reaction Timer Game
+            </span>
+        </div>
+    </div>
+    
+    <div class="game-control-panel__keyboard-shortcuts">
+        <div class="game-control-panel__shortcuts-title">Keyboard Shortcuts</div>
+        <div class="game-control-panel__shortcuts-list">
+            <div class="game-control-panel__shortcut">
+                <kbd>Space</kbd> Start/Stop
+            </div>
+            <div class="game-control-panel__shortcut">
+                <kbd>R</kbd> Reset
+            </div>
+            <div class="game-control-panel__shortcut">
+                <kbd>Esc</kbd> Abort
+            </div>
+            <div class="game-control-panel__shortcut">
+                <kbd>H</kbd> Home
+            </div>
+        </div>
+    </div>
+</div>

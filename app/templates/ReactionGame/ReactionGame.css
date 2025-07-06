@@ -1,0 +1,225 @@
+/* Reaction Game Template Styles */
+
+.reaction-game-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 160px);
+    position: relative;
+}
+
+.reaction-game-layout__top {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.reaction-game-layout__main-display {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.reaction-game-layout__progress {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+}
+
+.reaction-game-layout__teams {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+}
+
+.reaction-game-layout__bottom {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.reaction-game-layout__controls {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+}
+
+.reaction-game-layout__hardware {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+}
+
+.reaction-game-layout__results-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+    box-sizing: border-box;
+}
+
+.reaction-game-footer {
+    background: var(--background-white);
+    border-top: 2px solid var(--background-medium);
+    padding: var(--space-md);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: var(--space-lg);
+}
+
+/* Game state classes for layout */
+.reaction-game-layout--results-showing .reaction-game-layout__results-overlay {
+    display: flex;
+}
+
+/* Enhanced spacing for larger screens */
+@media (min-width: 1400px) {
+    .reaction-game-layout {
+        padding: var(--space-xl);
+        gap: var(--space-xl);
+    }
+    
+    .reaction-game-layout__top,
+    .reaction-game-layout__bottom {
+        gap: var(--space-xl);
+    }
+}
+
+/* Large tablet/small desktop - adjust grid proportions */
+@media (max-width: 1200px) {
+    .reaction-game-layout__top {
+        grid-template-columns: 3fr 2fr;
+    }
+    
+    .reaction-game-layout__bottom {
+        grid-template-columns: 3fr 2fr;
+    }
+}
+
+/* Medium screens - stack some elements */
+@media (max-width: 1024px) {
+    .reaction-game-layout {
+        gap: var(--space-md);
+        padding: var(--space-md);
+    }
+    
+    .reaction-game-layout__top {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .reaction-game-layout__bottom {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .reaction-game-layout {
+        gap: var(--space-sm);
+        padding: var(--space-sm);
+        min-height: calc(100vh - 120px);
+    }
+    
+    .reaction-game-layout__top {
+        gap: var(--space-sm);
+    }
+    
+    .reaction-game-layout__bottom {
+        gap: var(--space-sm);
+    }
+    
+    .reaction-game-layout__results-overlay {
+        padding: var(--space-md);
+    }
+    
+    .reaction-game-footer {
+        padding: var(--space-sm);
+    }
+/* Print styles - hide interactive elements */
+@media print {
+    .reaction-game-layout__results-overlay,
+    .reaction-game-footer {
+        display: none !important;
+    }
+    
+    .reaction-game-layout {
+        grid-template-rows: auto auto;
+        gap: var(--space-md);
+    }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+    .reaction-game-layout__main-display,
+    .reaction-game-layout__progress,
+    .reaction-game-layout__teams,
+    .reaction-game-layout__controls,
+    .reaction-game-layout__hardware {
+        border: 2px solid var(--text-dark);
+    }
+    
+    .reaction-game-footer {
+        border-top: 3px solid var(--text-dark);
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .reaction-game-layout *,
+    .reaction-game-layout *::before,
+    .reaction-game-layout *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus management for accessibility */
+.reaction-game-layout:focus-within {
+    outline: none;
+}
+
+/* Ensure proper stacking context */
+.reaction-game-layout__main-display,
+.reaction-game-layout__progress,
+.reaction-game-layout__teams,
+.reaction-game-layout__controls,
+.reaction-game-layout__hardware {
+    z-index: 1;
+}
+
+.reaction-game-layout__results-overlay {
+    z-index: 999;
+}
+
+/* Special layout for winner announcement */
+.reaction-game-layout--winner-mode .reaction-game-layout__results-overlay {
+    background: rgba(56, 161, 105, 0.9);
+}
+
+/* Ensure components fill their containers properly */
+.reaction-game-layout__main-display > *,
+.reaction-game-layout__progress > *,
+.reaction-game-layout__teams > *,
+.reaction-game-layout__controls > *,
+.reaction-game-layout__hardware > * {
+    width: 100%;
+}

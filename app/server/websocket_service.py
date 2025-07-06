@@ -48,24 +48,122 @@ class WebSocketService:
             """Handle ping from client."""
             emit('pong', {'timestamp': data.get('timestamp'), 'server_time': time.time()})
         
-        @self.socketio.on('led_test_request')
-        def handle_led_test(data):
-            """Handle LED test request."""
-            from .gpio_service import gpio_service
-            team_id = data.get('team_id')
-            duration_ms = data.get('duration_ms', 1000)
+        # Reaction Timer Game Events
+        @self.socketio.on('start_game')
+        def handle_start_game(data):
+            """Handle start game request."""
+            from .game_service import game_service
+            from .data_service import data_service
             
-            if team_id:
-                # Test LED
-                gpio_service.control_led(team_id, True)
-                threading.Timer(duration_ms / 1000, 
-                               lambda: gpio_service.control_led(team_id, False)).start()
-                
-                emit('led_test_response', {
-                    'team_id': team_id,
-                    'status': 'success',
-                    'duration_ms': duration_ms
+            # Get active teams
+            teams = data_service.get_teams()
+            if not teams:
+                emit('error_occurred', {
+                    'message': 'No teams registered. Please register teams before starting the game.'
                 })
+                return
+            
+            team_ids = [team['id'] for team in teams]
+            result = game_service.start_reaction_timer(team_ids)
+            
+            if result['status'] == 'success':
+                emit('game_started', {
+                    'game_type': 'reaction_timer',
+                    'teams': team_ids,
+                    'start_time': time.time()
+                })
+            else:
+                emit('error_occurred', result)
+        
+        @self.socketio.on('stop_game')
+        def handle_stop_game(data):
+            """Handle stop game request."""
+            from .game_service import game_service
+            
+            result = game_service.stop_current_game()
+            emit('game_state_change', {'state': 'stopped'})
+        
+        @self.socketio.on('reset_game')
+        def handle_reset_game(data):
+            """Handle reset game request."""
+            from .game_service import game_service
+            
+            result = game_service.reset_game()
+            emit('game_state_change', {'state': 'waiting'})
+        
+        @self.socketio.on('abort_game')
+        def handle_abort_game(data):
+            """Handle emergency abort request."""
+            from .game_service import game_service
+            
+            result = game_service.abort_game()
+            emit('game_state_change', {'state': 'aborted'})
+        
+        @self.socketio.on('navigate_to_menu')
+        def handle_navigate_to_menu(data):
+            """Handle navigation to main menu."""
+            emit('navigate_to_menu')
+        
+        @self.socketio.on('request_status')
+        def handle_request_status(data):
+            """Handle status request."""
+            self.emit_system_status()
+        
+        @self.socketio.on('request_team_status')
+        def handle_request_team_status(data):
+            """Handle team status request."""
+            from .data_service import data_service
+            
+            teams = data_service.get_teams()
+            emit('team_status_update', {'teams': teams})
+        
+        @self.socketio.on('request_hardware_status')
+        def handle_request_hardware_status(data):
+            """Handle hardware status request."""
+            self.broadcast_hardware_status()
+        
+        @self.socketio.on('request_led_status')
+        def handle_request_led_status(data):
+            """Handle LED status request."""
+            from .gpio_service import gpio_service
+            
+            led_statuses = []
+            for team_id in range(1, 9):  # Support up to 8 teams
+                status = gpio_service.get_led_status(team_id)
+                if status:
+                    led_statuses.append({
+                        'team_id': team_id,
+                        'led_status': status['state'],
+                        'gpio_pin': status.get('pin'),
+                        'connection_status': status.get('connection', 'unknown')
+                    })
+            
+            emit('led_status_update', {'teams': led_statuses})
+        
+        @self.socketio.on('test_all_leds')
+        def handle_test_all_leds(data):
+            """Handle test all LEDs request."""
+            from .gpio_service import gpio_service
+            
+            duration_ms = data.get('duration_ms', 1000)
+            result = gpio_service.test_all_leds(duration_ms)
+            
+            emit('led_test_response', {
+                'status': 'success' if result else 'error',
+                'duration_ms': duration_ms,
+                'message': 'All LEDs tested' if result else 'LED test failed'
+            })
+        
+        @self.socketio.on('reset_all_leds')
+        def handle_reset_all_leds(data):
+            """Handle reset all LEDs request."""
+            from .gpio_service import gpio_service
+            
+            result = gpio_service.reset_all_leds()
+            emit('led_status_update', {
+                'status': 'all_reset',
+                'success': result
+            })
     
     def emit_system_status(self):
         """Emit current system status to all clients."""
