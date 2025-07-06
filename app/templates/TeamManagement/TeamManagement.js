@@ -1,5 +1,8 @@
+const domain = window.location.hostname;
+const port = window.location.port || '5000';
+
 // Initialize SocketIO connection
-const socket = io('http://localhost:5000', {
+const socket = io(domain + ":" + port, {
     transports: ['websocket', 'polling'],
     timeout: 20000
 });

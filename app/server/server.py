@@ -17,8 +17,14 @@ from EEGame.app.server.services.team_manager import TeamManager
 from EEGame.app.server.socketio.socketio_emitter import SocketIOEmitter
 from EEGame.app.server.socketio.team_endpoints import create_team_endpoints
 from EEGame.app.server.socketio.session_endpoints import create_session_endpoints
+from EEGame.app.server.EElogging import setup_logging
 import os
+import logging
 from pathlib import Path
+
+# Set up logging
+setup_logging()
+logger = logging.getLogger(__name__)
 
 
 class Server:
