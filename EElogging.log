@@ -2985,3 +2985,130 @@ AssertionError: write() before start_response
 2025-07-06 23:45:10,462 - socketio.server - INFO - emitting event "available_pins" to UVGBDz2vAs1jCKE2AAAT [/]
 2025-07-06 23:45:10,462 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
 2025-07-06 23:45:10,462 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-06 23:45:35,349 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet PING data None
+2025-07-06 23:45:35,356 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet PONG data 
+2025-07-06 23:45:51,961 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["create_team",{"team_id":"team_1751841951712_zewp2y8fy","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24}]
+2025-07-06 23:45:51,961 - socketio.server - INFO - received event "create_team" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:45:51,963 - EEGame.app.server.socketio.team_endpoints - INFO - Team created: team_1751841951712_zewp2y8fy
+2025-07-06 23:45:51,963 - socketio.server - INFO - emitting event "team_created" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:45:51,963 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_created",{"team_id":"team_1751841951712_zewp2y8fy","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]
+2025-07-06 23:45:51,963 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_created event for team: team_1751841951712_zewp2y8fy
+2025-07-06 23:45:51,964 - socketio.server - INFO - emitting event "team_list_updated" to all [/]
+2025-07-06 23:45:51,964 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_list_updated",{"teams":[{"team_id":"team_1751841951712_zewp2y8fy","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]}]
+2025-07-06 23:45:51,964 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted team_list_updated event with 1 teams
+2025-07-06 23:45:51,969 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-06 23:45:51,969 - socketio.server - INFO - received event "get_available_pins" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:45:51,970 - socketio.server - INFO - emitting event "available_pins" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:45:51,970 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-06 23:45:51,971 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 22 pins
+2025-07-06 23:46:00,357 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet PING data None
+2025-07-06 23:46:00,363 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet PONG data 
+2025-07-06 23:46:01,000 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["create_team",{"team_id":"team_1751841960754_dtgh5e852","name":"Team","team_color":"var(--team-2-blue)","latch_pin":7,"reset_pin":8,"led_pin":10}]
+2025-07-06 23:46:01,000 - socketio.server - INFO - received event "create_team" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:01,002 - EEGame.app.server.socketio.team_endpoints - INFO - Team created: team_1751841960754_dtgh5e852
+2025-07-06 23:46:01,003 - socketio.server - INFO - emitting event "team_created" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:01,003 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_created",{"team_id":"team_1751841960754_dtgh5e852","name":"Team","team_color":"var(--team-2-blue)","latch_pin":7,"reset_pin":8,"led_pin":10,"latch_state":false,"led_state":false}]
+2025-07-06 23:46:01,003 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_created event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:01,003 - socketio.server - INFO - emitting event "team_list_updated" to all [/]
+2025-07-06 23:46:01,003 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_list_updated",{"teams":[{"team_id":"team_1751841951712_zewp2y8fy","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false},{"team_id":"team_1751841960754_dtgh5e852","name":"Team","team_color":"var(--team-2-blue)","latch_pin":7,"reset_pin":8,"led_pin":10,"latch_state":false,"led_state":false}]}]
+2025-07-06 23:46:01,003 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted team_list_updated event with 2 teams
+2025-07-06 23:46:01,008 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-06 23:46:01,009 - socketio.server - INFO - received event "get_available_pins" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:01,010 - socketio.server - INFO - emitting event "available_pins" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:01,010 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["available_pins",[11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-06 23:46:01,010 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 19 pins
+2025-07-06 23:46:07,183 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841951712_zewp2y8fy"}]
+2025-07-06 23:46:07,183 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:07,183 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:07,184 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841951712_zewp2y8fy","latch_state":false,"led_state":false}]
+2025-07-06 23:46:07,184 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841951712_zewp2y8fy
+2025-07-06 23:46:08,369 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:08,369 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:08,369 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:08,370 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841960754_dtgh5e852","latch_state":false,"led_state":false}]
+2025-07-06 23:46:08,370 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:17,168 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["toggle_led",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:17,168 - socketio.server - INFO - received event "toggle_led" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:17,169 - EEGame.app.server.socketio.team_endpoints - INFO - LED toggled for team: team_1751841960754_dtgh5e852, new state: True
+2025-07-06 23:46:17,169 - socketio.server - INFO - emitting event "led_state_changed" to all [/]
+2025-07-06 23:46:17,169 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["led_state_changed",{"team_id":"team_1751841960754_dtgh5e852","led_state":true}]
+2025-07-06 23:46:17,169 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted led_state_changed event for team team_1751841960754_dtgh5e852: True
+2025-07-06 23:46:17,672 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:17,672 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:17,673 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:17,673 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841960754_dtgh5e852","latch_state":false,"led_state":true}]
+2025-07-06 23:46:17,673 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:19,471 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:19,472 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:19,472 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:19,473 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841960754_dtgh5e852","latch_state":false,"led_state":true}]
+2025-07-06 23:46:19,473 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:20,591 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["toggle_led",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:20,591 - socketio.server - INFO - received event "toggle_led" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:20,592 - EEGame.app.server.socketio.team_endpoints - INFO - LED toggled for team: team_1751841960754_dtgh5e852, new state: False
+2025-07-06 23:46:20,593 - socketio.server - INFO - emitting event "led_state_changed" to all [/]
+2025-07-06 23:46:20,593 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["led_state_changed",{"team_id":"team_1751841960754_dtgh5e852","led_state":false}]
+2025-07-06 23:46:20,593 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted led_state_changed event for team team_1751841960754_dtgh5e852: False
+2025-07-06 23:46:21,093 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:21,093 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:21,094 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:21,095 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841960754_dtgh5e852","latch_state":false,"led_state":false}]
+2025-07-06 23:46:21,095 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:21,219 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751841960754_dtgh5e852"}]
+2025-07-06 23:46:21,220 - socketio.server - INFO - received event "get_team_status" from UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:21,221 - socketio.server - INFO - emitting event "team_status" to UVGBDz2vAs1jCKE2AAAT [/]
+2025-07-06 23:46:21,221 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751841960754_dtgh5e852","latch_state":false,"led_state":false}]
+2025-07-06 23:46:21,221 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751841960754_dtgh5e852
+2025-07-06 23:46:23,728 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:23] "GET / HTTP/1.1" 200 -
+2025-07-06 23:46:23,796 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:23] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 23:46:23,806 - engineio.server - INFO - X0lzYct6B2mIy3CBAAAS: Unexpected error "", closing connection
+2025-07-06 23:46:23,807 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-06 23:46:23,808 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:23] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-06 23:46:23,809 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-06 23:46:25,883 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:25] "GET /team-management HTTP/1.1" 200 -
+2025-07-06 23:46:25,967 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:25] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 23:46:25,971 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Sending packet OPEN data {'sid': 'a6u01UYdxdFnR1IJAAAU', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-06 23:46:25,971 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Received request to upgrade to websocket
+2025-07-06 23:46:25,972 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Upgrade to websocket successful
+2025-07-06 23:46:26,024 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Received packet MESSAGE data 0
+2025-07-06 23:46:26,024 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-06 23:46:26,025 - socketio.server - INFO - emitting event "connection_status" to Vc2xv9rqSW0ynehSAAAV [/]
+2025-07-06 23:46:26,025 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-06 23:46:26,025 - socketio.server - INFO - emitting event "teams_list" to Vc2xv9rqSW0ynehSAAAV [/]
+2025-07-06 23:46:26,026 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Sending packet MESSAGE data 2["teams_list",{"teams":[{"team_id":"team_1751841951712_zewp2y8fy","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false},{"team_id":"team_1751841960754_dtgh5e852","name":"Team","team_color":"var(--team-2-blue)","latch_pin":7,"reset_pin":8,"led_pin":10,"latch_state":false,"led_state":false}]}]
+2025-07-06 23:46:26,026 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 2 teams
+2025-07-06 23:46:26,026 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Sending packet MESSAGE data 0{"sid":"Vc2xv9rqSW0ynehSAAAV"}
+2025-07-06 23:46:26,085 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-06 23:46:26,085 - socketio.server - INFO - received event "get_available_pins" from Vc2xv9rqSW0ynehSAAAV [/]
+2025-07-06 23:46:26,086 - socketio.server - INFO - emitting event "available_pins" to Vc2xv9rqSW0ynehSAAAV [/]
+2025-07-06 23:46:26,086 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Sending packet MESSAGE data 2["available_pins",[11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-06 23:46:26,087 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 19 pins
+2025-07-06 23:46:31,129 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:31] "GET / HTTP/1.1" 200 -
+2025-07-06 23:46:31,185 - engineio.server - INFO - a6u01UYdxdFnR1IJAAAU: Unexpected error "", closing connection
+2025-07-06 23:46:31,186 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-06 23:46:31,187 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:31] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-06 23:46:31,188 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-06 23:46:31,192 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:46:31] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 23:47:47,366 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:47:47] "GET / HTTP/1.1" 200 -
+2025-07-06 23:47:47,443 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:47:47] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-06 23:47:48,291 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:47:48] "[33mGET /reaction-timer HTTP/1.1[0m" 404 -
+2025-07-06 23:47:51,027 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:47:51] "[33mGET /wheel-game HTTP/1.1[0m" 404 -
+2025-07-06 23:47:52,802 - werkzeug - INFO - 192.168.0.167 - - [06/Jul/2025 23:47:52] "[33mGET /quiz-game HTTP/1.1[0m" 404 -
