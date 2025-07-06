@@ -186,3 +186,16 @@ class SocketIOEmitter:
             logger.debug(f"Broadcasted latch_reset event for team: {team_id}")
         except Exception as e:
             logger.error(f"Error broadcasting latch_reset event: {str(e)}")
+
+    def emit_available_pins(self, available_pins: List[int]) -> None:
+        """
+        Emit available GPIO pins to the requesting client.
+        
+        Args:
+            available_pins: List of available GPIO pins
+        """
+        try:
+            emit('available_pins', available_pins)
+            logger.debug(f"Emitted available_pins event with {len(available_pins)} pins")
+        except Exception as e:
+            logger.error(f"Error emitting available_pins event: {str(e)}")

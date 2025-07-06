@@ -32,8 +32,63 @@
     </div>
     
     <div class="form-group">
-      <div class="gpio-pin-selector-container">
-        <!-- GPIOPinSelector will be embedded here -->
+      <div class="gpio-pin-selector">
+        <div class="pin-selector-header">
+          <label class="pin-selector-label">GPIO Pin Assignment</label>
+          <div class="pin-availability-indicator">
+            <span class="available-count">0</span> available pins
+          </div>
+        </div>
+        
+        <div class="pin-assignments">
+          <div class="pin-assignment-group">
+            <label for="latchPin" class="pin-label">Latch Pin</label>
+            <select id="latchPin" name="latchPin" class="pin-dropdown">
+              <option value="">Select latch pin...</option>
+            </select>
+            <div class="pin-conflict-warning" style="display: none;">
+              ⚠️ This pin is already assigned
+            </div>
+          </div>
+          
+          <div class="pin-assignment-group">
+            <label for="ledPin" class="pin-label">LED Pin</label>
+            <select id="ledPin" name="ledPin" class="pin-dropdown">
+              <option value="">Select LED pin...</option>
+            </select>
+            <div class="pin-conflict-warning" style="display: none;">
+              ⚠️ This pin is already assigned
+            </div>
+          </div>
+          
+          <div class="pin-assignment-group">
+            <label for="resetPin" class="pin-label">Reset Pin</label>
+            <select id="resetPin" name="resetPin" class="pin-dropdown">
+              <option value="">Select reset pin...</option>
+            </select>
+            <div class="pin-conflict-warning" style="display: none;">
+              ⚠️ This pin is already assigned
+            </div>
+          </div>
+        </div>
+        
+        <div class="selected-pins-display">
+          <div class="selected-pins-header">Selected Pins:</div>
+          <div class="selected-pins-list">
+            <div class="pin-selection">
+              <span class="pin-type">Latch:</span>
+              <span class="pin-value no-selection">None</span>
+            </div>
+            <div class="pin-selection">
+              <span class="pin-type">LED:</span>
+              <span class="pin-value no-selection">None</span>
+            </div>
+            <div class="pin-selection">
+              <span class="pin-type">Reset:</span>
+              <span class="pin-value no-selection">None</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     

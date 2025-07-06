@@ -10,6 +10,11 @@ const socket = io(domain + ":" + port, {
 // Connection event handlers
 socket.on('connect', function() {
     console.log('Connected to server');
+
+    // Emit a event to notify the web page that the connection is established
+    document.dispatchEvent(new CustomEvent('socketio_connected', {
+        detail: { status: 'connected' }
+    }));
 });
 
 socket.on('disconnect', function() {

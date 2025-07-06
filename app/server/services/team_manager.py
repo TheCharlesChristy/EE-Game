@@ -1,6 +1,6 @@
 from EEGame.app.server.Teams.team import Team
 from EEGame.app.server.Teams.pin import Pin
-from typing import Dict, Any, Optional
+from typing import Dict, Any, List, Optional
 
 class TeamManager:
     """
@@ -112,3 +112,23 @@ class TeamManager:
 
         # Remove the team from the dictionary        
         del self.teams[team_id]
+
+    def get_available_pins(self) -> List[int]:
+        """
+        Get a list of available GPIO pins for latch, reset, and LED.
+        
+        Returns:
+            List[int]: List of available GPIO pin numbers.
+        """
+        used_pins = set()
+        for team in self.teams.values():
+            used_pins.add(team.latch_pin.pin_number)
+            used_pins.add(team.reset_pin.pin_number)
+            used_pins.add(team.led_pin.pin_number)
+        
+        # Assuming GPIO pins range from 1 to 40
+        all_pins = set(range(1, 41))
+        exclude = set([1, 2, 3, 5, 4, 6, 9, 14, 17, 20, 25, 27, 28, 30, 39])
+        available_pins = list(all_pins - used_pins - exclude)
+        
+        return available_pins

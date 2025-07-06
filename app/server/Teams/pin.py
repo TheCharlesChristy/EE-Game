@@ -54,7 +54,7 @@ class Pin:
         self.board_to_bcm = board_to_bcm  # Mapping from board pin numbers to BCM pin numbers
 
         if mode == "input":
-            self.gpio_pin = Button(self.get_pin_number(), pull_up=self.pull_up_down == "up", pull_down=self.pull_up_down == "down")
+            self.gpio_pin = Button(self.get_pin_number(), pull_up=self.pull_up_down == "up")
             if callback:
                 self.gpio_pin.when_pressed = callback
         elif mode == "output":

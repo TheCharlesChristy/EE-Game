@@ -141,6 +141,16 @@ def create_team_endpoints(app, socketio, team_manager: TeamManager, emitter: Soc
             logger.error(f"Error getting team: {str(e)}")
             emitter.emit_team_error('Failed to retrieve team')
 
+    @socketio.on("get_available_pins")
+    def handle_get_available_pins():
+        """Get available GPIO pins for latch, reset, and LED."""
+        try:
+            available_pins = team_manager.get_available_pins()
+            emitter.emit_available_pins(available_pins)
+        except Exception as e:
+            logger.error(f"Error getting available pins: {str(e)}")
+            emitter.emit_team_error('Failed to retrieve available pins')
+
     @socketio.on('turn_on_led')
     def handle_turn_on_led(data):
         """Turn on a team's LED."""
