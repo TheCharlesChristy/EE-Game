@@ -21,7 +21,7 @@ def handle_shutdown(signum, frame):
     
     # Stop GPIO monitoring
     try:
-        from server.gpio_service import gpio_service
+        from app.server.services.gpio_service import gpio_service
         gpio_service.stop_monitoring()
         print("GPIO monitoring stopped")
     except Exception as e:
