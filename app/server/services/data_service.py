@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Dict, Optional, List, Union
 import random
-from app.server.EEtypes import Question, QuestionSet
+from EEGame.app.server.EEtypes import Question, QuestionSet
 
 class DataService:
     def __init__(self, data_dir: Union[str, Path]):
