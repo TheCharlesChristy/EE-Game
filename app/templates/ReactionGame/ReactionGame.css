@@ -153,6 +153,7 @@
     .reaction-game-footer {
         padding: var(--space-sm);
     }
+}
 /* Print styles - hide interactive elements */
 @media print {
     .reaction-game-layout__results-overlay,
