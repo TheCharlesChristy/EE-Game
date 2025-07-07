@@ -15,6 +15,7 @@ class TeamManager:
         Initialize the TeamManager class.
         """
         self.teams: Dict[str, Team] = {}  # Dictionary to store teams by team_id
+
  
 
     def create_team(self, team_id: str, name: str, team_color: str, latch_pin: int, reset_pin: int, led_pin: int) -> Team:
@@ -132,3 +133,12 @@ class TeamManager:
         available_pins = list(all_pins - used_pins - exclude)
         
         return available_pins
+    
+    def close(self) -> None:
+        """
+        Close all teams and their associated GPIO pins.
+        This method should be called when the TeamManager is no longer needed.
+        """
+        for team in self.teams.values():
+            team.close()
+        self.teams.clear()

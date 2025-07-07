@@ -1,0 +1,291 @@
+/* Reaction Screen Component Styles */
+
+.reaction-screen {
+    grid-area: game-screen;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    min-height: 400px;
+}
+
+.reaction-screen__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction-screen__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    text-align: center;
+    padding: var(--space-2xl);
+    width: 100%;
+}
+
+.reaction-screen__main-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction-screen__text {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease-in-out;
+}
+
+.reaction-screen__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
+.reaction-screen__symbol {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.reaction-screen__countdown {
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction-screen__countdown-text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-screen__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Game State Styles */
+
+/* Neutral State (Pre-game/Results) */
+.reaction-screen__content[data-state="neutral"] ~ .reaction-screen__overlay {
+    background-color: #6b7280; /* --text-medium equivalent */
+}
+
+.reaction-screen__content[data-state="neutral"] .reaction-screen__text {
+    animation: none;
+}
+
+.reaction-screen__content[data-state="neutral"] .reaction-screen__symbol {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Wait State (Red) */
+.reaction-screen__content[data-state="wait"] ~ .reaction-screen__overlay {
+    background-color: #dc2626; /* Red state */
+}
+
+.reaction-screen__content[data-state="wait"] .reaction-screen__text {
+    animation: none;
+}
+
+.reaction-screen__content[data-state="wait"] .reaction-screen__symbol {
+    animation: none;
+}
+
+/* Go State (Green) */
+.reaction-screen__content[data-state="go"] ~ .reaction-screen__overlay {
+    background-color: #16a34a; /* Green state */
+}
+
+.reaction-screen__content[data-state="go"] .reaction-screen__text {
+    animation: flash 0.5s ease-in-out;
+    transform: scale(1.1);
+}
+
+.reaction-screen__content[data-state="go"] .reaction-screen__symbol {
+    animation: burst 0.5s ease-out;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes flash {
+    0% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes burst {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* State transition animations */
+.reaction-screen__content {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .reaction-screen__text {
+        font-size: 3.5rem;
+    }
+    
+    .reaction-screen__symbol {
+        font-size: 2.5rem;
+    }
+    
+    .reaction-screen__countdown-text {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .reaction-screen {
+        min-height: 300px;
+    }
+    
+    .reaction-screen__text {
+        font-size: 2.5rem;
+    }
+    
+    .reaction-screen__symbol {
+        font-size: 2rem;
+    }
+    
+    .reaction-screen__countdown-text {
+        font-size: 1.5rem;
+    }
+    
+    .reaction-screen__content {
+        padding: var(--space-lg);
+        gap: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .reaction-screen__text {
+        font-size: 2rem;
+    }
+    
+    .reaction-screen__symbol {
+        font-size: 1.5rem;
+    }
+    
+    .reaction-screen__countdown-text {
+        font-size: 1.25rem;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .reaction-screen__text,
+    .reaction-screen__symbol,
+    .reaction-screen__countdown-text {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    }
+    
+    .reaction-screen {
+        border: 3px solid white;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .reaction-screen,
+    .reaction-screen__overlay,
+    .reaction-screen__text,
+    .reaction-screen__content {
+        transition: none;
+        animation: none;
+    }
+    
+    .reaction-screen__symbol {
+        animation: none;
+    }
+    
+    .reaction-screen__content[data-state="go"] .reaction-screen__text {
+        animation: none;
+        transform: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .reaction-screen {
+        background-color: #f0f0f0 !important;
+        color: #000000 !important;
+    }
+    
+    .reaction-screen__overlay {
+        display: none;
+    }
+    
+    .reaction-screen__text,
+    .reaction-screen__symbol,
+    .reaction-screen__countdown-text {
+        color: #000000 !important;
+        text-shadow: none !important;
+    }
+}

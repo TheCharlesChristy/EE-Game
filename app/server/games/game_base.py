@@ -38,7 +38,8 @@ class GameBase(ABC):
                  socketio: SocketIO, 
                  data_service: DataService,
                  team_manager: TeamManager,
-                 game_name: str = "BaseGame"):
+                 game_name: str = "BaseGame",
+                 socketio_base_event: str = "game/"):
         """
         Initialize the GameBase class.
         
@@ -55,6 +56,10 @@ class GameBase(ABC):
         self.socketio = socketio
         self.data_service = data_service
         self.team_manager = team_manager
+
+        self.game_active = False  # Flag to indicate if the game is currently active
+        
+        self.event_prefix = socketio_base_event  # Base event prefix for SocketIO events
         
         # Game state
         self.game_name = game_name
@@ -73,7 +78,9 @@ class GameBase(ABC):
             namespace: Optional namespace to emit to
         """
         try:
-            self.socketio.emit(event, data or {}, namespace=namespace)
+            print("SOCKETIO")
+            print(self.socketio)
+            self.socketio.emit(f"{self.event_prefix}{event}", data or {})
             self.logger.debug(f"Emitted '{event}' to all clients: {data}")
         except Exception as e:
             self.logger.error(f"Failed to emit '{event}' to all clients: {e}")
@@ -88,8 +95,10 @@ class GameBase(ABC):
             data: Data to send with the event
             namespace: Optional namespace to emit to
         """
+        event = f"{self.event_prefix}{event}"  # Prefix the event with the base event prefix
+        namespace = namespace or '/'  # Default to global namespace if not provided
         try:
-            self.socketio.emit(event, data or {}, room=room, namespace=namespace)
+            self.socketio.emit(event, data or {}, room=room)
             self.logger.debug(f"Emitted '{event}' to room '{room}': {data}")
         except Exception as e:
             self.logger.error(f"Failed to emit '{event}' to room '{room}': {e}")
@@ -117,6 +126,20 @@ class GameBase(ABC):
         """
         pass
 
+    def set_team_callbacks(self):
+        """
+        Set up GPIO callbacks for each team's latch pin.
+        
+        This method should be called to initialize the latch callbacks for each team.
+        """
+        teams = self.team_manager.get_all_teams()
+        for team_id, team in teams.items():
+            if team.latch_pin is not None:
+                self.logger.info(f"\n\nSetting latch callback for team {team_id}")
+                team.set_callback(self.latch_callback, [team_id])
+            else:
+                self.logger.warning(f"Team {team_id} does not have a latch pin configured")
+
     def start_game(self):
         """
         Start the game. Running the game logic in a separate thread.
@@ -129,6 +152,7 @@ class GameBase(ABC):
             self.game_thread.join(timeout=1)
 
         # Create a new thread for the game logic
+        self.logger.info(f"Starting {self.game_name} game in a new thread")
         self.game_thread = threading.Thread(target=self.run)
         self.game_thread.start()
         self.logger.info(f"Started {self.game_name} game in a new thread")
@@ -142,6 +166,7 @@ class GameBase(ABC):
         if self.game_thread and self.game_thread.is_alive():
             self.logger.info(f"Stopping {self.game_name} game")
             self.game_thread.join(timeout=1)
+            self.game_active = False
             self.logger.info(f"{self.game_name} game stopped")
         else:
             self.logger.warning(f"{self.game_name} game is not running or has already been stopped")

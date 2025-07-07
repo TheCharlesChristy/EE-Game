@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Integration - EEGame</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .debug-info h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #debugLog {
+            height: 200px;
+            overflow-y: auto;
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include socketio -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <div class="test-container">
+        <h1>EEGame Integration Test</h1>
+        
+        <div class="debug-info">
+            <h3>Debug Log</h3>
+            <div id="debugLog"></div>
+        </div>
+        
+        <h2>Game Controls</h2>
+        <section class="game-controls" aria-label="Game Control Panel">
+            <div class="game-controls__container">
+                <button 
+                    class="game-controls__button game-controls__button--start"
+                    type="button"
+                    data-action="start"
+                    aria-label="Start Reaction Timer Game"
+                    style="padding: 10px 20px; margin: 5px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                >
+                    <span class="game-controls__icon">▶</span>
+                    <span class="game-controls__label">Start Game</span>
+                </button>
+
+                <button 
+                    class="game-controls__button game-controls__button--stop"
+                    type="button"
+                    data-action="stop"
+                    aria-label="Stop Current Game"
+                    disabled
+                    style="padding: 10px 20px; margin: 5px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                >
+                    <span class="game-controls__icon">⏹</span>
+                    <span class="game-controls__label">Stop Game</span>
+                </button>
+
+                <button 
+                    class="game-controls__button game-controls__button--reset"
+                    type="button"
+                    data-action="test"
+                    aria-label="Test Screen States"
+                    style="padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                >
+                    <span class="game-controls__icon">🔄</span>
+                    <span class="game-controls__label">Test Screen</span>
+                </button>
+            </div>
+
+            <div class="game-controls__status" role="status" aria-live="polite">
+                <span class="game-controls__status-text">Ready to Start</span>
+                <div class="game-controls__loading" aria-hidden="true">
+                    <div class="game-controls__spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <h2>Reaction Screen</h2>
+        <section class="reaction-screen" role="main" aria-label="Reaction Timer Game Screen" style="height: 300px; border: 2px solid #ccc; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; background: #f8f9fa;">
+            <div class="reaction-screen__container">
+                <div class="reaction-screen__content" data-state="neutral">
+                    <div class="reaction-screen__main-text" aria-live="assertive" style="text-align: center; margin-bottom: 20px;">
+                        <span class="reaction-screen__text" style="font-size: 48px; font-weight: bold;">GET READY</span>
+                    </div>
+                    
+                    <div class="reaction-screen__icon" aria-hidden="true" style="text-align: center; margin-bottom: 20px;">
+                        <span class="reaction-screen__symbol" style="font-size: 64px;">⚡</span>
+                    </div>
+                    
+                    <div class="reaction-screen__countdown" aria-live="polite" style="text-align: center;">
+                        <span class="reaction-screen__countdown-text" style="font-size: 24px;"></span>
+                    </div>
+                </div>
+                
+                <div class="reaction-screen__overlay"></div>
+            </div>
+        </section>
+
+        <h2>Team Status</h2>
+        <section class="team-status-display" aria-label="Team Status and Lives">
+            <div class="team-status-display__container">
+                <h3 class="team-status-display__title">Team Status</h3>
+                
+                <div class="team-status-display__grid" role="grid" aria-label="Team status grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <!-- Teams will be populated dynamically -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Debug logging function
+        function debugLog(message) {
+            const logDiv = document.getElementById('debugLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // Override console.log to show in debug panel
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            debugLog(args.join(' '));
+        };
+
+        const originalError = console.error;
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            debugLog('ERROR: ' + args.join(' '));
+        };
+
+        debugLog('Initializing test page...');
+
+        // Initialize SocketIO connection
+        const domain = window.location.hostname;
+        const port = window.location.port || '5000';
+        const socket = io(domain + ":" + port, {
+            transports: ['websocket', 'polling'],
+            timeout: 20000
+        });
+
+        window.socket = socket;
+
+        socket.on('connect', function() {
+            debugLog('Connected to server');
+            document.dispatchEvent(new CustomEvent('socketio_connected', {
+                detail: { status: 'connected' }
+            }));
+        });
+
+        socket.on('disconnect', function() {
+            debugLog('Disconnected from server');
+        });
+
+        socket.on('connect_error', function(error) {
+            debugLog('Connection error: ' + error);
+        });
+    </script>
+
+    <!-- Include component scripts -->
+    <script>
+// GameControls Component
+class GameControls {
+    constructor() {
+        this.container = null;
+        this.startButton = null;
+        this.stopButton = null;
+        this.testButton = null;
+        this.statusText = null;
+        this.loading = null;
+        this.socket = null;
+        this.isGameActive = false;
+        
+        this.init();
+    }
+
+    init() {
+        this.container = document.querySelector('.game-controls');
+        if (!this.container) {
+            console.error('GameControls: Container not found');
+            return;
+        }
+
+        this.startButton = this.container.querySelector('[data-action="start"]');
+        this.stopButton = this.container.querySelector('[data-action="stop"]');
+        this.testButton = this.container.querySelector('[data-action="test"]');
+        this.statusText = this.container.querySelector('.game-controls__status-text');
+        this.loading = this.container.querySelector('.game-controls__loading');
+
+        this.setupEventListeners();
+        this.setupSocketConnection();
+    }
+
+    setupEventListeners() {
+        if (this.startButton) {
+            this.startButton.addEventListener('click', () => this.startGame());
+        }
+
+        if (this.stopButton) {
+            this.stopButton.addEventListener('click', () => this.stopGame());
+        }
+
+        if (this.testButton) {
+            this.testButton.addEventListener('click', () => this.testScreenStates());
+        }
+
+        document.addEventListener('socketio_connected', () => {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+        });
+    }
+
+    setupSocketConnection() {
+        if (window.socket) {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+        }
+    }
+
+    setupSocketHandlers() {
+        if (!this.socket) return;
+
+        this.socket.on('game_started', (data) => {
+            console.log('Game started:', data);
+            this.setGameState(true);
+            this.updateStatus('Game Active');
+        });
+
+        this.socket.on('game_stopped', (data) => {
+            console.log('Game stopped:', data);
+            this.setGameState(false);
+            this.updateStatus('Game Stopped');
+        });
+    }
+
+    startGame() {
+        if (!this.socket) {
+            console.error('Socket not connected');
+            this.updateStatus('Connection Error');
+            return;
+        }
+
+        this.showLoading(true);
+        this.updateStatus('Starting Game...');
+        
+        this.socket.emit('reaction/start_game', {});
+    }
+
+    stopGame() {
+        if (!this.socket) {
+            console.error('Socket not connected');
+            return;
+        }
+
+        this.showLoading(true);
+        this.updateStatus('Stopping Game...');
+        
+        this.socket.emit('reaction/stop_game', {});
+    }
+
+    testScreenStates() {
+        if (!this.socket) {
+            console.error('Socket not connected');
+            return;
+        }
+
+        const states = [
+            { state: 'neutral', message: 'TEST NEUTRAL' },
+            { state: 'wait', message: 'TEST WAIT' },
+            { state: 'go', message: 'TEST GO' },
+            { state: 'too_early', message: 'TEST TOO EARLY' },
+            { state: 'results', message: 'TEST RESULTS' }
+        ];
+
+        let currentIndex = 0;
+        const testInterval = setInterval(() => {
+            if (currentIndex >= states.length) {
+                clearInterval(testInterval);
+                this.socket.emit('reaction/test_screen_state', { state: 'neutral', message: 'TEST COMPLETE' });
+                return;
+            }
+
+            const currentState = states[currentIndex];
+            console.log('Testing screen state:', currentState);
+            this.socket.emit('reaction/test_screen_state', currentState);
+            currentIndex++;
+        }, 2000);
+    }
+
+    setGameState(isActive) {
+        this.isGameActive = isActive;
+        
+        if (this.startButton) {
+            this.startButton.disabled = isActive;
+        }
+        
+        if (this.stopButton) {
+            this.stopButton.disabled = !isActive;
+        }
+
+        this.showLoading(false);
+    }
+
+    updateStatus(message) {
+        if (this.statusText) {
+            this.statusText.textContent = message;
+        }
+    }
+
+    showLoading(show) {
+        if (this.loading) {
+            if (show) {
+                this.loading.classList.add('active');
+            } else {
+                this.loading.classList.remove('active');
+            }
+        }
+    }
+}
+
+// ReactionScreen Component
+class ReactionScreen {
+    constructor() {
+        this.container = null;
+        this.content = null;
+        this.mainText = null;
+        this.symbol = null;
+        this.countdownText = null;
+        this.socket = null;
+        this.currentState = 'neutral';
+        
+        this.init();
+    }
+
+    init() {
+        console.log('ReactionScreen: Initializing...');
+        this.container = document.querySelector('.reaction-screen');
+        if (!this.container) {
+            console.error('ReactionScreen: Container not found');
+            return;
+        }
+        console.log('ReactionScreen: Container found');
+
+        this.content = this.container.querySelector('.reaction-screen__content');
+        this.mainText = this.container.querySelector('.reaction-screen__text');
+        this.symbol = this.container.querySelector('.reaction-screen__symbol');
+        this.countdownText = this.container.querySelector('.reaction-screen__countdown-text');
+
+        console.log('ReactionScreen: Elements found:', {
+            content: !!this.content,
+            mainText: !!this.mainText,
+            symbol: !!this.symbol,
+            countdownText: !!this.countdownText
+        });
+
+        this.setupSocketConnection();
+        this.setState('neutral');
+        console.log('ReactionScreen: Initialization complete');
+    }
+
+    setupSocketConnection() {
+        document.addEventListener('socketio_connected', () => {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+        });
+
+        if (window.socket) {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+        }
+    }
+
+    setupSocketHandlers() {
+        if (!this.socket) return;
+
+        console.log('ReactionScreen: Setting up socket handlers');
+
+        this.socket.on('reaction/screen_state', (data) => {
+            console.log('ReactionScreen: Screen state update received:', data);
+            if (data.state) {
+                this.setState(data.state, data.message);
+            }
+        });
+
+        this.socket.on('game_started', (data) => {
+            console.log('ReactionScreen: Game started event received:', data);
+            this.setState('wait', 'GET READY');
+        });
+
+        this.socket.on('game_stopped', (data) => {
+            console.log('ReactionScreen: Game stopped event received:', data);
+            this.setState('neutral', 'GAME STOPPED');
+        });
+
+        this.socket.on('reaction/countdown', (data) => {
+            if (data.count !== undefined) {
+                this.updateCountdown(data.count);
+            }
+        });
+    }
+
+    setState(state, message = null) {
+        console.log(`ReactionScreen: Setting state to '${state}' with message '${message}'`);
+        this.currentState = state;
+        
+        if (this.content) {
+            this.content.setAttribute('data-state', state);
+            console.log(`ReactionScreen: Set data-state attribute to '${state}'`);
+        } else {
+            console.error('ReactionScreen: Content element not found!');
+        }
+
+        switch (state) {
+            case 'neutral':
+                this.updateDisplay(message || 'GET READY', '⚡');
+                this.container.style.backgroundColor = '#f8f9fa';
+                break;
+            case 'wait':
+                this.updateDisplay(message || 'WAIT...', '🔴');
+                this.container.style.backgroundColor = '#ffebee';
+                break;
+            case 'go':
+                this.updateDisplay(message || 'GO!', '🟢');
+                this.container.style.backgroundColor = '#e8f5e8';
+                break;
+            case 'too_early':
+                this.updateDisplay(message || 'TOO EARLY!', '❌');
+                this.container.style.backgroundColor = '#ffcdd2';
+                break;
+            case 'results':
+                this.updateDisplay(message || 'ROUND COMPLETE', '🏁');
+                this.container.style.backgroundColor = '#e3f2fd';
+                break;
+            default:
+                this.updateDisplay(message || 'READY', '⚡');
+                this.container.style.backgroundColor = '#f8f9fa';
+        }
+
+        console.log(`ReactionScreen: State change complete - current state: ${state}`);
+    }
+
+    updateDisplay(text, symbol) {
+        if (this.mainText) {
+            this.mainText.textContent = text;
+        }
+        
+        if (this.symbol) {
+            this.symbol.textContent = symbol;
+        }
+
+        this.clearCountdown();
+    }
+
+    updateCountdown(count) {
+        if (this.countdownText) {
+            if (count > 0) {
+                this.countdownText.textContent = count.toString();
+            } else {
+                this.countdownText.textContent = '';
+            }
+        }
+    }
+
+    clearCountdown() {
+        if (this.countdownText) {
+            this.countdownText.textContent = '';
+        }
+    }
+
+    getCurrentState() {
+        return this.currentState;
+    }
+}
+
+// TeamStatusDisplay Component
+class TeamStatusDisplay {
+    constructor() {
+        this.container = null;
+        this.grid = null;
+        this.socket = null;
+        this.teams = new Map();
+        
+        this.init();
+    }
+
+    init() {
+        this.container = document.querySelector('.team-status-display');
+        if (!this.container) {
+            console.error('TeamStatusDisplay: Container not found');
+            return;
+        }
+
+        this.grid = this.container.querySelector('.team-status-display__grid');
+        this.setupSocketConnection();
+    }
+
+    setupSocketConnection() {
+        document.addEventListener('socketio_connected', () => {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+            this.requestTeamData();
+        });
+
+        if (window.socket) {
+            this.socket = window.socket;
+            this.setupSocketHandlers();
+            this.requestTeamData();
+        }
+    }
+
+    setupSocketHandlers() {
+        if (!this.socket) return;
+
+        console.log('TeamStatusDisplay: Setting up socket handlers');
+
+        this.socket.on('reaction/team_data', (data) => {
+            console.log('TeamStatusDisplay: Team data received:', data);
+            this.updateTeamDisplay(data);
+        });
+
+        this.socket.on('reaction/team_update', (data) => {
+            console.log('TeamStatusDisplay: Team update received:', data);
+            if (data.team_id) {
+                this.updateSingleTeam(data.team_id, data);
+            }
+        });
+
+        this.socket.on('game_started', () => {
+            console.log('TeamStatusDisplay: Game started, requesting team data');
+            this.requestTeamData();
+        });
+    }
+
+    requestTeamData() {
+        console.log('TeamStatusDisplay: Requesting team data from server');
+        if (this.socket) {
+            this.socket.emit('reaction/get_team_data', {});
+            console.log('TeamStatusDisplay: Team data request sent');
+        } else {
+            console.error('TeamStatusDisplay: Socket not available for team data request');
+        }
+    }
+
+    updateTeamDisplay(teamData) {
+        if (!this.grid || !teamData) return;
+
+        this.grid.innerHTML = '';
+        this.teams.clear();
+
+        Object.entries(teamData).forEach(([teamId, teamInfo]) => {
+            this.createTeamElement(teamId, teamInfo);
+        });
+    }
+
+    createTeamElement(teamId, teamInfo) {
+        const teamElement = document.createElement('div');
+        teamElement.style.cssText = `
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        `;
+        teamElement.setAttribute('data-team', teamId);
+        teamElement.setAttribute('data-status', teamInfo.status || 'active');
+
+        const name = document.createElement('h4');
+        name.textContent = teamInfo.name || `Team ${teamId}`;
+        name.style.cssText = 'margin: 0 0 10px 0; color: #333;';
+
+        const status = document.createElement('span');
+        status.textContent = this.getStatusText(teamInfo.status);
+        status.style.cssText = `
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background: ${this.getStatusColor(teamInfo.status)};
+            margin-bottom: 10px;
+        `;
+
+        const livesContainer = document.createElement('div');
+        livesContainer.style.cssText = 'display: flex; gap: 5px; align-items: center;';
+
+        const livesLabel = document.createElement('span');
+        livesLabel.textContent = 'Lives: ';
+        livesLabel.style.cssText = 'font-weight: bold; margin-right: 5px;';
+
+        const maxLives = 3;
+        const currentLives = teamInfo.lives || 0;
+        
+        for (let i = 0; i < maxLives; i++) {
+            const life = document.createElement('span');
+            life.textContent = '●';
+            life.style.cssText = `
+                font-size: 20px;
+                color: ${i < currentLives ? '#4caf50' : '#ccc'};
+            `;
+            livesContainer.appendChild(life);
+        }
+
+        teamElement.appendChild(name);
+        teamElement.appendChild(status);
+        teamElement.appendChild(livesLabel);
+        teamElement.appendChild(livesContainer);
+
+        this.grid.appendChild(teamElement);
+        this.teams.set(teamId, { element: teamElement, data: teamInfo });
+    }
+
+    getStatusText(status) {
+        switch (status) {
+            case 'active': return 'Active';
+            case 'eliminated': return 'Eliminated';
+            case 'winner': return 'Winner';
+            case 'inactive': return 'Inactive';
+            default: return 'Unknown';
+        }
+    }
+
+    getStatusColor(status) {
+        switch (status) {
+            case 'active': return '#4caf50';
+            case 'eliminated': return '#f44336';
+            case 'winner': return '#ff9800';
+            case 'inactive': return '#9e9e9e';
+            default: return '#9e9e9e';
+        }
+    }
+}
+
+// Initialize components when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing components...');
+    window.gameControls = new GameControls();
+    window.reactionScreen = new ReactionScreen();
+    window.teamStatusDisplay = new TeamStatusDisplay();
+    console.log('Components initialized');
+});
+    </script>
+</body>
+</html>

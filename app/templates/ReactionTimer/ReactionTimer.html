@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Timer - Multi-Team Gaming System</title>
+    <meta name="description" content="Competitive reaction timer game for up to 8 teams">
+    <link rel="icon" type="image/svg+xml" href="/assets/my-logo.svg">
+</head>
+<body class="reaction-timer-page">
+    <!-- Include socketio -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <!-- Page Header Component -->
+    {% include "components/PageHeader/PageHeader.html" %}
+    
+    <!-- Game Controls Component -->
+    {% include "components/GameControls/GameControls.html" %}
+    
+    <!-- Reaction Screen Component (Main Visual Area) -->
+    {% include "components/ReactionScreen/ReactionScreen.html" %}
+    
+    <!-- Team Status Display Component -->
+    {% include "components/TeamStatusDisplay/TeamStatusDisplay.html" %}
+</body>
+</html>

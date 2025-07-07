@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamStatusDisplay Test</title>
+    <link rel="stylesheet" href="app/globals.css">
+    <link rel="stylesheet" href="app/components/TeamStatusDisplay/TeamStatusDisplay.css">
+    <style>
+        body {
+            margin: 20px;
+            background-color: var(--background-light-gray);
+        }
+        .test-controls {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .test-controls button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: var(--primary-dark-blue);
+            color: white;
+            cursor: pointer;
+        }
+        .test-controls button:hover {
+            background: var(--primary-medium-blue);
+        }
+    </style>
+</head>
+<body>
+    <h1>TeamStatusDisplay Component Test</h1>
+    
+    <div class="test-controls">
+        <h3>Test Controls</h3>
+        <button onclick="simulateConnection()">Simulate SocketIO Connection</button>
+        <button onclick="simulateTeamData()">Load Test Team Data</button>
+        <button onclick="simulateLifeLoss()">Simulate Life Loss (Team 1)</button>
+        <button onclick="simulateTeamOut()">Simulate Team Elimination (Team 2)</button>
+        <button onclick="simulateReaction()">Simulate Successful Reaction (Team 3)</button>
+        <button onclick="simulateGameOver()">Simulate Game Over</button>
+    </div>
+
+    <!-- TeamStatusDisplay Component -->
+    <section class="team-status-display" aria-label="Team Status and Lives">
+        <div class="team-status-display__container">
+            <h2 class="team-status-display__title">Team Status</h2>
+            
+            <div class="team-status-display__grid" role="grid" aria-label="Team status grid">
+                <!-- Teams will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Mock SocketIO for testing -->
+    <script>
+        // Mock SocketIO object for testing
+        class MockSocket {
+            constructor() {
+                this.listeners = {};
+            }
+            
+            on(event, callback) {
+                if (!this.listeners[event]) {
+                    this.listeners[event] = [];
+                }
+                this.listeners[event].push(callback);
+            }
+            
+            emit(event, data) {
+                console.log('Emit:', event, data);
+            }
+            
+            trigger(event, data) {
+                if (this.listeners[event]) {
+                    this.listeners[event].forEach(callback => callback(data));
+                }
+            }
+        }
+        
+        // Create mock socket
+        window.socket = new MockSocket();
+        
+        // Test functions
+        function simulateConnection() {
+            document.dispatchEvent(new CustomEvent('socketio_connected', {
+                detail: { status: 'connected' }
+            }));
+        }
+        
+        function simulateTeamData() {
+            const testData = {
+                '1': { lives: 5, rounds_completed: [] },
+                '2': { lives: 3, rounds_completed: [1, 2] },
+                '3': { lives: 4, rounds_completed: [1] },
+                '4': { lives: 2, rounds_completed: [1, 2, 3] }
+            };
+            window.socket.trigger('reaction/team_data', testData);
+        }
+        
+        function simulateLifeLoss() {
+            window.socket.trigger('reaction/life_lost', {
+                team_id: '1',
+                lives_left: 4
+            });
+        }
+        
+        function simulateTeamOut() {
+            window.socket.trigger('reaction/team_out', {
+                team_id: '2',
+                message: 'Team 2 has lost all their lives.'
+            });
+        }
+        
+        function simulateReaction() {
+            window.socket.trigger('reaction/reaction', {
+                team_id: '3',
+                round: 5
+            });
+        }
+        
+        function simulateGameOver() {
+            window.socket.trigger('reaction/game_over', {
+                message: 'Game over! Team 3 wins!'
+            });
+        }
+    </script>
+
+    <!-- Include the TeamStatusDisplay component -->
+    <script src="app/components/TeamStatusDisplay/TeamStatusDisplay.js"></script>
+    
+    <script>
+        // Initialize component when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            window.teamStatusDisplay = new TeamStatusDisplay();
+            console.log('TeamStatusDisplay initialized for testing');
+        });
+    </script>
+</body>
+</html>

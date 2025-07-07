@@ -62,5 +62,24 @@ def init_page_routes(app: Flask):
             return html
         except Exception as e:
             return f"Error loading TeamManagement: {str(e)}", 500
+        
+    @app.route("/create-team")
+    def create_team():
+        """Serve the CreateTeam template."""
+        try:
+            html = builder.build_template("CreateTeams")
+            return html
+        except Exception as e:
+            return f"Error loading CreateTeam: {str(e)}", 500
+        
+    @app.route('/reaction-timer')
+    @app.route('/reaction-timer-game')
+    def reaction_timer_game():
+        """Serve the ReactionTimer template."""
+        try:
+            html = builder.build_template("ReactionTimer")
+            return html
+        except Exception as e:
+            return f"Error loading ReactionTimer: {str(e)}", 500
     
     print("✓ Page routes initialized successfully")

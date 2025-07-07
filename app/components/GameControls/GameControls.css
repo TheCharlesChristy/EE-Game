@@ -1,0 +1,224 @@
+/* Game Controls Component Styles */
+
+.game-controls {
+    grid-area: controls;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    background-color: var(--background-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 100px;
+}
+
+.game-controls__container {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.game-controls__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    min-height: 60px;
+    min-width: 140px;
+    padding: var(--space-md) var(--space-lg);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-large);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-controls__button:focus {
+    outline: 3px solid var(--primary-light-blue);
+    outline-offset: 2px;
+}
+
+.game-controls__button:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.game-controls__button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.game-controls__button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Start Button Styling */
+.game-controls__button--start {
+    background-color: var(--secondary-green);
+    color: white;
+}
+
+.game-controls__button--start:hover:not(:disabled) {
+    background-color: #2f855a;
+}
+
+/* Stop Button Styling */
+.game-controls__button--stop {
+    background-color: var(--error-red);
+    color: white;
+}
+
+.game-controls__button--stop:hover:not(:disabled) {
+    background-color: #c53030;
+}
+
+/* Reset Button Styling */
+.game-controls__button--reset {
+    background-color: var(--text-medium);
+    color: white;
+}
+
+.game-controls__button--reset:hover:not(:disabled) {
+    background-color: var(--text-dark);
+}
+
+.game-controls__icon {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.game-controls__label {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.game-controls__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    min-height: 24px;
+}
+
+.game-controls__status-text {
+    font-size: var(--font-size-medium);
+    color: var(--text-medium);
+    font-weight: 500;
+}
+
+.game-controls__loading {
+    display: none;
+    align-items: center;
+}
+
+.game-controls__loading.active {
+    display: flex;
+}
+
+.game-controls__spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-light);
+    border-top: 2px solid var(--primary-medium-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Button state animations */
+.game-controls__button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.game-controls__button:active:not(:disabled)::before {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-controls__container {
+        gap: var(--space-md);
+    }
+    
+    .game-controls__button {
+        min-height: 50px;
+        min-width: 120px;
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .game-controls__label {
+        font-size: 1.125rem;
+    }
+    
+    .game-controls__icon {
+        font-size: 1.25em;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-controls__container {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .game-controls__button {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .game-controls__button {
+        border: 2px solid;
+    }
+    
+    .game-controls__button--start {
+        border-color: #ffffff;
+    }
+    
+    .game-controls__button--stop {
+        border-color: #ffffff;
+    }
+    
+    .game-controls__button--reset {
+        border-color: #ffffff;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .game-controls__button {
+        transition: none;
+    }
+    
+    .game-controls__button:hover:not(:disabled) {
+        transform: none;
+    }
+    
+    .game-controls__spinner {
+        animation: none;
+    }
+}
