@@ -46,3 +46,39 @@ def create_game_endpoints(app, socketio, game_service: GameService):
         message = data.get('message', 'TEST')
         game_service.reaction_game.emit_to_all("reaction/screen_state", {"state": state, "message": message})
         logger.info(f"Emitted test screen state: {state} - {message}")
+
+    ##################### Quiz Game Endpoints #####################
+
+    @socketio.on('quiz/start_game')
+    def start_quiz_game(data):
+        """Handle the start quiz game event."""
+        logger.info("Received quiz/start_game event")
+        game_service.start_quiz_game()
+        emit('quiz/game_started', {'message': 'Quiz game started'}, broadcast=True)
+
+    @socketio.on('quiz/stop_game')
+    def stop_quiz_game(data):
+        """Handle the stop quiz game event."""
+        logger.info("Received quiz/stop_game event")
+        game_service.stop_quiz_game()
+        emit('quiz/game_stopped', {'message': 'Quiz game stopped'}, broadcast=True)
+
+    @socketio.on('quiz/mark_answer')
+    def mark_quiz_answer(data):
+        """Handle marking an answer as correct or incorrect."""
+        logger.info(f"Received quiz/mark_answer event: {data}")
+        correct = data.get('correct', False)
+        game_service.quiz_game.mark_answer(correct)
+
+    @socketio.on('quiz/skip_question')
+    def skip_quiz_question(data):
+        """Handle skipping the current question."""
+        logger.info("Received quiz/skip_question event")
+        game_service.quiz_game.skip_question()
+
+    @socketio.on('quiz/get_game_state')
+    def get_quiz_game_state(data):
+        """Handle request for current game state."""
+        logger.info("Received quiz/get_game_state event")
+        game_service.quiz_game.emit_game_state()
+        game_service.quiz_game.emit_team_scores()

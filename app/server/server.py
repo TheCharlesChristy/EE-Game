@@ -56,7 +56,7 @@ class Server:
         self.socketio = None
         self.emitter = None
 
-        data_dir = Path(__file__).parent.parent / 'data'
+        data_dir = Path(__file__).parent.parent / 'data' / "questionSets"
         self.data_service = DataService(data_dir)
         self.team_manager = TeamManager()
         
@@ -155,9 +155,6 @@ class Server:
         """
         if self.app is None:
             self.create_app()
-
-        # Initialize test teams for development purposes
-        self._init_test_teams()
         
         try:
             self.socketio.run(

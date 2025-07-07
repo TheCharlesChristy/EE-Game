@@ -1,18 +1,368 @@
 {
-    "questions": [
+  "questions": [
+    {
+      "type": "geography",
+      "question": "What is the capital of Japan?",
+      "answers": [
         {
-            "type": "geography",
-            "question": "What is the capital of France?",
-            "answers": [
-                {
-                    "a": "Berlin",
-                    "b": "Madrid",
-                    "c": "Paris",
-                    "d": "Rome"
-                }
-            ],
-            "correct": "c",
-            "points": 10
+          "a": "Beijing",
+          "b": "Tokyo",
+          "c": "Seoul",
+          "d": "Bangkok"
         }
-    ]
+      ],
+      "correct": "b",
+      "points": 10
+    },
+    {
+      "type": "geography",
+      "question": "Which country is the largest by land area?",
+      "answers": [
+        {
+          "a": "Canada",
+          "b": "Russia",
+          "c": "United States",
+          "d": "China"
+        }
+      ],
+      "correct": "b",
+      "points": 10
+    },
+    {
+      "type": "history",
+      "question": "Who was the first president of the United States?",
+      "answers": [
+        {
+          "a": "George Washington",
+          "b": "Thomas Jefferson",
+          "c": "Abraham Lincoln",
+          "d": "John Adams"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "history",
+      "question": "In which year did World War II end?",
+      "answers": [
+        {
+          "a": "1945",
+          "b": "1940",
+          "c": "1950",
+          "d": "1939"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "history",
+      "question": "Who was the British prime minister during World War II?",
+      "answers": [
+        {
+          "a": "Winston Churchill",
+          "b": "Margaret Thatcher",
+          "c": "Tony Blair",
+          "d": "David Cameron"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "science",
+      "question": "What is the chemical symbol for water?",
+      "answers": [
+        {
+          "a": "O2",
+          "b": "H2O",
+          "c": "CO2",
+          "d": "O3"
+        }
+      ],
+      "correct": "b",
+      "points": 5
+    },
+    {
+      "type": "science",
+      "question": "Which planet is known as the Red Planet?",
+      "answers": [
+        {
+          "a": "Venus",
+          "b": "Earth",
+          "c": "Mars",
+          "d": "Jupiter"
+        }
+      ],
+      "correct": "c",
+      "points": 10
+    },
+    {
+      "type": "science",
+      "question": "What is the hardest natural substance on Earth?",
+      "answers": [
+        {
+          "a": "Gold",
+          "b": "Iron",
+          "c": "Diamond",
+          "d": "Platinum"
+        }
+      ],
+      "correct": "c",
+      "points": 5
+    },
+    {
+      "type": "science",
+      "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+      "answers": [
+        {
+          "a": "Oxygen",
+          "b": "Nitrogen",
+          "c": "Carbon Dioxide",
+          "d": "Hydrogen"
+        }
+      ],
+      "correct": "c",
+      "points": 5
+    },
+    {
+      "type": "literature",
+      "question": "Who wrote '1984'?",
+      "answers": [
+        {
+          "a": "George Orwell",
+          "b": "Aldous Huxley",
+          "c": "Ray Bradbury",
+          "d": "J.K. Rowling"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "literature",
+      "question": "Which of these is a work by William Shakespeare?",
+      "answers": [
+        {
+          "a": "The Great Gatsby",
+          "b": "Macbeth",
+          "c": "The Catcher in the Rye",
+          "d": "Pride and Prejudice"
+        }
+      ],
+      "correct": "b",
+      "points": 10
+    },
+    {
+      "type": "literature",
+      "question": "In 'The Hobbit', who is the main character?",
+      "answers": [
+        {
+          "a": "Frodo Baggins",
+          "b": "Bilbo Baggins",
+          "c": "Aragorn",
+          "d": "Gandalf"
+        }
+      ],
+      "correct": "b",
+      "points": 10
+    },
+    {
+      "type": "math",
+      "question": "What is the square root of 64?",
+      "answers": [
+        {
+          "a": "6",
+          "b": "7",
+          "c": "8",
+          "d": "9"
+        }
+      ],
+      "correct": "c",
+      "points": 5
+    },
+    {
+      "type": "math",
+      "question": "What is the value of pi to two decimal places?",
+      "answers": [
+        {
+          "a": "3.14",
+          "b": "3.16",
+          "c": "3.15",
+          "d": "3.12"
+        }
+      ],
+      "correct": "a",
+      "points": 5
+    },
+    {
+      "type": "math",
+      "question": "What is 7 multiplied by 6?",
+      "answers": [
+        {
+          "a": "42",
+          "b": "40",
+          "c": "38",
+          "d": "44"
+        }
+      ],
+      "correct": "a",
+      "points": 5
+    },
+    {
+      "type": "sports",
+      "question": "Which country won the 2018 FIFA World Cup?",
+      "answers": [
+        {
+          "a": "Germany",
+          "b": "Brazil",
+          "c": "France",
+          "d": "Argentina"
+        }
+      ],
+      "correct": "c",
+      "points": 10
+    },
+    {
+      "type": "sports",
+      "question": "Which city hosted the 2012 Summer Olympics?",
+      "answers": [
+        {
+          "a": "London",
+          "b": "Beijing",
+          "c": "Rio de Janeiro",
+          "d": "Tokyo"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "sports",
+      "question": "Who is known as the fastest man in the world?",
+      "answers": [
+        {
+          "a": "Usain Bolt",
+          "b": "Tyson Gay",
+          "c": "Michael Johnson",
+          "d": "Carl Lewis"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "movies",
+      "question": "Who directed the movie 'Jaws'?",
+      "answers": [
+        {
+          "a": "Steven Spielberg",
+          "b": "Martin Scorsese",
+          "c": "Christopher Nolan",
+          "d": "George Lucas"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "movies",
+      "question": "Which movie won the Academy Award for Best Picture in 1994?",
+      "answers": [
+        {
+          "a": "The Shawshank Redemption",
+          "b": "Forrest Gump",
+          "c": "Pulp Fiction",
+          "d": "The Godfather"
+        }
+      ],
+      "correct": "b",
+      "points": 10
+    },
+    {
+      "type": "movies",
+      "question": "Who played the character of Jack Dawson in Titanic?",
+      "answers": [
+        {
+          "a": "Leonardo DiCaprio",
+          "b": "Johnny Depp",
+          "c": "Brad Pitt",
+          "d": "Matt Damon"
+        }
+      ],
+      "correct": "a",
+      "points": 10
+    },
+    {
+      "type": "technology",
+      "question": "Who is the founder of Microsoft?",
+      "answers": [
+        {
+          "a": "Bill Gates",
+          "b": "Steve Jobs",
+          "c": "Mark Zuckerberg",
+          "d": "Larry Page"
+        }
+      ],
+      "correct": "a",
+      "points": 5
+    },
+    {
+      "type": "technology",
+      "question": "Which company created the iPhone?",
+      "answers": [
+        {
+          "a": "Microsoft",
+          "b": "Google",
+          "c": "Apple",
+          "d": "Samsung"
+        }
+      ],
+      "correct": "c",
+      "points": 5
+    },
+    {
+      "type": "technology",
+      "question": "What does the acronym 'HTTP' stand for?",
+      "answers": [
+        {
+          "a": "HyperText Transfer Protocol",
+          "b": "HighText Transfer Protocol",
+          "c": "HyperTransfer Text Protocol",
+          "d": "HighText Transfer Process"
+        }
+      ],
+      "correct": "a",
+      "points": 5
+    },
+    {
+      "type": "art",
+      "question": "Who painted the Mona Lisa?",
+      "answers": [
+        {
+          "a": "Vincent van Gogh",
+          "b": "Pablo Picasso",
+          "c": "Leonardo da Vinci",
+          "d": "Claude Monet"
+        }
+      ],
+      "correct": "c",
+      "points": 10
+    },
+    {
+      "type": "art",
+      "question": "Which artist is famous for the painting 'The Starry Night'?",
+      "answers": [
+        {
+          "a": "Claude Monet",
+          "b": "Vincent van Gogh",
+          "c": "Pablo Picasso",
+          "d": "Jackson Pollock"
+        }
+      ],
+      "correct": "b",
+      "points": 10
+    }
+  ]
 }

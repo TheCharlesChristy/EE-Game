@@ -3,6 +3,7 @@ from flask_socketio import emit, SocketIO
 from EEGame.app.server.services.team_manager import TeamManager
 from EEGame.app.server.services.data_service import DataService
 from EEGame.app.server.games.reaction_timer_game import ReactionTimerGame
+from EEGame.app.server.games.quiz_game import QuizGame
 from EEGame.app.server.EElogging import setup_logging
 
 class GameService:
@@ -24,6 +25,12 @@ class GameService:
             team_manager=self.team_manager
         )
 
+        self.quiz_game = QuizGame(
+            socketio=socketio,
+            data_service=self.data_service,
+            team_manager=self.team_manager
+        )
+
     def start_reaction_game(self):
         """
         Start the reaction timer game.
@@ -37,3 +44,17 @@ class GameService:
         """
         self.logger.info("Stopping reaction timer game")
         self.reaction_game.stop_game()
+
+    def start_quiz_game(self):
+        """
+        Start the quiz game.
+        """
+        self.logger.info("Starting quiz game")
+        self.quiz_game.start_game()
+
+    def stop_quiz_game(self):
+        """
+        Stop the quiz game.
+        """
+        self.logger.info("Stopping quiz game")
+        self.quiz_game.stop_game()

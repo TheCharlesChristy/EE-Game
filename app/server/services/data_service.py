@@ -79,6 +79,7 @@ class DataService:
     def get_random_question_from_all_sets(self) -> Question:
         """Get a random question from all available question sets."""
         all_sets = self.get_all_question_sets()
+        print(f"Available question sets: {[q_set.name for q_set in all_sets]}")
         if not all_sets:
             raise ValueError("No question sets available.")
         

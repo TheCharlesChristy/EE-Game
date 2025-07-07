@@ -81,5 +81,15 @@ def init_page_routes(app: Flask):
             return html
         except Exception as e:
             return f"Error loading ReactionTimer: {str(e)}", 500
+        
+    @app.route('/quiz-game')
+    @app.route('/quiz')
+    def quiz_game():
+        """Serve the QuizGame template."""
+        try:
+            html = builder.build_template("QuizGame")
+            return html
+        except Exception as e:
+            return f"Error loading QuizGame: {str(e)}", 500
     
     print("✓ Page routes initialized successfully")

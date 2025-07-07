@@ -1,32 +1,38 @@
 import gpiozero
-import signal
-import sys
+import RPi.GPIO as GPIO
 
-def cleanup_and_exit(sig, frame):
-    print("\nCleaning up...")
-    try:
-        if 'mybtn' in globals():
-            mybtn.close()
-        # Don't try to reset - just close individual devices
-    except:
-        pass
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, cleanup_and_exit)
-
+pin = 27
 try:
-    # Let gpiozero use its default factory (LGPIOFactory on Pi 5)
-    # No need to reset - just create your devices
-    
-    # Create your button
-    mybtn = gpiozero.Button(8)
-    print("Button ready on pin 8")
-    
-    # Your main code here
-    
+    # Try setting pin 27 as an output
+    test_pin = gpiozero.LED(pin)
+    print(f"Pin {pin} is available!")
+    test_pin.close()  # Close it immediately
 except Exception as e:
-    print(f"Error: {e}")
-    # If pin 8 is busy, the error will show here
-    
-finally:
-    cleanup_and_exit(None, None)
+    print(f"Pin {pin} is in use or unavailable: {e}")
+
+
+# Function to check for available GPIO pins
+def check_available_pins():
+    # List of all possible GPIO pins on the Raspberry Pi (BCM numbering)
+    all_pins = [i for i in range(2, 28)]  # Raspberry Pi 5 has GPIO pins 2-27 available
+    available_pins = []
+
+    for pin in all_pins:
+        try:
+            # Check if the pin is in use by attempting to set it up as an output pin
+            pin_device = gpiozero.LED(pin)
+            pin_device.close()  # Close it immediately to release it
+            available_pins.append(pin)
+        except Exception as e:
+            print(f"Pin {pin} is in use or unavailable: {e}")
+            # If an exception occurs, the pin is likely in use
+            continue
+
+    return available_pins
+
+# Clean up GPIO settings
+GPIO.cleanup()
+
+# Check which pins are available
+available_pins = check_available_pins()
+print("Available GPIO Pins:", available_pins)

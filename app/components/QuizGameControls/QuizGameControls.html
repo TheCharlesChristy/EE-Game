@@ -1,0 +1,45 @@
+<section class="quiz-game-controls" aria-label="Quiz Game Control Panel">
+    <div class="quiz-game-controls__container">
+        <button 
+            class="quiz-game-controls__button quiz-game-controls__button--start"
+            type="button"
+            data-action="start"
+            aria-label="Start Quiz Game"
+        >
+            <span class="quiz-game-controls__icon">▶</span>
+            <span class="quiz-game-controls__label">Start Game</span>
+        </button>
+
+        <button 
+            class="quiz-game-controls__button quiz-game-controls__button--stop"
+            type="button"
+            data-action="stop"
+            aria-label="Stop Current Game"
+            disabled
+        >
+            <span class="quiz-game-controls__icon">⏹</span>
+            <span class="quiz-game-controls__label">Stop Game</span>
+        </button>
+
+        <button 
+            class="quiz-game-controls__button quiz-game-controls__button--skip"
+            type="button"
+            data-action="skip"
+            aria-label="Skip Current Question"
+            disabled
+        >
+            <span class="quiz-game-controls__icon">⏭</span>
+            <span class="quiz-game-controls__label">Skip Question</span>
+        </button>
+    </div>
+
+    <div class="quiz-game-controls__status" role="status" aria-live="polite">
+        <span class="quiz-game-controls__status-text">Ready to Start</span>
+        <div class="quiz-game-controls__question-count" style="display: none;">
+            Question <span class="quiz-game-controls__current">0</span> of <span class="quiz-game-controls__total">15</span>
+        </div>
+        <div class="quiz-game-controls__loading" aria-hidden="true">
+            <div class="quiz-game-controls__spinner"></div>
+        </div>
+    </div>
+</section>

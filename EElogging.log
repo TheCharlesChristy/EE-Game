@@ -22533,3 +22533,1341 @@ AssertionError: write() before start_response
 2025-07-07 02:52:15,279 - __main__ - INFO - Cleaning up server resources...
 2025-07-07 02:52:15,333 - __main__ - INFO - Cleaning up server resources...
 2025-07-07 02:52:15,334 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:26:21,441 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:26:21,442 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:26:21,442 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:26:21,442 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:26:21,443 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:02,447 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:29:02,448 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:29:02,449 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:29:02,449 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:29:02,449 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:29:02,449 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:29:02,469 - __main__ - INFO - Created test team: Red Team
+2025-07-07 03:29:02,471 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 03:29:02,472 - __main__ - INFO - Created test team: Green Team
+2025-07-07 03:29:02,473 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 03:29:02,473 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 03:29:02,480 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 03:29:02,480 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 03:29:02,481 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 03:29:02,844 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:29:02,844 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:29:02,844 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:29:02,844 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:29:02,845 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:29:02,845 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:29:02,853 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 03:29:02,853 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 03:29:02,854 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 03:29:02,854 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 03:29:02,854 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 03:29:02,857 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 03:29:02,858 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 03:29:05,838 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:05] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 03:29:05,922 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:05] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:29:05,927 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet OPEN data {'sid': 'JRVlvSYMjk2_JtjyAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:29:05,928 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Received request to upgrade to websocket
+2025-07-07 03:29:05,929 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Upgrade to websocket successful
+2025-07-07 03:29:05,987 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Received packet MESSAGE data 0
+2025-07-07 03:29:05,988 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:29:05,988 - socketio.server - INFO - emitting event "connection_status" to FdOi3R7vbwT2GxFnAAAB [/]
+2025-07-07 03:29:05,988 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:29:05,989 - socketio.server - INFO - emitting event "teams_list" to FdOi3R7vbwT2GxFnAAAB [/]
+2025-07-07 03:29:05,989 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:29:05,989 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:29:05,989 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet MESSAGE data 0{"sid":"FdOi3R7vbwT2GxFnAAAB"}
+2025-07-07 03:29:06,047 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 03:29:06,048 - socketio.server - INFO - received event "get_available_pins" from FdOi3R7vbwT2GxFnAAAB [/]
+2025-07-07 03:29:06,048 - socketio.server - INFO - emitting event "available_pins" to FdOi3R7vbwT2GxFnAAAB [/]
+2025-07-07 03:29:06,049 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 03:29:06,049 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 03:29:07,627 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet OPEN data {'sid': 'gX70bZjUBYdryDJyAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:29:07,628 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Received request to upgrade to websocket
+2025-07-07 03:29:07,629 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Upgrade to websocket successful
+2025-07-07 03:29:07,683 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Received packet MESSAGE data 0
+2025-07-07 03:29:07,684 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:29:07,684 - socketio.server - INFO - emitting event "connection_status" to lZEEyX0edJNam4muAAAD [/]
+2025-07-07 03:29:07,685 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:29:07,685 - socketio.server - INFO - emitting event "teams_list" to lZEEyX0edJNam4muAAAD [/]
+2025-07-07 03:29:07,685 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:29:07,685 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:29:07,686 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 0{"sid":"lZEEyX0edJNam4muAAAD"}
+2025-07-07 03:29:07,743 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Received packet MESSAGE data 2["reaction/get_team_data",{}]
+2025-07-07 03:29:07,743 - socketio.server - INFO - received event "reaction/get_team_data" from lZEEyX0edJNam4muAAAD [/]
+2025-07-07 03:29:07,744 - EEGame.app.server.socketio.game_endpoints - INFO - Received get_team_data event
+2025-07-07 03:29:07,744 - socketio.server - INFO - emitting event "reaction/team_data" to all [/]
+2025-07-07 03:29:07,744 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:29:07,745 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:29:07,745 - EEGame.app.server.games.game_base.ReactionTimerGame - DEBUG - Emitted 'team_data' to all clients: {}
+2025-07-07 03:29:10,584 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:10] "GET / HTTP/1.1" 200 -
+2025-07-07 03:29:10,632 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:10] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:29:10,652 - engineio.server - INFO - JRVlvSYMjk2_JtjyAAAA: Unexpected error "", closing connection
+2025-07-07 03:29:10,652 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 03:29:10,653 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:10] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 03:29:10,655 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 03:29:12,217 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 03:29:12,276 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:29:12,278 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet OPEN data {'sid': '717TuDVtUpkDyTQOAAAE', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:29:12,278 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "GET /socket.io/?EIO=4&transport=polling&t=PVYjqXq HTTP/1.1" 200 -
+2025-07-07 03:29:12,314 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Received packet MESSAGE data 0
+2025-07-07 03:29:12,315 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Received request to upgrade to websocket
+2025-07-07 03:29:12,316 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:29:12,318 - socketio.server - INFO - emitting event "connection_status" to ZX0OvDaCgSsjqphbAAAF [/]
+2025-07-07 03:29:12,318 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "GET /socket.io/?EIO=4&transport=polling&t=PVYjqYl&sid=717TuDVtUpkDyTQOAAAE HTTP/1.1" 200 -
+2025-07-07 03:29:12,318 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:29:12,318 - socketio.server - INFO - emitting event "teams_list" to ZX0OvDaCgSsjqphbAAAF [/]
+2025-07-07 03:29:12,319 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:29:12,319 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:29:12,319 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 0{"sid":"ZX0OvDaCgSsjqphbAAAF"}
+2025-07-07 03:29:12,319 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "POST /socket.io/?EIO=4&transport=polling&t=PVYjqYk&sid=717TuDVtUpkDyTQOAAAE HTTP/1.1" 200 -
+2025-07-07 03:29:12,332 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:29:12] "GET /socket.io/?EIO=4&transport=polling&t=PVYjqZ6&sid=717TuDVtUpkDyTQOAAAE HTTP/1.1" 200 -
+2025-07-07 03:29:12,339 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Upgrade to websocket successful
+2025-07-07 03:29:12,395 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:29:12,395 - socketio.server - INFO - received event "quiz/get_game_state" from ZX0OvDaCgSsjqphbAAAF [/]
+2025-07-07 03:29:12,396 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:29:12,396 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:29:12,396 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:29:12,396 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:29:12,397 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:29:12,397 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:29:12,397 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:29:12,397 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:29:12,397 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:29:15,026 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Received packet MESSAGE data 2["quiz/start_game",{}]
+2025-07-07 03:29:15,027 - socketio.server - INFO - received event "quiz/start_game" from ZX0OvDaCgSsjqphbAAAF [/]
+2025-07-07 03:29:15,027 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/start_game event
+2025-07-07 03:29:15,028 - EEGame.app.server.services.game_service - INFO - Starting quiz game
+2025-07-07 03:29:15,028 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting QuizGame game in a new thread
+2025-07-07 03:29:15,028 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized 0 teams for quiz game
+2025-07-07 03:29:15,028 - EEGame.app.server.games.game_base.QuizGame - INFO - Started QuizGame game in a new thread
+2025-07-07 03:29:15,028 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:29:15,028 - socketio.server - INFO - emitting event "quiz/game_started" to all [/]
+2025-07-07 03:29:15,028 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:29:15,029 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:29:15,029 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:29:15,029 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:29:15,029 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:29:15,029 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:29:15,030 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:29:15,030 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - INFO - Set callbacks for 0 teams
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting Quiz Game
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - ERROR - Error getting next question: No question sets available.
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - ERROR - No questions available!
+2025-07-07 03:29:15,030 - socketio.server - INFO - emitting event "quiz/error" to all [/]
+2025-07-07 03:29:15,030 - engineio.server - INFO - gX70bZjUBYdryDJyAAAC: Sending packet MESSAGE data 2["quiz/error",{"message":"No questions available. Please check question files."}]
+2025-07-07 03:29:15,030 - engineio.server - INFO - 717TuDVtUpkDyTQOAAAE: Sending packet MESSAGE data 2["quiz/error",{"message":"No questions available. Please check question files."}]
+2025-07-07 03:29:15,030 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'error' to all clients: {'message': 'No questions available. Please check question files.'}
+2025-07-07 03:29:15,031 - EEGame.app.server.games.game_base.QuizGame - INFO - Stopping QuizGame game
+2025-07-07 03:29:27,210 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:29:27,210 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:29:27,211 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:27,211 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:27,211 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:27,211 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:27,401 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:29:27,402 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:30:22,321 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:30:22,322 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:30:22,322 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:30:22,323 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:30:22,323 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:30:22,323 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:30:22,332 - __main__ - INFO - Created test team: Red Team
+2025-07-07 03:30:22,333 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 03:30:22,335 - __main__ - INFO - Created test team: Green Team
+2025-07-07 03:30:22,336 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 03:30:22,336 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 03:30:22,340 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 03:30:22,340 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 03:30:22,340 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 03:30:22,714 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:30:22,714 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:30:22,715 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:30:22,715 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:30:22,715 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:30:22,715 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:30:22,724 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 03:30:22,724 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 03:30:22,724 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 03:30:22,724 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 03:30:22,725 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 03:30:22,728 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 03:30:22,728 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 03:30:22,732 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet OPEN data {'sid': 'CT-6uJJEPpVYNFyiAAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:30:22,733 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet OPEN data {'sid': 'CMcXArx05x6kcP9zAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:30:22,734 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:22] "GET /socket.io/?EIO=4&transport=polling&t=PVYk5cs HTTP/1.1" 200 -
+2025-07-07 03:30:22,734 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Received request to upgrade to websocket
+2025-07-07 03:30:22,736 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Upgrade to websocket successful
+2025-07-07 03:30:22,745 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Received packet MESSAGE data 0
+2025-07-07 03:30:22,746 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:30:22,746 - socketio.server - INFO - emitting event "connection_status" to y2WeRqgDclxrd2vTAAAC [/]
+2025-07-07 03:30:22,746 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:30:22,746 - socketio.server - INFO - emitting event "teams_list" to y2WeRqgDclxrd2vTAAAC [/]
+2025-07-07 03:30:22,746 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:30:22,746 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:30:22,746 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 0{"sid":"y2WeRqgDclxrd2vTAAAC"}
+2025-07-07 03:30:22,746 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:22] "POST /socket.io/?EIO=4&transport=polling&t=PVYk5lM&sid=CT-6uJJEPpVYNFyiAAAA HTTP/1.1" 200 -
+2025-07-07 03:30:22,749 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:22] "GET /socket.io/?EIO=4&transport=polling&t=PVYk5lN&sid=CT-6uJJEPpVYNFyiAAAA HTTP/1.1" 200 -
+2025-07-07 03:30:22,761 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Received request to upgrade to websocket
+2025-07-07 03:30:22,762 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:30:22,763 - socketio.server - INFO - received event "quiz/get_game_state" from y2WeRqgDclxrd2vTAAAC [/]
+2025-07-07 03:30:22,764 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:30:22,765 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:22] "POST /socket.io/?EIO=4&transport=polling&t=PVYk5la.0&sid=CT-6uJJEPpVYNFyiAAAA HTTP/1.1" 200 -
+2025-07-07 03:30:22,766 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:30:22,766 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:22] "GET /socket.io/?EIO=4&transport=polling&t=PVYk5la&sid=CT-6uJJEPpVYNFyiAAAA HTTP/1.1" 200 -
+2025-07-07 03:30:22,766 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:30:22,768 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:30:22,769 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:30:22,769 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:30:22,770 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:30:22,774 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Upgrade to websocket successful
+2025-07-07 03:30:22,788 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Received packet MESSAGE data 0
+2025-07-07 03:30:22,789 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:30:22,789 - socketio.server - INFO - emitting event "connection_status" to nx28AsrpK0VFhblWAAAD [/]
+2025-07-07 03:30:22,789 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:30:22,789 - socketio.server - INFO - emitting event "teams_list" to nx28AsrpK0VFhblWAAAD [/]
+2025-07-07 03:30:22,790 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:30:22,790 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:30:22,790 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 0{"sid":"nx28AsrpK0VFhblWAAAD"}
+2025-07-07 03:30:22,836 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Received packet MESSAGE data 2["reaction/get_team_data",{}]
+2025-07-07 03:30:22,836 - socketio.server - INFO - received event "reaction/get_team_data" from nx28AsrpK0VFhblWAAAD [/]
+2025-07-07 03:30:22,837 - EEGame.app.server.socketio.game_endpoints - INFO - Received get_team_data event
+2025-07-07 03:30:22,837 - socketio.server - INFO - emitting event "reaction/team_data" to all [/]
+2025-07-07 03:30:22,837 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:30:22,838 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:30:22,838 - EEGame.app.server.games.game_base.ReactionTimerGame - DEBUG - Emitted 'team_data' to all clients: {}
+2025-07-07 03:30:26,030 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Received packet MESSAGE data 1
+2025-07-07 03:30:26,031 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 03:30:26,031 - engineio.server - INFO - CT-6uJJEPpVYNFyiAAAA: Unexpected error "", closing connection
+2025-07-07 03:30:26,032 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "GET /socket.io/?EIO=4&transport=websocket&sid=CT-6uJJEPpVYNFyiAAAA HTTP/1.1" 200 -
+2025-07-07 03:30:26,046 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 03:30:26,099 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet OPEN data {'sid': '1LGsgP2bHYB6n2VWAAAE', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:30:26,100 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:30:26,100 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "GET /socket.io/?EIO=4&transport=polling&t=PVYk6ZR HTTP/1.1" 200 -
+2025-07-07 03:30:26,115 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received packet MESSAGE data 0
+2025-07-07 03:30:26,115 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:30:26,115 - socketio.server - INFO - emitting event "connection_status" to SgxMoIIqckWQCir0AAAF [/]
+2025-07-07 03:30:26,116 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:30:26,116 - socketio.server - INFO - emitting event "teams_list" to SgxMoIIqckWQCir0AAAF [/]
+2025-07-07 03:30:26,116 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:30:26,116 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:30:26,116 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 0{"sid":"SgxMoIIqckWQCir0AAAF"}
+2025-07-07 03:30:26,116 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "POST /socket.io/?EIO=4&transport=polling&t=PVYk6Zy&sid=1LGsgP2bHYB6n2VWAAAE HTTP/1.1" 200 -
+2025-07-07 03:30:26,116 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received request to upgrade to websocket
+2025-07-07 03:30:26,121 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "GET /socket.io/?EIO=4&transport=polling&t=PVYk6Zz&sid=1LGsgP2bHYB6n2VWAAAE HTTP/1.1" 200 -
+2025-07-07 03:30:26,125 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "[36mGET /assets/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:30:26,136 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:30:26] "GET /socket.io/?EIO=4&transport=polling&t=PVYk6aH&sid=1LGsgP2bHYB6n2VWAAAE HTTP/1.1" 200 -
+2025-07-07 03:30:26,143 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Upgrade to websocket successful
+2025-07-07 03:30:26,203 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:30:26,203 - socketio.server - INFO - received event "quiz/get_game_state" from SgxMoIIqckWQCir0AAAF [/]
+2025-07-07 03:30:26,204 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:30:26,204 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:30:26,204 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:30:26,204 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:30:26,205 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:30:26,205 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:30:26,205 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:30:26,205 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:30:26,205 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:30:27,035 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received packet MESSAGE data 2["quiz/start_game",{}]
+2025-07-07 03:30:27,035 - socketio.server - INFO - received event "quiz/start_game" from SgxMoIIqckWQCir0AAAF [/]
+2025-07-07 03:30:27,036 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/start_game event
+2025-07-07 03:30:27,036 - EEGame.app.server.services.game_service - INFO - Starting quiz game
+2025-07-07 03:30:27,036 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting QuizGame game in a new thread
+2025-07-07 03:30:27,037 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized 0 teams for quiz game
+2025-07-07 03:30:27,037 - EEGame.app.server.games.game_base.QuizGame - INFO - Started QuizGame game in a new thread
+2025-07-07 03:30:27,037 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:30:27,038 - socketio.server - INFO - emitting event "quiz/game_started" to all [/]
+2025-07-07 03:30:27,038 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:30:27,038 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:30:27,042 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:30:27,042 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:30:27,042 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:30:27,042 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:30:27,043 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:30:27,043 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:30:27,043 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:30:27,043 - EEGame.app.server.games.game_base.QuizGame - INFO - Set callbacks for 0 teams
+2025-07-07 03:30:27,043 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting Quiz Game
+2025-07-07 03:30:27,045 - EEGame.app.server.games.game_base.QuizGame - ERROR - Error getting next question: No question sets available.
+2025-07-07 03:30:27,047 - EEGame.app.server.games.game_base.QuizGame - ERROR - No questions available!
+2025-07-07 03:30:27,047 - socketio.server - INFO - emitting event "quiz/error" to all [/]
+2025-07-07 03:30:27,048 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet MESSAGE data 2["quiz/error",{"message":"No questions available. Please check question files."}]
+2025-07-07 03:30:27,048 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet MESSAGE data 2["quiz/error",{"message":"No questions available. Please check question files."}]
+2025-07-07 03:30:27,050 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'error' to all clients: {'message': 'No questions available. Please check question files.'}
+2025-07-07 03:30:27,050 - EEGame.app.server.games.game_base.QuizGame - INFO - Stopping QuizGame game
+2025-07-07 03:30:47,734 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet PING data None
+2025-07-07 03:30:47,739 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Received packet PONG data 
+2025-07-07 03:30:51,100 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet PING data None
+2025-07-07 03:30:51,104 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received packet PONG data 
+2025-07-07 03:31:12,745 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Sending packet PING data None
+2025-07-07 03:31:12,761 - engineio.server - INFO - CMcXArx05x6kcP9zAAAB: Received packet PONG data 
+2025-07-07 03:31:16,107 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Sending packet PING data None
+2025-07-07 03:31:16,111 - engineio.server - INFO - 1LGsgP2bHYB6n2VWAAAE: Received packet PONG data 
+2025-07-07 03:31:28,947 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/server.py', reloading
+2025-07-07 03:31:28,948 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:31:28,948 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:31:29,174 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:31:29,174 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:31:29,436 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:31:29,436 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:31:31,274 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:31:31,275 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:31:31,275 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:31:31,275 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:31:31,275 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:31:31,275 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:31:31,285 - __main__ - INFO - Created test team: Red Team
+2025-07-07 03:31:31,286 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 03:31:31,287 - __main__ - INFO - Created test team: Green Team
+2025-07-07 03:31:31,288 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 03:31:31,288 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 03:31:31,292 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 03:31:31,292 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 03:31:31,292 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 03:31:31,659 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:31:31,660 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:31:31,660 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:31:31,660 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:31:31,661 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:31:31,661 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:31:31,669 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 03:31:31,670 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 03:31:31,670 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 03:31:31,670 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 03:31:31,670 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 03:31:31,674 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 03:31:31,674 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 03:31:31,678 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet OPEN data {'sid': 'fEnb9tLwD9mqCCkOAAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:31:31,679 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet OPEN data {'sid': 'H0EAaHLWUuvH7yD7AAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:31:31,679 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:31] "GET /socket.io/?EIO=4&transport=polling&t=PVYkMEr HTTP/1.1" 200 -
+2025-07-07 03:31:31,680 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Received request to upgrade to websocket
+2025-07-07 03:31:31,681 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Upgrade to websocket successful
+2025-07-07 03:31:31,689 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Received packet MESSAGE data 0
+2025-07-07 03:31:31,690 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:31:31,690 - socketio.server - INFO - emitting event "connection_status" to ULCwu_Uf0-V5cp1aAAAC [/]
+2025-07-07 03:31:31,690 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:31:31,690 - socketio.server - INFO - emitting event "teams_list" to ULCwu_Uf0-V5cp1aAAAC [/]
+2025-07-07 03:31:31,690 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:31:31,690 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:31:31,690 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 0{"sid":"ULCwu_Uf0-V5cp1aAAAC"}
+2025-07-07 03:31:31,691 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:31] "POST /socket.io/?EIO=4&transport=polling&t=PVYkMae&sid=fEnb9tLwD9mqCCkOAAAA HTTP/1.1" 200 -
+2025-07-07 03:31:31,694 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:31] "GET /socket.io/?EIO=4&transport=polling&t=PVYkMae.0&sid=fEnb9tLwD9mqCCkOAAAA HTTP/1.1" 200 -
+2025-07-07 03:31:31,701 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Received request to upgrade to websocket
+2025-07-07 03:31:31,706 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:31:31,706 - socketio.server - INFO - received event "quiz/get_game_state" from ULCwu_Uf0-V5cp1aAAAC [/]
+2025-07-07 03:31:31,707 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:31:31,707 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:31] "POST /socket.io/?EIO=4&transport=polling&t=PVYkMaq.0&sid=fEnb9tLwD9mqCCkOAAAA HTTP/1.1" 200 -
+2025-07-07 03:31:31,708 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:31] "GET /socket.io/?EIO=4&transport=polling&t=PVYkMaq&sid=fEnb9tLwD9mqCCkOAAAA HTTP/1.1" 200 -
+2025-07-07 03:31:31,708 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:31:31,709 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:31:31,709 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:31:31,709 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:31:31,710 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:31:31,710 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:31:31,714 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Upgrade to websocket successful
+2025-07-07 03:31:31,739 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Received packet MESSAGE data 0
+2025-07-07 03:31:31,739 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:31:31,740 - socketio.server - INFO - emitting event "connection_status" to 2D6J04bDoO4937CPAAAD [/]
+2025-07-07 03:31:31,740 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:31:31,740 - socketio.server - INFO - emitting event "teams_list" to 2D6J04bDoO4937CPAAAD [/]
+2025-07-07 03:31:31,740 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:31:31,740 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:31:31,740 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 0{"sid":"2D6J04bDoO4937CPAAAD"}
+2025-07-07 03:31:31,792 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Received packet MESSAGE data 2["reaction/get_team_data",{}]
+2025-07-07 03:31:31,792 - socketio.server - INFO - received event "reaction/get_team_data" from 2D6J04bDoO4937CPAAAD [/]
+2025-07-07 03:31:31,792 - EEGame.app.server.socketio.game_endpoints - INFO - Received get_team_data event
+2025-07-07 03:31:31,793 - socketio.server - INFO - emitting event "reaction/team_data" to all [/]
+2025-07-07 03:31:31,793 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:31:31,793 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:31:31,793 - EEGame.app.server.games.game_base.ReactionTimerGame - DEBUG - Emitted 'team_data' to all clients: {}
+2025-07-07 03:31:34,523 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Received packet MESSAGE data 1
+2025-07-07 03:31:34,524 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 03:31:34,524 - engineio.server - INFO - fEnb9tLwD9mqCCkOAAAA: Unexpected error "", closing connection
+2025-07-07 03:31:34,524 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "GET /socket.io/?EIO=4&transport=websocket&sid=fEnb9tLwD9mqCCkOAAAA HTTP/1.1" 200 -
+2025-07-07 03:31:34,535 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 03:31:34,591 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:31:34,600 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet OPEN data {'sid': 'ZbGzWidMOXKuN0JvAAAE', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:31:34,600 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "GET /socket.io/?EIO=4&transport=polling&t=PVYkNI3 HTTP/1.1" 200 -
+2025-07-07 03:31:34,623 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "[36mGET /assets/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:31:34,624 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 0
+2025-07-07 03:31:34,625 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:31:34,625 - socketio.server - INFO - emitting event "connection_status" to _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:34,625 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:31:34,625 - socketio.server - INFO - emitting event "teams_list" to _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:34,625 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:31:34,625 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:31:34,626 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 0{"sid":"_EXTSIqGj5CGuvD5AAAF"}
+2025-07-07 03:31:34,626 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "POST /socket.io/?EIO=4&transport=polling&t=PVYkNIP&sid=ZbGzWidMOXKuN0JvAAAE HTTP/1.1" 200 -
+2025-07-07 03:31:34,627 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received request to upgrade to websocket
+2025-07-07 03:31:34,628 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "GET /socket.io/?EIO=4&transport=polling&t=PVYkNIQ&sid=ZbGzWidMOXKuN0JvAAAE HTTP/1.1" 200 -
+2025-07-07 03:31:34,644 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:31:34,644 - socketio.server - INFO - received event "quiz/get_game_state" from _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:34,645 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:31:34,645 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "POST /socket.io/?EIO=4&transport=polling&t=PVYkNIi&sid=ZbGzWidMOXKuN0JvAAAE HTTP/1.1" 200 -
+2025-07-07 03:31:34,646 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:31:34] "GET /socket.io/?EIO=4&transport=polling&t=PVYkNIh&sid=ZbGzWidMOXKuN0JvAAAE HTTP/1.1" 200 -
+2025-07-07 03:31:34,646 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:31:34,646 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:31:34,647 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:31:34,647 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:31:34,647 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:31:34,647 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:31:34,647 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:31:34,648 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:31:34,654 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Upgrade to websocket successful
+2025-07-07 03:31:35,250 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 2["quiz/start_game",{}]
+2025-07-07 03:31:35,250 - socketio.server - INFO - received event "quiz/start_game" from _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:35,250 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/start_game event
+2025-07-07 03:31:35,251 - EEGame.app.server.services.game_service - INFO - Starting quiz game
+2025-07-07 03:31:35,251 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting QuizGame game in a new thread
+2025-07-07 03:31:35,251 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized 0 teams for quiz game
+2025-07-07 03:31:35,251 - EEGame.app.server.games.game_base.QuizGame - INFO - Started QuizGame game in a new thread
+2025-07-07 03:31:35,251 - socketio.server - INFO - emitting event "quiz/game_started" to all [/]
+2025-07-07 03:31:35,251 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:31:35,251 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:31:35,252 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:31:35,252 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 03:31:35,252 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:31:35,252 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:31:35,252 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:31:35,253 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:31:35,253 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:31:35,253 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:31:35,253 - EEGame.app.server.games.game_base.QuizGame - INFO - Set callbacks for 0 teams
+2025-07-07 03:31:35,253 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting Quiz Game
+2025-07-07 03:31:35,253 - socketio.server - INFO - emitting event "quiz/new_question" to all [/]
+2025-07-07 03:31:35,254 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/new_question",{"question_number":1,"total_questions":15,"question":"What is the capital of France?","points":10,"type":"geography"}]
+2025-07-07 03:31:35,254 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/new_question",{"question_number":1,"total_questions":15,"question":"What is the capital of France?","points":10,"type":"geography"}]
+2025-07-07 03:31:35,254 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'new_question' to all clients: {'question_number': 1, 'total_questions': 15, 'question': 'What is the capital of France?', 'points': 10, 'type': 'geography'}
+2025-07-07 03:31:35,254 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:31:35,255 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"question_display","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false,"current_question":{"question":"What is the capital of France?","points":10,"type":"geography"}}]
+2025-07-07 03:31:35,255 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"question_display","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false,"current_question":{"question":"What is the capital of France?","points":10,"type":"geography"}}]
+2025-07-07 03:31:35,255 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'question_display', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False, 'current_question': {'question': 'What is the capital of France?', 'points': 10, 'type': 'geography'}}
+2025-07-07 03:31:37,256 - socketio.server - INFO - emitting event "quiz/buzzers_enabled" to all [/]
+2025-07-07 03:31:37,256 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/buzzers_enabled",{"message":"Buzzers are now active!"}]
+2025-07-07 03:31:37,256 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/buzzers_enabled",{"message":"Buzzers are now active!"}]
+2025-07-07 03:31:37,256 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'buzzers_enabled' to all clients: {'message': 'Buzzers are now active!'}
+2025-07-07 03:31:37,256 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:31:37,257 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/game_state",{"state":"accepting_buzzes","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":true,"current_question":{"question":"What is the capital of France?","points":10,"type":"geography"}}]
+2025-07-07 03:31:37,257 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"accepting_buzzes","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":true,"current_question":{"question":"What is the capital of France?","points":10,"type":"geography"}}]
+2025-07-07 03:31:37,257 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'accepting_buzzes', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': True, 'current_question': {'question': 'What is the capital of France?', 'points': 10, 'type': 'geography'}}
+2025-07-07 03:31:43,838 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 2["quiz/skip_question",{}]
+2025-07-07 03:31:43,839 - socketio.server - INFO - received event "quiz/skip_question" from _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:43,839 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/skip_question event
+2025-07-07 03:31:43,840 - EEGame.app.server.games.game_base.QuizGame - INFO - Skipping current question
+2025-07-07 03:31:43,840 - socketio.server - INFO - emitting event "quiz/question_skipped" to all [/]
+2025-07-07 03:31:43,841 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet MESSAGE data 2["quiz/question_skipped",{"message":"Question skipped by game runner.","manual_skip":true}]
+2025-07-07 03:31:43,841 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet MESSAGE data 2["quiz/question_skipped",{"message":"Question skipped by game runner.","manual_skip":true}]
+2025-07-07 03:31:43,842 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'question_skipped' to all clients: {'message': 'Question skipped by game runner.', 'manual_skip': True}
+2025-07-07 03:31:53,739 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 2["quiz/skip_question",{}]
+2025-07-07 03:31:53,739 - socketio.server - INFO - received event "quiz/skip_question" from _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:53,741 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/skip_question event
+2025-07-07 03:31:56,680 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Sending packet PING data None
+2025-07-07 03:31:56,683 - engineio.server - INFO - H0EAaHLWUuvH7yD7AAAB: Received packet PONG data 
+2025-07-07 03:31:59,145 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet MESSAGE data 2["quiz/stop_game",{}]
+2025-07-07 03:31:59,146 - socketio.server - INFO - received event "quiz/stop_game" from _EXTSIqGj5CGuvD5AAAF [/]
+2025-07-07 03:31:59,146 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/stop_game event
+2025-07-07 03:31:59,146 - EEGame.app.server.services.game_service - INFO - Stopping quiz game
+2025-07-07 03:31:59,146 - EEGame.app.server.games.game_base.QuizGame - INFO - Stopping QuizGame game
+2025-07-07 03:31:59,600 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Sending packet PING data None
+2025-07-07 03:31:59,608 - engineio.server - INFO - ZbGzWidMOXKuN0JvAAAE: Received packet PONG data 
+2025-07-07 03:32:00,146 - EEGame.app.server.games.game_base.QuizGame - INFO - QuizGame game stopped
+2025-07-07 03:32:00,180 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game ended
+2025-07-07 03:32:08,466 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:32:08,466 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:32:08,466 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,466 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,466 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,466 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,636 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,636 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:08,658 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 03:32:08,658 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 03:32:11,488 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:32:11,489 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:32:11,489 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:32:11,489 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:32:11,489 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:32:11,489 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:32:11,499 - __main__ - INFO - Created test team: Red Team
+2025-07-07 03:32:11,500 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 03:32:11,501 - __main__ - INFO - Created test team: Green Team
+2025-07-07 03:32:11,502 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 03:32:11,502 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 03:32:11,505 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 03:32:11,505 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 03:32:11,506 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 03:32:11,892 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 03:32:11,892 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 03:32:11,893 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 03:32:11,893 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 03:32:11,893 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 03:32:11,893 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 03:32:11,901 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 03:32:11,902 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 03:32:11,902 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 03:32:11,902 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 03:32:11,902 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 03:32:11,906 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 03:32:11,906 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 03:32:11,910 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet OPEN data {'sid': '2UXswyJ2z-ysJirFAAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:32:11,911 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Sending packet OPEN data {'sid': '9sQpCYYmIprOx4ihAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:32:11,911 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:11] "GET /socket.io/?EIO=4&transport=polling&t=PVYkVtA HTTP/1.1" 200 -
+2025-07-07 03:32:11,912 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Received request to upgrade to websocket
+2025-07-07 03:32:11,913 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Upgrade to websocket successful
+2025-07-07 03:32:11,920 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Received packet MESSAGE data 0
+2025-07-07 03:32:11,921 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:32:11,922 - socketio.server - INFO - emitting event "connection_status" to 2gz4Lvl6TLTsM5z6AAAC [/]
+2025-07-07 03:32:11,922 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:32:11,922 - socketio.server - INFO - emitting event "teams_list" to 2gz4Lvl6TLTsM5z6AAAC [/]
+2025-07-07 03:32:11,922 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:32:11,922 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:32:11,923 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 0{"sid":"2gz4Lvl6TLTsM5z6AAAC"}
+2025-07-07 03:32:11,923 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:11] "POST /socket.io/?EIO=4&transport=polling&t=PVYkWPF&sid=2UXswyJ2z-ysJirFAAAA HTTP/1.1" 200 -
+2025-07-07 03:32:11,926 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:11] "GET /socket.io/?EIO=4&transport=polling&t=PVYkWPG&sid=2UXswyJ2z-ysJirFAAAA HTTP/1.1" 200 -
+2025-07-07 03:32:11,932 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Received request to upgrade to websocket
+2025-07-07 03:32:11,936 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 03:32:11,936 - socketio.server - INFO - received event "quiz/get_game_state" from 2gz4Lvl6TLTsM5z6AAAC [/]
+2025-07-07 03:32:11,936 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 03:32:11,937 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:11] "POST /socket.io/?EIO=4&transport=polling&t=PVYkWPS&sid=2UXswyJ2z-ysJirFAAAA HTTP/1.1" 200 -
+2025-07-07 03:32:11,937 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:11] "GET /socket.io/?EIO=4&transport=polling&t=PVYkWPR&sid=2UXswyJ2z-ysJirFAAAA HTTP/1.1" 200 -
+2025-07-07 03:32:11,937 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 03:32:11,938 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 03:32:11,939 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 03:32:11,939 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 03:32:11,939 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 03:32:11,939 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 03:32:11,943 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Upgrade to websocket successful
+2025-07-07 03:32:11,967 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Received packet MESSAGE data 0
+2025-07-07 03:32:11,967 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:32:11,968 - socketio.server - INFO - emitting event "connection_status" to gkcuGofK-Ou111RhAAAD [/]
+2025-07-07 03:32:11,968 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:32:11,968 - socketio.server - INFO - emitting event "teams_list" to gkcuGofK-Ou111RhAAAD [/]
+2025-07-07 03:32:11,968 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:32:11,968 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:32:11,968 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Sending packet MESSAGE data 0{"sid":"gkcuGofK-Ou111RhAAAD"}
+2025-07-07 03:32:12,015 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Received packet MESSAGE data 2["reaction/get_team_data",{}]
+2025-07-07 03:32:12,015 - socketio.server - INFO - received event "reaction/get_team_data" from gkcuGofK-Ou111RhAAAD [/]
+2025-07-07 03:32:12,016 - EEGame.app.server.socketio.game_endpoints - INFO - Received get_team_data event
+2025-07-07 03:32:12,016 - socketio.server - INFO - emitting event "reaction/team_data" to all [/]
+2025-07-07 03:32:12,016 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:32:12,016 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Sending packet MESSAGE data 2["reaction/team_data",{}]
+2025-07-07 03:32:12,017 - EEGame.app.server.games.game_base.ReactionTimerGame - DEBUG - Emitted 'team_data' to all clients: {}
+2025-07-07 03:32:16,292 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Received packet MESSAGE data 1
+2025-07-07 03:32:16,293 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 03:32:16,293 - engineio.server - INFO - 2UXswyJ2z-ysJirFAAAA: Unexpected error "", closing connection
+2025-07-07 03:32:16,294 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:16] "GET /socket.io/?EIO=4&transport=websocket&sid=2UXswyJ2z-ysJirFAAAA HTTP/1.1" 200 -
+2025-07-07 03:32:16,319 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:16] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 03:32:16,380 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet OPEN data {'sid': 'JcCuCXePyUayw3fdAAAE', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 03:32:16,387 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Received request to upgrade to websocket
+2025-07-07 03:32:16,388 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:16] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 03:32:16,390 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Upgrade to websocket successful
+2025-07-07 03:32:16,449 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Received packet MESSAGE data 0
+2025-07-07 03:32:16,450 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 03:32:16,450 - socketio.server - INFO - emitting event "connection_status" to CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:16,450 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 03:32:16,451 - socketio.server - INFO - emitting event "teams_list" to CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:16,451 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 03:32:16,451 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 03:32:16,452 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet MESSAGE data 0{"sid":"CScBT1ehqohjWvW3AAAF"}
+2025-07-07 03:32:16,499 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 03:32:16,499 - socketio.server - INFO - received event "get_available_pins" from CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:16,500 - socketio.server - INFO - emitting event "available_pins" to CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:16,501 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 03:32:16,501 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 03:32:17,359 - engineio.server - INFO - 9sQpCYYmIprOx4ihAAAB: Unexpected error "", closing connection
+2025-07-07 03:32:17,360 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 03:32:17,360 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 03:32:17] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 03:32:17,361 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 03:32:26,205 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Received packet MESSAGE data 2["create_team",{"team_id":"team_1751855545881_h0nu2s33g","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24}]
+2025-07-07 03:32:26,205 - socketio.server - INFO - received event "create_team" from CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:26,206 - EEGame.app.server.socketio.team_endpoints - ERROR - Unexpected error creating team: 'GPIO busy'
+2025-07-07 03:32:26,207 - socketio.server - INFO - emitting event "team_error" to CScBT1ehqohjWvW3AAAF [/]
+2025-07-07 03:32:26,207 - engineio.server - INFO - JcCuCXePyUayw3fdAAAE: Sending packet MESSAGE data 2["team_error",{"message":"Failed to create team"}]
+2025-07-07 03:32:26,207 - EEGame.app.server.socketio.socketio_emitter - WARNING - Emitted team_error event: Failed to create team
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                2025-07-07 07:07:00,028 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:07:00,029 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:07:00,030 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:07:00,030 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:07:00,030 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:07:00,030 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:07:00,048 - __main__ - INFO - Created test team: Red Team
+2025-07-07 07:07:00,049 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 07:07:00,050 - __main__ - INFO - Created test team: Green Team
+2025-07-07 07:07:00,051 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 07:07:00,051 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 07:07:00,056 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 07:07:00,056 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 07:07:00,056 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:07:00,426 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:07:00,427 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:07:00,427 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:07:00,427 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:07:00,427 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:07:00,427 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:07:00,436 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:07:00,437 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:07:00,437 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:07:00,438 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:07:00,438 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:07:00,442 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:07:00,442 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:07:08,610 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:08] "GET / HTTP/1.1" 200 -
+2025-07-07 07:07:08,860 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:08] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:07:12,071 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:12] "[33mGET /wheel-game HTTP/1.1[0m" 404 -
+2025-07-07 07:07:14,152 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:14] "GET / HTTP/1.1" 200 -
+2025-07-07 07:07:15,551 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:15] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 07:07:15,846 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:15] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:07:15,853 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet OPEN data {'sid': 'PuwwrKzo9QdZDuZ_AAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:07:15,854 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:15] "GET /socket.io/?EIO=4&transport=polling&t=PVZVkij HTTP/1.1" 200 -
+2025-07-07 07:07:15,892 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:15] "[36mGET /assets/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:07:15,901 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received packet MESSAGE data 0
+2025-07-07 07:07:15,902 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:07:15,902 - socketio.server - INFO - emitting event "connection_status" to nPavg5IroFcywA1jAAAB [/]
+2025-07-07 07:07:15,902 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:07:15,903 - socketio.server - INFO - emitting event "teams_list" to nPavg5IroFcywA1jAAAB [/]
+2025-07-07 07:07:15,903 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:07:15,903 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:07:15,904 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 0{"sid":"nPavg5IroFcywA1jAAAB"}
+2025-07-07 07:07:15,904 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:15] "POST /socket.io/?EIO=4&transport=polling&t=PVZVkmb&sid=PuwwrKzo9QdZDuZ_AAAA HTTP/1.1" 200 -
+2025-07-07 07:07:15,925 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received request to upgrade to websocket
+2025-07-07 07:07:16,083 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:16] "GET /socket.io/?EIO=4&transport=polling&t=PVZVkmd&sid=PuwwrKzo9QdZDuZ_AAAA HTTP/1.1" 200 -
+2025-07-07 07:07:16,114 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Upgrade to websocket successful
+2025-07-07 07:07:16,133 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 07:07:16,133 - socketio.server - INFO - received event "quiz/get_game_state" from nPavg5IroFcywA1jAAAB [/]
+2025-07-07 07:07:16,134 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 07:07:16,134 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:07:16,134 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 07:07:16,134 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 07:07:16,134 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:07:16,135 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 07:07:16,135 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 07:07:19,033 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received packet MESSAGE data 2["quiz/start_game",{}]
+2025-07-07 07:07:19,033 - socketio.server - INFO - received event "quiz/start_game" from nPavg5IroFcywA1jAAAB [/]
+2025-07-07 07:07:19,034 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/start_game event
+2025-07-07 07:07:19,034 - EEGame.app.server.services.game_service - INFO - Starting quiz game
+2025-07-07 07:07:19,035 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting QuizGame game in a new thread
+2025-07-07 07:07:19,035 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized 0 teams for quiz game
+2025-07-07 07:07:19,035 - EEGame.app.server.games.game_base.QuizGame - INFO - Started QuizGame game in a new thread
+2025-07-07 07:07:19,035 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:07:19,035 - socketio.server - INFO - emitting event "quiz/game_started" to all [/]
+2025-07-07 07:07:19,036 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 07:07:19,036 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 07:07:19,037 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 07:07:19,037 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:07:19,037 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 07:07:19,038 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 07:07:19,038 - EEGame.app.server.games.game_base.QuizGame - INFO - Set callbacks for 0 teams
+2025-07-07 07:07:19,038 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting Quiz Game
+2025-07-07 07:07:19,038 - socketio.server - INFO - emitting event "quiz/new_question" to all [/]
+2025-07-07 07:07:19,039 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/new_question",{"question_number":1,"total_questions":15,"question":"Who wrote '1984'?","points":10,"type":"literature"}]
+2025-07-07 07:07:19,040 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'new_question' to all clients: {'question_number': 1, 'total_questions': 15, 'question': "Who wrote '1984'?", 'points': 10, 'type': 'literature'}
+2025-07-07 07:07:19,040 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:07:19,041 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"question_display","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false,"current_question":{"question":"Who wrote '1984'?","points":10,"type":"literature"}}]
+2025-07-07 07:07:19,041 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'question_display', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False, 'current_question': {'question': "Who wrote '1984'?", 'points': 10, 'type': 'literature'}}
+2025-07-07 07:07:21,041 - socketio.server - INFO - emitting event "quiz/buzzers_enabled" to all [/]
+2025-07-07 07:07:21,042 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/buzzers_enabled",{"message":"Buzzers are now active!"}]
+2025-07-07 07:07:21,042 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'buzzers_enabled' to all clients: {'message': 'Buzzers are now active!'}
+2025-07-07 07:07:21,042 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:07:21,043 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_state",{"state":"accepting_buzzes","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":true,"current_question":{"question":"Who wrote '1984'?","points":10,"type":"literature"}}]
+2025-07-07 07:07:21,043 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'accepting_buzzes', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': True, 'current_question': {'question': "Who wrote '1984'?", 'points': 10, 'type': 'literature'}}
+2025-07-07 07:07:30,737 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received packet MESSAGE data 2["quiz/stop_game",{}]
+2025-07-07 07:07:30,737 - socketio.server - INFO - received event "quiz/stop_game" from nPavg5IroFcywA1jAAAB [/]
+2025-07-07 07:07:30,738 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/stop_game event
+2025-07-07 07:07:30,738 - EEGame.app.server.services.game_service - INFO - Stopping quiz game
+2025-07-07 07:07:30,738 - EEGame.app.server.games.game_base.QuizGame - INFO - Stopping QuizGame game
+2025-07-07 07:07:31,738 - EEGame.app.server.games.game_base.QuizGame - INFO - QuizGame game stopped
+2025-07-07 07:07:31,738 - socketio.server - INFO - emitting event "quiz/game_stopped" to all [/]
+2025-07-07 07:07:31,739 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_stopped",{"message":"Quiz game has been stopped"}]
+2025-07-07 07:07:31,740 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_stopped' to all clients: {'message': 'Quiz game has been stopped'}
+2025-07-07 07:07:31,740 - socketio.server - INFO - emitting event "quiz/game_stopped" to all [/]
+2025-07-07 07:07:31,740 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Sending packet MESSAGE data 2["quiz/game_stopped",{"message":"Quiz game stopped"}]
+2025-07-07 07:07:31,762 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game ended
+2025-07-07 07:07:33,795 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Received packet MESSAGE data 1
+2025-07-07 07:07:33,796 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:07:33,797 - engineio.server - INFO - PuwwrKzo9QdZDuZ_AAAA: Unexpected error "", closing connection
+2025-07-07 07:07:33,798 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:33] "GET /socket.io/?EIO=4&transport=websocket&sid=PuwwrKzo9QdZDuZ_AAAA HTTP/1.1" 200 -
+2025-07-07 07:07:33,816 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:33] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 07:07:33,917 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:33] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:07:33,917 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet OPEN data {'sid': '_gmDqYcORoMLND62AAAC', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:07:33,918 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:33] "GET /socket.io/?EIO=4&transport=polling&t=PVZVp9m HTTP/1.1" 200 -
+2025-07-07 07:07:34,028 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:34] "[36mGET /assets/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:07:34,031 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Received packet MESSAGE data 0
+2025-07-07 07:07:34,032 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:07:34,032 - socketio.server - INFO - emitting event "connection_status" to Be9Z0cyTJaS15DgcAAAD [/]
+2025-07-07 07:07:34,032 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:34] "GET /socket.io/?EIO=4&transport=polling&t=PVZVpBX.0&sid=_gmDqYcORoMLND62AAAC HTTP/1.1" 200 -
+2025-07-07 07:07:34,032 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:07:34,033 - socketio.server - INFO - emitting event "teams_list" to Be9Z0cyTJaS15DgcAAAD [/]
+2025-07-07 07:07:34,033 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:07:34,033 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:07:34,034 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet MESSAGE data 0{"sid":"Be9Z0cyTJaS15DgcAAAD"}
+2025-07-07 07:07:34,034 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:34] "POST /socket.io/?EIO=4&transport=polling&t=PVZVpBX&sid=_gmDqYcORoMLND62AAAC HTTP/1.1" 200 -
+2025-07-07 07:07:34,036 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Received request to upgrade to websocket
+2025-07-07 07:07:34,076 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:34] "GET /socket.io/?EIO=4&transport=polling&t=PVZVpCa&sid=_gmDqYcORoMLND62AAAC HTTP/1.1" 200 -
+2025-07-07 07:07:34,142 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Upgrade to websocket successful
+2025-07-07 07:07:34,212 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 07:07:34,212 - socketio.server - INFO - received event "quiz/get_game_state" from Be9Z0cyTJaS15DgcAAAD [/]
+2025-07-07 07:07:34,214 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 07:07:34,215 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:07:34,215 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false,"current_question":{"question":"Who wrote '1984'?","points":10,"type":"literature"}}]
+2025-07-07 07:07:34,215 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False, 'current_question': {'question': "Who wrote '1984'?", 'points': 10, 'type': 'literature'}}
+2025-07-07 07:07:34,216 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:07:34,216 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 07:07:34,216 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 07:07:35,241 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Received packet MESSAGE data 1
+2025-07-07 07:07:35,241 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:07:35,283 - engineio.server - INFO - _gmDqYcORoMLND62AAAC: Unexpected error "", closing connection
+2025-07-07 07:07:35,284 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:35] "GET /socket.io/?EIO=4&transport=websocket&sid=_gmDqYcORoMLND62AAAC HTTP/1.1" 200 -
+2025-07-07 07:07:35,487 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:35] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:07:35,583 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:07:35] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:08:09,809 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:08:09] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:08:09,933 - werkzeug - INFO - 127.0.0.1 - - [07/Jul/2025 07:08:09] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:08:37,876 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:08:37] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:08:37,947 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:08:37] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:08:37,966 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Sending packet OPEN data {'sid': 'rn-KL6ighfvQ8yu-AAAE', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:08:37,967 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Received request to upgrade to websocket
+2025-07-07 07:08:37,968 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Upgrade to websocket successful
+2025-07-07 07:08:38,017 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Received packet MESSAGE data 0
+2025-07-07 07:08:38,018 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:08:38,018 - socketio.server - INFO - emitting event "connection_status" to uA9_CbNMhWk1uL8gAAAF [/]
+2025-07-07 07:08:38,019 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:08:38,019 - socketio.server - INFO - emitting event "teams_list" to uA9_CbNMhWk1uL8gAAAF [/]
+2025-07-07 07:08:38,020 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:08:38,020 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:08:38,020 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Sending packet MESSAGE data 0{"sid":"uA9_CbNMhWk1uL8gAAAF"}
+2025-07-07 07:08:38,069 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:08:38,070 - socketio.server - INFO - received event "get_available_pins" from uA9_CbNMhWk1uL8gAAAF [/]
+2025-07-07 07:08:38,071 - socketio.server - INFO - emitting event "available_pins" to uA9_CbNMhWk1uL8gAAAF [/]
+2025-07-07 07:08:38,071 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:08:38,072 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:08:42,202 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:08:42] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:08:42,218 - engineio.server - INFO - rn-KL6ighfvQ8yu-AAAE: Unexpected error "", closing connection
+2025-07-07 07:08:42,218 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:08:42,219 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:08:42] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 07:08:42,221 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 07:08:42,248 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:08:42] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:08:42,262 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet OPEN data {'sid': 'UbXNf0B4T2r0pxgrAAAG', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:08:42,262 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received request to upgrade to websocket
+2025-07-07 07:08:42,263 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Upgrade to websocket successful
+2025-07-07 07:08:42,319 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet MESSAGE data 0
+2025-07-07 07:08:42,319 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:08:42,320 - socketio.server - INFO - emitting event "connection_status" to _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:42,320 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:08:42,320 - socketio.server - INFO - emitting event "teams_list" to _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:42,320 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:08:42,320 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:08:42,320 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet MESSAGE data 0{"sid":"_XRhhr5A3UxKPd7WAAAH"}
+2025-07-07 07:08:42,370 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:08:42,370 - socketio.server - INFO - received event "get_available_pins" from _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:42,371 - socketio.server - INFO - emitting event "available_pins" to _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:42,371 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:08:42,371 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:08:56,647 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet MESSAGE data 2["create_team",{"team_id":"team_1751868536264_264x4tv3m","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24}]
+2025-07-07 07:08:56,647 - socketio.server - INFO - received event "create_team" from _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:56,648 - EEGame.app.server.socketio.team_endpoints - ERROR - Unexpected error creating team: 'GPIO busy'
+2025-07-07 07:08:56,648 - socketio.server - INFO - emitting event "team_error" to _XRhhr5A3UxKPd7WAAAH [/]
+2025-07-07 07:08:56,648 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet MESSAGE data 2["team_error",{"message":"Failed to create team"}]
+2025-07-07 07:08:56,648 - EEGame.app.server.socketio.socketio_emitter - WARNING - Emitted team_error event: Failed to create team
+2025-07-07 07:09:07,262 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:09:07,271 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:09:32,271 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:09:32,280 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:09:57,281 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:09:57,288 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:10:22,289 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:10:22,297 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:10:47,298 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:10:47,306 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:11:12,306 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:11:12,313 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:11:37,313 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:11:37,322 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:12:02,322 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Sending packet PING data None
+2025-07-07 07:12:02,329 - engineio.server - INFO - UbXNf0B4T2r0pxgrAAAG: Received packet PONG data 
+2025-07-07 07:12:18,438 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/reset_gpio.py', reloading
+2025-07-07 07:12:18,438 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:12:18,439 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:12:18,678 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:12:19,050 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:12:19,050 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:12:19,051 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:12:19,051 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:12:19,051 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:12:19,051 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:12:19,060 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:12:19,061 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:12:19,061 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:12:19,062 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:12:19,062 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:12:19,065 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:12:19,066 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:12:19,857 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet OPEN data {'sid': 'Yv3hWyAkWJgJYQ8DAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:12:19,857 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Received request to upgrade to websocket
+2025-07-07 07:12:19,858 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Upgrade to websocket successful
+2025-07-07 07:12:19,913 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Received packet MESSAGE data 0
+2025-07-07 07:12:19,914 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:12:19,914 - socketio.server - INFO - emitting event "connection_status" to o7T3ilp3H_ITJYEPAAAB [/]
+2025-07-07 07:12:19,914 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:12:19,915 - socketio.server - INFO - emitting event "teams_list" to o7T3ilp3H_ITJYEPAAAB [/]
+2025-07-07 07:12:19,915 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:12:19,915 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:12:19,915 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet MESSAGE data 0{"sid":"o7T3ilp3H_ITJYEPAAAB"}
+2025-07-07 07:12:19,975 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:12:19,975 - socketio.server - INFO - received event "get_available_pins" from o7T3ilp3H_ITJYEPAAAB [/]
+2025-07-07 07:12:19,976 - socketio.server - INFO - emitting event "available_pins" to o7T3ilp3H_ITJYEPAAAB [/]
+2025-07-07 07:12:19,976 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:12:19,976 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:12:44,857 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet PING data None
+2025-07-07 07:12:44,866 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Received packet PONG data 
+2025-07-07 07:13:09,867 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Sending packet PING data None
+2025-07-07 07:13:09,877 - engineio.server - INFO - Yv3hWyAkWJgJYQ8DAAAA: Received packet PONG data 
+2025-07-07 07:13:26,265 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/reset_gpio.py', reloading
+2025-07-07 07:13:26,266 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:13:26,266 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:13:26,497 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:13:26,859 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:13:26,860 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:13:26,860 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:13:26,860 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:13:26,860 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:13:26,860 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:13:26,869 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:13:26,869 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:13:26,870 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:13:26,870 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:13:26,870 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:13:26,873 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:13:26,873 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:13:27,707 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Sending packet OPEN data {'sid': 'BmfLjNS3agFSeT_xAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:13:27,707 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Received request to upgrade to websocket
+2025-07-07 07:13:27,708 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Upgrade to websocket successful
+2025-07-07 07:13:27,769 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Received packet MESSAGE data 0
+2025-07-07 07:13:27,771 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:13:27,771 - socketio.server - INFO - emitting event "connection_status" to JLbXJoJmbBMHW6DjAAAB [/]
+2025-07-07 07:13:27,771 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:13:27,772 - socketio.server - INFO - emitting event "teams_list" to JLbXJoJmbBMHW6DjAAAB [/]
+2025-07-07 07:13:27,772 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:13:27,772 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:13:27,773 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Sending packet MESSAGE data 0{"sid":"JLbXJoJmbBMHW6DjAAAB"}
+2025-07-07 07:13:27,818 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:13:27,818 - socketio.server - INFO - received event "get_available_pins" from JLbXJoJmbBMHW6DjAAAB [/]
+2025-07-07 07:13:27,819 - socketio.server - INFO - emitting event "available_pins" to JLbXJoJmbBMHW6DjAAAB [/]
+2025-07-07 07:13:27,819 - engineio.server - INFO - BmfLjNS3agFSeT_xAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:13:27,819 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:13:40,917 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/reset_gpio.py', reloading
+2025-07-07 07:13:40,918 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:13:40,919 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:13:41,244 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:13:41,641 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:13:41,642 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:13:41,642 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:13:41,642 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:13:41,642 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:13:41,642 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:13:41,652 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:13:41,653 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:13:41,653 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:13:41,654 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:13:41,654 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:13:41,657 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:13:41,657 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:13:41,861 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet OPEN data {'sid': '5IEl1nSRzu1IdKwNAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:13:41,862 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received request to upgrade to websocket
+2025-07-07 07:13:41,863 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Upgrade to websocket successful
+2025-07-07 07:13:41,922 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet MESSAGE data 0
+2025-07-07 07:13:41,924 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:13:41,924 - socketio.server - INFO - emitting event "connection_status" to 4XvJkv7toDn3zAt1AAAB [/]
+2025-07-07 07:13:41,925 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:13:41,925 - socketio.server - INFO - emitting event "teams_list" to 4XvJkv7toDn3zAt1AAAB [/]
+2025-07-07 07:13:41,926 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:13:41,926 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:13:41,926 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet MESSAGE data 0{"sid":"4XvJkv7toDn3zAt1AAAB"}
+2025-07-07 07:13:41,987 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:13:41,987 - socketio.server - INFO - received event "get_available_pins" from 4XvJkv7toDn3zAt1AAAB [/]
+2025-07-07 07:13:41,988 - socketio.server - INFO - emitting event "available_pins" to 4XvJkv7toDn3zAt1AAAB [/]
+2025-07-07 07:13:41,989 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:13:41,989 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:14:06,862 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet PING data None
+2025-07-07 07:14:06,870 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet PONG data 
+2025-07-07 07:14:31,871 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet PING data None
+2025-07-07 07:14:31,880 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet PONG data 
+2025-07-07 07:14:56,880 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet PING data None
+2025-07-07 07:14:56,889 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet PONG data 
+2025-07-07 07:15:21,890 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Sending packet PING data None
+2025-07-07 07:15:21,900 - engineio.server - INFO - 5IEl1nSRzu1IdKwNAAAA: Received packet PONG data 
+2025-07-07 07:15:42,026 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/reset_gpio.py', reloading
+2025-07-07 07:15:42,026 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:15:42,026 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:15:42,268 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:15:42,942 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:15:42,943 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:15:42,943 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:15:42,943 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:15:42,944 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:15:42,944 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:15:42,955 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:15:42,956 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:15:42,956 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:15:42,956 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:15:42,957 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:15:42,962 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:15:42,962 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:15:43,749 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Sending packet OPEN data {'sid': 'FRfLFohRMSkkXg76AAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:15:43,749 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Received request to upgrade to websocket
+2025-07-07 07:15:43,750 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Upgrade to websocket successful
+2025-07-07 07:15:43,807 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Received packet MESSAGE data 0
+2025-07-07 07:15:43,808 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:15:43,809 - socketio.server - INFO - emitting event "connection_status" to nRAxrsy12iC__688AAAB [/]
+2025-07-07 07:15:43,809 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:15:43,809 - socketio.server - INFO - emitting event "teams_list" to nRAxrsy12iC__688AAAB [/]
+2025-07-07 07:15:43,809 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:15:43,809 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:15:43,809 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Sending packet MESSAGE data 0{"sid":"nRAxrsy12iC__688AAAB"}
+2025-07-07 07:15:43,864 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:15:43,864 - socketio.server - INFO - received event "get_available_pins" from nRAxrsy12iC__688AAAB [/]
+2025-07-07 07:15:43,865 - socketio.server - INFO - emitting event "available_pins" to nRAxrsy12iC__688AAAB [/]
+2025-07-07 07:15:43,865 - engineio.server - INFO - FRfLFohRMSkkXg76AAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:15:43,865 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:15:55,002 - werkzeug - INFO -  * Detected change in '/home/dev/Desktop/EEGame/app/server/reset_gpio.py', reloading
+2025-07-07 07:15:55,003 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:15:55,003 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:15:55,231 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:15:55,593 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:15:55,594 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:15:55,594 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:15:55,594 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:15:55,595 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:15:55,595 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:15:55,603 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:15:55,604 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:15:55,604 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:15:55,604 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:15:55,604 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:15:55,608 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:15:55,608 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:15:56,612 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet OPEN data {'sid': 'Rm1o6spzuvAFXTjSAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:15:56,613 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received request to upgrade to websocket
+2025-07-07 07:15:56,615 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Upgrade to websocket successful
+2025-07-07 07:15:56,663 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet MESSAGE data 0
+2025-07-07 07:15:56,664 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:15:56,664 - socketio.server - INFO - emitting event "connection_status" to iecnx4hy_mRzas06AAAB [/]
+2025-07-07 07:15:56,664 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:15:56,665 - socketio.server - INFO - emitting event "teams_list" to iecnx4hy_mRzas06AAAB [/]
+2025-07-07 07:15:56,665 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:15:56,665 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:15:56,665 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet MESSAGE data 0{"sid":"iecnx4hy_mRzas06AAAB"}
+2025-07-07 07:15:56,713 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:15:56,714 - socketio.server - INFO - received event "get_available_pins" from iecnx4hy_mRzas06AAAB [/]
+2025-07-07 07:15:56,714 - socketio.server - INFO - emitting event "available_pins" to iecnx4hy_mRzas06AAAB [/]
+2025-07-07 07:15:56,715 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:15:56,715 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:16:21,613 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:16:21,622 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:16:46,622 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:16:46,628 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:17:11,629 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:17:11,637 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:17:36,637 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:17:36,644 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:18:01,644 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:18:01,649 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:18:26,650 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:18:26,658 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:18:51,659 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:18:51,663 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:19:16,664 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:19:16,672 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:19:41,672 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:19:41,683 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:20:06,684 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:20:06,692 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:20:31,692 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Sending packet PING data None
+2025-07-07 07:20:31,696 - engineio.server - INFO - Rm1o6spzuvAFXTjSAAAA: Received packet PONG data 
+2025-07-07 07:20:40,372 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:20:40,373 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:20:40,602 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:20:40,784 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:24,256 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:21:24,256 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:21:24,257 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:21:24,257 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:21:24,257 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:21:24,257 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:21:24,267 - __main__ - INFO - Created test team: Red Team
+2025-07-07 07:21:24,268 - __main__ - INFO - Created test team: Blue Team
+2025-07-07 07:21:24,269 - __main__ - INFO - Created test team: Green Team
+2025-07-07 07:21:24,270 - __main__ - INFO - Created test team: Yellow Team
+2025-07-07 07:21:24,270 - __main__ - INFO - Initialized 4 test teams
+2025-07-07 07:21:24,274 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 07:21:24,274 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 07:21:24,274 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:21:24,658 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:21:24,659 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:21:24,659 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:21:24,659 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:21:24,660 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:21:24,660 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:21:24,668 - __main__ - WARNING - Failed to create test team Red Team: 'GPIO busy'
+2025-07-07 07:21:24,669 - __main__ - WARNING - Failed to create test team Blue Team: 'GPIO busy'
+2025-07-07 07:21:24,669 - __main__ - WARNING - Failed to create test team Green Team: 'GPIO busy'
+2025-07-07 07:21:24,669 - __main__ - WARNING - Failed to create test team Yellow Team: 'GPIO busy'
+2025-07-07 07:21:24,669 - __main__ - INFO - Initialized 0 test teams
+2025-07-07 07:21:24,673 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:21:24,673 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:21:24,862 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Sending packet OPEN data {'sid': 'Apk79kgb4fp9RTR9AAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:21:24,863 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Received request to upgrade to websocket
+2025-07-07 07:21:24,864 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Upgrade to websocket successful
+2025-07-07 07:21:24,925 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Received packet MESSAGE data 0
+2025-07-07 07:21:24,926 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:21:24,926 - socketio.server - INFO - emitting event "connection_status" to 2qrib2F0NtBc5_v-AAAB [/]
+2025-07-07 07:21:24,927 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:21:24,927 - socketio.server - INFO - emitting event "teams_list" to 2qrib2F0NtBc5_v-AAAB [/]
+2025-07-07 07:21:24,927 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:21:24,928 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:21:24,928 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Sending packet MESSAGE data 0{"sid":"2qrib2F0NtBc5_v-AAAB"}
+2025-07-07 07:21:24,975 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:21:24,975 - socketio.server - INFO - received event "get_available_pins" from 2qrib2F0NtBc5_v-AAAB [/]
+2025-07-07 07:21:24,976 - socketio.server - INFO - emitting event "available_pins" to 2qrib2F0NtBc5_v-AAAB [/]
+2025-07-07 07:21:24,976 - engineio.server - INFO - Apk79kgb4fp9RTR9AAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:21:24,976 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:21:42,719 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 07:21:42,719 - __main__ - INFO - Received signal 2, shutting down...
+2025-07-07 07:21:42,720 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:42,720 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:42,720 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:42,720 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:43,114 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:21:43,114 - __main__ - INFO - Cleaning up server resources...
+2025-07-07 07:22:05,024 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:22:05,025 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:22:05,025 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:22:05,025 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:22:05,026 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:22:05,026 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:22:05,034 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.100:5000
+2025-07-07 07:22:05,034 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-07 07:22:05,034 - werkzeug - INFO -  * Restarting with stat
+2025-07-07 07:22:05,394 - engineio.server - INFO - Server initialized for threading.
+2025-07-07 07:22:05,394 - EEGame.app.server.services.game_service - INFO - GameService initialized
+2025-07-07 07:22:05,394 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Initialized ReactionTimerGame game
+2025-07-07 07:22:05,394 - EEGame.app.server.games.game_base.ReactionTimerGame - INFO - Default times set: 2.0s to green, 1.0s in green, 20.0% deviation
+2025-07-07 07:22:05,395 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized QuizGame game
+2025-07-07 07:22:05,395 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game initialized
+2025-07-07 07:22:05,402 - werkzeug - WARNING -  * Debugger is active!
+2025-07-07 07:22:05,402 - werkzeug - INFO -  * Debugger PIN: 678-565-641
+2025-07-07 07:22:05,406 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Sending packet OPEN data {'sid': 'W0ybbdxuUzbbQ5jhAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:22:05,406 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Received request to upgrade to websocket
+2025-07-07 07:22:05,409 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Upgrade to websocket successful
+2025-07-07 07:22:05,469 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Received packet MESSAGE data 0
+2025-07-07 07:22:05,470 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:22:05,470 - socketio.server - INFO - emitting event "connection_status" to TVlLtcr5ZFYEweTGAAAB [/]
+2025-07-07 07:22:05,470 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:22:05,470 - socketio.server - INFO - emitting event "teams_list" to TVlLtcr5ZFYEweTGAAAB [/]
+2025-07-07 07:22:05,471 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:22:05,471 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:22:05,471 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Sending packet MESSAGE data 0{"sid":"TVlLtcr5ZFYEweTGAAAB"}
+2025-07-07 07:22:05,523 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:22:05,523 - socketio.server - INFO - received event "get_available_pins" from TVlLtcr5ZFYEweTGAAAB [/]
+2025-07-07 07:22:05,524 - socketio.server - INFO - emitting event "available_pins" to TVlLtcr5ZFYEweTGAAAB [/]
+2025-07-07 07:22:05,524 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:22:05,524 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:22:17,253 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:17] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:22:17,267 - engineio.server - INFO - W0ybbdxuUzbbQ5jhAAAA: Unexpected error "", closing connection
+2025-07-07 07:22:17,267 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:22:17,268 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:17] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 07:22:17,270 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 07:22:17,337 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:17] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:22:17,341 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet OPEN data {'sid': '6OltIa-qRTBYVsZOAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:22:17,341 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received request to upgrade to websocket
+2025-07-07 07:22:17,342 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Upgrade to websocket successful
+2025-07-07 07:22:17,393 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 0
+2025-07-07 07:22:17,394 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:22:17,394 - socketio.server - INFO - emitting event "connection_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:17,394 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:22:17,395 - socketio.server - INFO - emitting event "teams_list" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:17,395 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["teams_list",{"teams":[]}]
+2025-07-07 07:22:17,395 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 0 teams
+2025-07-07 07:22:17,395 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 0{"sid":"5F8hmFeMtLf5l-P2AAAD"}
+2025-07-07 07:22:17,445 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:22:17,446 - socketio.server - INFO - received event "get_available_pins" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:17,446 - socketio.server - INFO - emitting event "available_pins" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:17,446 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,34,35,36,37,38,40]]
+2025-07-07 07:22:17,447 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 25 pins
+2025-07-07 07:22:28,622 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["create_team",{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24}]
+2025-07-07 07:22:28,622 - socketio.server - INFO - received event "create_team" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:28,629 - EEGame.app.server.socketio.team_endpoints - INFO - Team created: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:28,630 - socketio.server - INFO - emitting event "team_created" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:28,630 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_created",{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]
+2025-07-07 07:22:28,630 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_created event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:28,630 - socketio.server - INFO - emitting event "team_list_updated" to all [/]
+2025-07-07 07:22:28,630 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_list_updated",{"teams":[{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]}]
+2025-07-07 07:22:28,630 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted team_list_updated event with 1 teams
+2025-07-07 07:22:28,637 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:22:28,637 - socketio.server - INFO - received event "get_available_pins" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:28,638 - socketio.server - INFO - emitting event "available_pins" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:28,638 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-07 07:22:28,638 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 22 pins
+2025-07-07 07:22:34,797 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["toggle_led",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:34,798 - socketio.server - INFO - received event "toggle_led" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:34,799 - EEGame.app.server.socketio.team_endpoints - INFO - LED toggled for team: team_1751869348232_ybb8wpnpx, new state: True
+2025-07-07 07:22:34,800 - socketio.server - INFO - emitting event "led_state_changed" to all [/]
+2025-07-07 07:22:34,800 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["led_state_changed",{"team_id":"team_1751869348232_ybb8wpnpx","led_state":true}]
+2025-07-07 07:22:34,801 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted led_state_changed event for team team_1751869348232_ybb8wpnpx: True
+2025-07-07 07:22:35,307 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:35,308 - socketio.server - INFO - received event "get_team_status" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:35,309 - socketio.server - INFO - emitting event "team_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:35,309 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751869348232_ybb8wpnpx","latch_state":false,"led_state":true}]
+2025-07-07 07:22:35,309 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:35,354 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["toggle_led",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:35,355 - socketio.server - INFO - received event "toggle_led" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:35,356 - EEGame.app.server.socketio.team_endpoints - INFO - LED toggled for team: team_1751869348232_ybb8wpnpx, new state: False
+2025-07-07 07:22:35,357 - socketio.server - INFO - emitting event "led_state_changed" to all [/]
+2025-07-07 07:22:35,357 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["led_state_changed",{"team_id":"team_1751869348232_ybb8wpnpx","led_state":false}]
+2025-07-07 07:22:35,357 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted led_state_changed event for team team_1751869348232_ybb8wpnpx: False
+2025-07-07 07:22:35,860 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:35,860 - socketio.server - INFO - received event "get_team_status" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:35,861 - socketio.server - INFO - emitting event "team_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:35,862 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751869348232_ybb8wpnpx","latch_state":false,"led_state":false}]
+2025-07-07 07:22:35,862 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:37,462 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["reset_latch",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:37,462 - socketio.server - INFO - received event "reset_latch" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:37,463 - EEGame.app.server.socketio.team_endpoints - INFO - Latch reset for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:37,463 - socketio.server - INFO - emitting event "latch_reset" to all [/]
+2025-07-07 07:22:37,463 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["latch_reset",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:37,463 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Broadcasted latch_reset event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:37,976 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:37,977 - socketio.server - INFO - received event "get_team_status" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:37,977 - socketio.server - INFO - emitting event "team_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:37,977 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751869348232_ybb8wpnpx","latch_state":false,"led_state":false}]
+2025-07-07 07:22:37,978 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:41,694 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:41,694 - socketio.server - INFO - received event "get_team_status" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:41,695 - socketio.server - INFO - emitting event "team_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:41,695 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751869348232_ybb8wpnpx","latch_state":true,"led_state":false}]
+2025-07-07 07:22:41,695 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:42,342 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet PING data None
+2025-07-07 07:22:42,350 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet PONG data 
+2025-07-07 07:22:44,565 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Received packet MESSAGE data 2["get_team_status",{"team_id":"team_1751869348232_ybb8wpnpx"}]
+2025-07-07 07:22:44,565 - socketio.server - INFO - received event "get_team_status" from 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:44,566 - socketio.server - INFO - emitting event "team_status" to 5F8hmFeMtLf5l-P2AAAD [/]
+2025-07-07 07:22:44,566 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Sending packet MESSAGE data 2["team_status",{"team_id":"team_1751869348232_ybb8wpnpx","latch_state":false,"led_state":false}]
+2025-07-07 07:22:44,567 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted team_status event for team: team_1751869348232_ybb8wpnpx
+2025-07-07 07:22:47,260 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:47] "GET / HTTP/1.1" 200 -
+2025-07-07 07:22:47,323 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:47] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:22:47,333 - engineio.server - INFO - 6OltIa-qRTBYVsZOAAAC: Unexpected error "", closing connection
+2025-07-07 07:22:47,334 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:22:47,335 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:47] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 07:22:47,336 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 07:22:48,609 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "GET /quiz-game HTTP/1.1" 200 -
+2025-07-07 07:22:48,666 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:22:48,675 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet OPEN data {'sid': '6Z7nrylvWDUfU5K6AAAE', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:22:48,675 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "GET /socket.io/?EIO=4&transport=polling&t=PVZZIVF HTTP/1.1" 200 -
+2025-07-07 07:22:48,726 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received request to upgrade to websocket
+2025-07-07 07:22:48,730 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "GET /socket.io/?EIO=4&transport=polling&t=PVZZIW8&sid=6Z7nrylvWDUfU5K6AAAE HTTP/1.1" 200 -
+2025-07-07 07:22:48,729 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 0
+2025-07-07 07:22:48,731 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:22:48,731 - socketio.server - INFO - emitting event "connection_status" to M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:22:48,731 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:22:48,731 - socketio.server - INFO - emitting event "teams_list" to M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:22:48,732 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["teams_list",{"teams":[{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]}]
+2025-07-07 07:22:48,732 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 1 teams
+2025-07-07 07:22:48,732 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 0{"sid":"M2QLpKjfYBjzX91oAAAF"}
+2025-07-07 07:22:48,733 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "POST /socket.io/?EIO=4&transport=polling&t=PVZZIW6&sid=6Z7nrylvWDUfU5K6AAAE HTTP/1.1" 200 -
+2025-07-07 07:22:48,739 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:22:48] "GET /socket.io/?EIO=4&transport=polling&t=PVZZIWT&sid=6Z7nrylvWDUfU5K6AAAE HTTP/1.1" 200 -
+2025-07-07 07:22:48,744 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Upgrade to websocket successful
+2025-07-07 07:22:48,798 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 2["quiz/get_game_state",{}]
+2025-07-07 07:22:48,798 - socketio.server - INFO - received event "quiz/get_game_state" from M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:22:48,799 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/get_game_state event
+2025-07-07 07:22:48,799 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:48,800 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 07:22:48,800 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 07:22:48,800 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:22:48,800 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{}}]
+2025-07-07 07:22:48,801 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {}}
+2025-07-07 07:22:50,933 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 2["quiz/start_game",{}]
+2025-07-07 07:22:50,933 - socketio.server - INFO - received event "quiz/start_game" from M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:22:50,934 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/start_game event
+2025-07-07 07:22:50,934 - EEGame.app.server.services.game_service - INFO - Starting quiz game
+2025-07-07 07:22:50,934 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting QuizGame game in a new thread
+2025-07-07 07:22:50,934 - EEGame.app.server.games.game_base.QuizGame - INFO - Initialized 1 teams for quiz game
+2025-07-07 07:22:50,934 - EEGame.app.server.games.game_base.QuizGame - INFO - Started QuizGame game in a new thread
+2025-07-07 07:22:50,934 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:22:50,934 - socketio.server - INFO - emitting event "quiz/game_started" to all [/]
+2025-07-07 07:22:50,935 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{"team_1751869348232_ybb8wpnpx":{"name":"MyTeam","score":0,"locked_out":false,"has_buzzed":false}}}]
+2025-07-07 07:22:50,935 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {'team_1751869348232_ybb8wpnpx': {'name': 'MyTeam', 'score': 0, 'locked_out': False, 'has_buzzed': False}}}
+2025-07-07 07:22:50,935 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_started",{"message":"Quiz game started"}]
+2025-07-07 07:22:50,935 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:50,935 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"waiting","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false}]
+2025-07-07 07:22:50,936 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'waiting', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False}
+2025-07-07 07:22:50,936 - EEGame.app.server.games.game_base.QuizGame - INFO - Set callbacks for 1 teams
+2025-07-07 07:22:50,936 - EEGame.app.server.games.game_base.QuizGame - INFO - Starting Quiz Game
+2025-07-07 07:22:50,936 - socketio.server - INFO - emitting event "quiz/new_question" to all [/]
+2025-07-07 07:22:50,936 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/new_question",{"question_number":1,"total_questions":15,"question":"What is the hardest natural substance on Earth?","points":5,"type":"science"}]
+2025-07-07 07:22:50,936 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'new_question' to all clients: {'question_number': 1, 'total_questions': 15, 'question': 'What is the hardest natural substance on Earth?', 'points': 5, 'type': 'science'}
+2025-07-07 07:22:50,937 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:50,937 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"question_display","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":false,"current_question":{"question":"What is the hardest natural substance on Earth?","points":5,"type":"science"}}]
+2025-07-07 07:22:50,937 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'question_display', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': False, 'current_question': {'question': 'What is the hardest natural substance on Earth?', 'points': 5, 'type': 'science'}}
+2025-07-07 07:22:52,937 - socketio.server - INFO - emitting event "quiz/buzzers_enabled" to all [/]
+2025-07-07 07:22:52,937 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/buzzers_enabled",{"message":"Buzzers are now active!"}]
+2025-07-07 07:22:52,938 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'buzzers_enabled' to all clients: {'message': 'Buzzers are now active!'}
+2025-07-07 07:22:52,938 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:52,938 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"accepting_buzzes","questions_answered":0,"total_questions":15,"current_answering_team":null,"buzzer_enabled":true,"current_question":{"question":"What is the hardest natural substance on Earth?","points":5,"type":"science"}}]
+2025-07-07 07:22:52,939 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'accepting_buzzes', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': None, 'buzzer_enabled': True, 'current_question': {'question': 'What is the hardest natural substance on Earth?', 'points': 5, 'type': 'science'}}
+2025-07-07 07:22:54,162 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Team team_1751869348232_ybb8wpnpx pressed button at 1751869370.9361827
+2025-07-07 07:22:54,162 - EEGame.app.server.games.game_base.QuizGame - INFO - Team team_1751869348232_ybb8wpnpx buzzed in first!
+2025-07-07 07:22:54,162 - socketio.server - INFO - emitting event "quiz/team_buzzed" to all [/]
+2025-07-07 07:22:54,162 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/team_buzzed",{"team_id":"team_1751869348232_ybb8wpnpx","team_name":"MyTeam","is_first":true}]
+2025-07-07 07:22:54,163 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_buzzed' to all clients: {'team_id': 'team_1751869348232_ybb8wpnpx', 'team_name': 'MyTeam', 'is_first': True}
+2025-07-07 07:22:54,163 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:54,163 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"team_answering","questions_answered":0,"total_questions":15,"current_answering_team":"team_1751869348232_ybb8wpnpx","buzzer_enabled":false,"current_question":{"question":"What is the hardest natural substance on Earth?","points":5,"type":"science"}}]
+2025-07-07 07:22:54,163 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'team_answering', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': 'team_1751869348232_ybb8wpnpx', 'buzzer_enabled': False, 'current_question': {'question': 'What is the hardest natural substance on Earth?', 'points': 5, 'type': 'science'}}
+2025-07-07 07:22:54,163 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:22:54,163 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{"team_1751869348232_ybb8wpnpx":{"name":"MyTeam","score":0,"locked_out":false,"has_buzzed":true}}}]
+2025-07-07 07:22:54,163 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {'team_1751869348232_ybb8wpnpx': {'name': 'MyTeam', 'score': 0, 'locked_out': False, 'has_buzzed': True}}}
+2025-07-07 07:22:56,199 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 2["quiz/mark_answer",{"correct":true}]
+2025-07-07 07:22:56,200 - socketio.server - INFO - received event "quiz/mark_answer" from M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:22:56,200 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/mark_answer event: {'correct': True}
+2025-07-07 07:22:56,200 - EEGame.app.server.games.game_base.QuizGame - INFO - Team team_1751869348232_ybb8wpnpx answered correctly! +5 points
+2025-07-07 07:22:56,200 - socketio.server - INFO - emitting event "quiz/answer_result" to all [/]
+2025-07-07 07:22:56,201 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/answer_result",{"team_id":"team_1751869348232_ybb8wpnpx","team_name":"MyTeam","correct":true,"points_awarded":5,"new_score":5}]
+2025-07-07 07:22:56,201 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'answer_result' to all clients: {'team_id': 'team_1751869348232_ybb8wpnpx', 'team_name': 'MyTeam', 'correct': True, 'points_awarded': 5, 'new_score': 5}
+2025-07-07 07:22:56,201 - socketio.server - INFO - emitting event "quiz/game_state" to all [/]
+2025-07-07 07:22:56,201 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/game_state",{"state":"answer_result","questions_answered":0,"total_questions":15,"current_answering_team":"team_1751869348232_ybb8wpnpx","buzzer_enabled":false,"current_question":{"question":"What is the hardest natural substance on Earth?","points":5,"type":"science"}}]
+2025-07-07 07:22:56,201 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'game_state' to all clients: {'state': 'answer_result', 'questions_answered': 0, 'total_questions': 15, 'current_answering_team': 'team_1751869348232_ybb8wpnpx', 'buzzer_enabled': False, 'current_question': {'question': 'What is the hardest natural substance on Earth?', 'points': 5, 'type': 'science'}}
+2025-07-07 07:22:56,202 - socketio.server - INFO - emitting event "quiz/team_scores" to all [/]
+2025-07-07 07:22:56,202 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet MESSAGE data 2["quiz/team_scores",{"scores":{"team_1751869348232_ybb8wpnpx":{"name":"MyTeam","score":5,"locked_out":false,"has_buzzed":true}}}]
+2025-07-07 07:22:56,202 - EEGame.app.server.games.game_base.QuizGame - DEBUG - Emitted 'team_scores' to all clients: {'scores': {'team_1751869348232_ybb8wpnpx': {'name': 'MyTeam', 'score': 5, 'locked_out': False, 'has_buzzed': True}}}
+2025-07-07 07:23:13,675 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Sending packet PING data None
+2025-07-07 07:23:13,685 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet PONG data 
+2025-07-07 07:23:32,967 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 2["quiz/stop_game",{}]
+2025-07-07 07:23:32,967 - socketio.server - INFO - received event "quiz/stop_game" from M2QLpKjfYBjzX91oAAAF [/]
+2025-07-07 07:23:32,968 - EEGame.app.server.socketio.game_endpoints - INFO - Received quiz/stop_game event
+2025-07-07 07:23:32,968 - EEGame.app.server.services.game_service - INFO - Stopping quiz game
+2025-07-07 07:23:32,968 - EEGame.app.server.games.game_base.QuizGame - INFO - Stopping QuizGame game
+2025-07-07 07:23:33,968 - EEGame.app.server.games.game_base.QuizGame - INFO - QuizGame game stopped
+2025-07-07 07:23:34,004 - EEGame.app.server.games.game_base.QuizGame - INFO - Quiz Game ended
+2025-07-07 07:23:36,134 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Received packet MESSAGE data 1
+2025-07-07 07:23:36,134 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:23:36,135 - engineio.server - INFO - 6Z7nrylvWDUfU5K6AAAE: Unexpected error "", closing connection
+2025-07-07 07:23:36,135 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:36] "GET /socket.io/?EIO=4&transport=websocket&sid=6Z7nrylvWDUfU5K6AAAE HTTP/1.1" 200 -
+2025-07-07 07:23:36,159 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:36] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:23:36,274 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:36] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:23:36,292 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Sending packet OPEN data {'sid': 'dXrFVFx19yvSK4aIAAAG', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:23:36,293 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Received request to upgrade to websocket
+2025-07-07 07:23:36,294 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Upgrade to websocket successful
+2025-07-07 07:23:36,348 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Received packet MESSAGE data 0
+2025-07-07 07:23:36,348 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:23:36,348 - socketio.server - INFO - emitting event "connection_status" to W43bS1LvVQSJ2UduAAAH [/]
+2025-07-07 07:23:36,349 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:23:36,349 - socketio.server - INFO - emitting event "teams_list" to W43bS1LvVQSJ2UduAAAH [/]
+2025-07-07 07:23:36,349 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Sending packet MESSAGE data 2["teams_list",{"teams":[{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]}]
+2025-07-07 07:23:36,349 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 1 teams
+2025-07-07 07:23:36,350 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Sending packet MESSAGE data 0{"sid":"W43bS1LvVQSJ2UduAAAH"}
+2025-07-07 07:23:36,405 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:23:36,405 - socketio.server - INFO - received event "get_available_pins" from W43bS1LvVQSJ2UduAAAH [/]
+2025-07-07 07:23:36,406 - socketio.server - INFO - emitting event "available_pins" to W43bS1LvVQSJ2UduAAAH [/]
+2025-07-07 07:23:36,406 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-07 07:23:36,407 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 22 pins
+2025-07-07 07:23:39,398 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:39] "GET /team-management HTTP/1.1" 200 -
+2025-07-07 07:23:39,409 - engineio.server - INFO - dXrFVFx19yvSK4aIAAAG: Unexpected error "", closing connection
+2025-07-07 07:23:39,410 - EEGame.app.server.socketio.session_endpoints - INFO - Client disconnected
+2025-07-07 07:23:39,410 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:39] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-07-07 07:23:39,411 - werkzeug - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 335, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 327, in execute
+    write(b"")
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 252, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-07-07 07:23:39,448 - werkzeug - INFO - 192.168.0.167 - - [07/Jul/2025 07:23:39] "[36mGET /static/my-logo.svg HTTP/1.1[0m" 304 -
+2025-07-07 07:23:39,467 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet OPEN data {'sid': '54tz_mkoLW3Kn8WtAAAI', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2025-07-07 07:23:39,468 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Received request to upgrade to websocket
+2025-07-07 07:23:39,469 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Upgrade to websocket successful
+2025-07-07 07:23:39,530 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Received packet MESSAGE data 0
+2025-07-07 07:23:39,531 - EEGame.app.server.socketio.session_endpoints - INFO - Client connected
+2025-07-07 07:23:39,531 - socketio.server - INFO - emitting event "connection_status" to oh0TceTJWyaBC4I2AAAJ [/]
+2025-07-07 07:23:39,531 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet MESSAGE data 2["connection_status",{"status":"connected","message":"Successfully connected to server"}]
+2025-07-07 07:23:39,532 - socketio.server - INFO - emitting event "teams_list" to oh0TceTJWyaBC4I2AAAJ [/]
+2025-07-07 07:23:39,532 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet MESSAGE data 2["teams_list",{"teams":[{"team_id":"team_1751869348232_ybb8wpnpx","name":"MyTeam","team_color":"var(--team-1-red)","latch_pin":40,"reset_pin":22,"led_pin":24,"latch_state":false,"led_state":false}]}]
+2025-07-07 07:23:39,532 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted teams_list event with 1 teams
+2025-07-07 07:23:39,532 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet MESSAGE data 0{"sid":"oh0TceTJWyaBC4I2AAAJ"}
+2025-07-07 07:23:39,585 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Received packet MESSAGE data 2["get_available_pins"]
+2025-07-07 07:23:39,585 - socketio.server - INFO - received event "get_available_pins" from oh0TceTJWyaBC4I2AAAJ [/]
+2025-07-07 07:23:39,586 - socketio.server - INFO - emitting event "available_pins" to oh0TceTJWyaBC4I2AAAJ [/]
+2025-07-07 07:23:39,586 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet MESSAGE data 2["available_pins",[7,8,10,11,12,13,15,16,18,19,21,23,26,29,31,32,33,34,35,36,37,38]]
+2025-07-07 07:23:39,586 - EEGame.app.server.socketio.socketio_emitter - DEBUG - Emitted available_pins event with 22 pins
+2025-07-07 07:24:04,468 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Sending packet PING data None
+2025-07-07 07:24:04,476 - engineio.server - INFO - 54tz_mkoLW3Kn8WtAAAI: Received packet PONG data 
