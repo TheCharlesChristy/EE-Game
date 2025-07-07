@@ -1,0 +1,18 @@
+{
+    "questions": [
+        {
+            "type": "geography",
+            "question": "What is the capital of France?",
+            "answers": [
+                {
+                    "a": "Berlin",
+                    "b": "Madrid",
+                    "c": "Paris",
+                    "d": "Rome"
+                }
+            ],
+            "correct": "c",
+            "points": 10
+        }
+    ]
+}
