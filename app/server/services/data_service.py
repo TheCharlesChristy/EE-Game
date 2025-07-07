@@ -48,6 +48,24 @@ class DataService:
         """Get a list of all question sets."""
         return list(self.question_sets.values())
     
+    def get_all_question_sets_names(self) -> List[str]:
+        """Get a list of all question set names."""
+        l = list(self.question_sets.keys())
+        l.sort()
+        l.append("all")  # Add "all" option for convenience
+        return l
+    
+    def get_all_question_types(self, question_set: str = "") -> List[str]:
+        """Get a list of all question types in a question set or all sets."""
+        if question_set and not question_set == "all":
+            q_set = self.get_question_set(question_set)
+            if not q_set:
+                raise ValueError(f"Question set '{question_set}' does not exist.")
+            return list(set(q.type for q in q_set.questions))
+        else:
+            return list(set(q.type for q_set in self.question_sets.values() for q in q_set.questions))
+        
+    
     def get_random_question(self, q_set: Union[str, QuestionSet]) -> Question:
         """Get a random question from a question set."""
         if isinstance(q_set, str):

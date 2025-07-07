@@ -1,4 +1,33 @@
 <section class="quiz-game-controls" aria-label="Quiz Game Control Panel">
+    <div class="quiz-game-controls__filters">
+        <div class="quiz-game-controls__filter-group">
+            <label for="question-set-select" class="quiz-game-controls__filter-label">
+                Question Set:
+            </label>
+            <select 
+                id="question-set-select" 
+                class="quiz-game-controls__filter-select"
+                aria-label="Select Question Set"
+            >
+                <option value="all">All Question Sets</option>
+            </select>
+        </div>
+        
+        <div class="quiz-game-controls__filter-group">
+            <label for="question-type-select" class="quiz-game-controls__filter-label">
+                Question Type:
+            </label>
+            <select 
+                id="question-type-select" 
+                class="quiz-game-controls__filter-select"
+                aria-label="Select Question Type"
+                disabled
+            >
+                <option value="all">All Types</option>
+            </select>
+        </div>
+    </div>
+
     <div class="quiz-game-controls__container">
         <button 
             class="quiz-game-controls__button quiz-game-controls__button--start"

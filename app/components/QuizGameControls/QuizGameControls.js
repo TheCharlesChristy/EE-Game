@@ -1,6 +1,6 @@
 /**
- * QuizGameControls Component
- * Handles game control buttons and status display for the Quiz Game
+ * QuizGameControls Component with Filter Integration
+ * Manages quiz game controls and question filtering
  */
 class QuizGameControls {
     constructor() {
@@ -16,6 +16,12 @@ class QuizGameControls {
         this.socket = null;
         this.isGameActive = false;
         
+        // Filter elements
+        this.questionSetSelect = null;
+        this.questionTypeSelect = null;
+        this.selectedQuestionSet = 'all';
+        this.selectedQuestionType = 'all';
+        
         this.init();
     }
 
@@ -28,13 +34,13 @@ class QuizGameControls {
         }
 
         this.setupElements();
-        this.attachEventListeners();
+        this.setupEventListeners();
         this.setupSocketConnection();
         console.log('QuizGameControls: Initialization complete');
     }
 
     setupElements() {
-        // Buttons
+        // Game control buttons
         this.startButton = this.container.querySelector('[data-action="start"]');
         this.stopButton = this.container.querySelector('[data-action="stop"]');
         this.skipButton = this.container.querySelector('[data-action="skip"]');
@@ -45,19 +51,33 @@ class QuizGameControls {
         this.currentQuestion = this.container.querySelector('.quiz-game-controls__current');
         this.totalQuestions = this.container.querySelector('.quiz-game-controls__total');
         this.loading = this.container.querySelector('.quiz-game-controls__loading');
+        
+        // Filter elements
+        this.questionSetSelect = this.container.querySelector('#question-set-select');
+        this.questionTypeSelect = this.container.querySelector('#question-type-select');
     }
 
-    attachEventListeners() {
+    setupEventListeners() {
+        // Button event listeners
         if (this.startButton) {
-            this.startButton.addEventListener('click', () => this.handleStartGame());
+            this.startButton.addEventListener('click', () => this.startGame());
         }
-
+        
         if (this.stopButton) {
-            this.stopButton.addEventListener('click', () => this.handleStopGame());
+            this.stopButton.addEventListener('click', () => this.stopGame());
         }
-
+        
         if (this.skipButton) {
-            this.skipButton.addEventListener('click', () => this.handleSkipQuestion());
+            this.skipButton.addEventListener('click', () => this.skipQuestion());
+        }
+        
+        // Filter event listeners
+        if (this.questionSetSelect) {
+            this.questionSetSelect.addEventListener('change', (e) => this.onQuestionSetChange(e));
+        }
+        
+        if (this.questionTypeSelect) {
+            this.questionTypeSelect.addEventListener('change', (e) => this.onQuestionTypeChange(e));
         }
     }
 
@@ -66,12 +86,14 @@ class QuizGameControls {
         document.addEventListener('socketio_connected', () => {
             this.socket = window.socket;
             this.setupSocketHandlers();
+            this.loadQuestionSets(); // Load question sets when connected
         });
 
         // Check if socket already exists
         if (window.socket) {
             this.socket = window.socket;
             this.setupSocketHandlers();
+            this.loadQuestionSets(); // Load question sets when connected
         }
     }
 
@@ -80,78 +102,224 @@ class QuizGameControls {
 
         console.log('QuizGameControls: Setting up socket handlers');
 
-        // Game state events
-        this.socket.on('quiz/game_started', (data) => {
-            console.log('Quiz game started:', data);
-            this.onGameStarted();
-        });
+        // Game state handlers
+        this.socket.on('game_started', () => this.onGameStarted());
+        this.socket.on('quiz/game_started', () => this.onGameStarted());
+        
+        this.socket.on('game_stopped', () => this.onGameStopped());
+        this.socket.on('quiz/game_stopped', () => this.onGameStopped());
+        
+        this.socket.on('quiz/game_over', () => this.onGameOver());
+        
+        this.socket.on('quiz/game_state', (data) => this.updateGameState(data));
+        
+        // Filter data handlers
+        this.socket.on('quiz/question_sets', (data) => this.updateQuestionSets(data));
+        this.socket.on('quiz/question_types', (data) => this.updateQuestionTypes(data));
+    }
 
-        this.socket.on('quiz/game_stopped', (data) => {
-            console.log('Quiz game stopped:', data);
-            this.onGameStopped();
-        });
+    // Filter Methods
+    loadQuestionSets() {
+        if (!this.socket) return;
+        
+        console.log('Loading question sets...');
+        this.setFilterLoading(this.questionSetSelect, true);
+        this.socket.emit('quiz/get_question_sets', {});
+    }
 
-        this.socket.on('quiz/game_state', (data) => {
-            console.log('Game state update:', data);
-            this.updateGameState(data);
-        });
+    onQuestionSetChange(event) {
+        this.selectedQuestionSet = event.target.value;
+        console.log('Question set changed to:', this.selectedQuestionSet);
+        
+        // Reset question type to 'all'
+        this.selectedQuestionType = 'all';
+        if (this.questionTypeSelect) {
+            this.questionTypeSelect.value = 'all';
+        }
+        
+        // Load question types for the selected set
+        this.loadQuestionTypes();
+    }
 
-        this.socket.on('quiz/new_question', (data) => {
-            console.log('New question:', data);
-            this.updateQuestionCount(data.question_number, data.total_questions);
-        });
+    onQuestionTypeChange(event) {
+        this.selectedQuestionType = event.target.value;
+        console.log('Question type changed to:', this.selectedQuestionType);
+    }
 
-        this.socket.on('quiz/game_over', (data) => {
-            console.log('Game over:', data);
-            this.onGameOver();
+    loadQuestionTypes() {
+        if (!this.socket) return;
+        
+        console.log('Loading question types for set:', this.selectedQuestionSet);
+        this.setFilterLoading(this.questionTypeSelect, true);
+        this.questionTypeSelect.disabled = true;
+        
+        this.socket.emit('quiz/get_question_types', {
+            question_set: this.selectedQuestionSet
         });
     }
 
-    handleStartGame() {
-        if (!this.socket) {
-            console.error('Socket not connected');
-            return;
-        }
-
-        console.log('Starting quiz game...');
-        this.showLoading(true);
-        this.socket.emit('quiz/start_game', {});
+    updateQuestionSets(data) {
+        console.log('Received question sets:', data);
         
-        // Update UI immediately
-        this.startButton.disabled = true;
-        this.updateStatus('Starting game...');
+        if (!this.questionSetSelect || !data.question_sets) return;
+        
+        // Clear existing options except 'all'
+        this.questionSetSelect.innerHTML = '<option value="all">All Question Sets</option>';
+        
+        // Add new options
+        data.question_sets.forEach(set => {
+            const option = document.createElement('option');
+            option.value = set;
+            option.textContent = this.formatQuestionSetName(set);
+            this.questionSetSelect.appendChild(option);
+        });
+        
+        this.setFilterLoading(this.questionSetSelect, false);
+        
+        // Enable question type select if a specific set is selected
+        if (this.selectedQuestionSet !== 'all') {
+            this.loadQuestionTypes();
+        }
     }
 
-    handleStopGame() {
-        if (!this.socket) {
-            console.error('Socket not connected');
-            return;
-        }
-
-        console.log('Stopping quiz game...');
-        this.socket.emit('quiz/stop_game', {});
+    updateQuestionTypes(data) {
+        console.log('Received question types:', data);
         
-        // Update UI immediately
-        this.stopButton.disabled = true;
-        this.updateStatus('Stopping game...');
+        if (!this.questionTypeSelect || !data.question_types) return;
+        
+        // Clear existing options except 'all'
+        this.questionTypeSelect.innerHTML = '<option value="all">All Types</option>';
+        
+        // Add new options
+        data.question_types.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = this.formatQuestionTypeName(type);
+            this.questionTypeSelect.appendChild(option);
+        });
+        
+        this.setFilterLoading(this.questionTypeSelect, false);
+        this.questionTypeSelect.disabled = false;
     }
 
-    handleSkipQuestion() {
-        if (!this.socket || !this.isGameActive) {
-            console.error('Cannot skip question - game not active');
-            return;
-        }
-
-        console.log('Skipping current question...');
-        this.socket.emit('quiz/skip_question', {});
+    setFilterLoading(selectElement, isLoading) {
+        if (!selectElement) return;
         
-        // Temporarily disable skip button
-        this.skipButton.disabled = true;
+        if (isLoading) {
+            selectElement.classList.add('quiz-game-controls__filter-select--loading');
+        } else {
+            selectElement.classList.remove('quiz-game-controls__filter-select--loading');
+        }
+    }
+
+    formatQuestionSetName(setName) {
+        // Format the set name for display (e.g., "general_knowledge" -> "General Knowledge")
+        return setName
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    formatQuestionTypeName(typeName) {
+        // Format the type name for display
+        return typeName
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    // Game Control Methods
+    startGame() {
+        if (!this.socket || this.isGameActive) return;
+        
+        console.log('Starting quiz game with filters:', {
+            question_set: this.selectedQuestionSet,
+            question_type: this.selectedQuestionType
+        });
+        
+        this.showLoading();
+        
+        // Disable filters during game
+        if (this.questionSetSelect) this.questionSetSelect.disabled = true;
+        if (this.questionTypeSelect) this.questionTypeSelect.disabled = true;
+        
+        // Emit start game with filter parameters
+        this.socket.emit('quiz/start_game', {
+            question_set: this.selectedQuestionSet,
+            question_type: this.selectedQuestionType
+        });
+        
         setTimeout(() => {
+            this.hideLoading();
             if (this.isGameActive) {
                 this.skipButton.disabled = false;
             }
         }, 2000);
+    }
+
+    stopGame() {
+        if (!this.socket || !this.isGameActive) return;
+        
+        console.log('Stopping quiz game');
+        this.socket.emit('quiz/stop_game', {});
+        
+        // Re-enable filters
+        if (this.questionSetSelect) this.questionSetSelect.disabled = false;
+        if (this.questionTypeSelect && this.selectedQuestionSet !== 'all') {
+            this.questionTypeSelect.disabled = false;
+        }
+    }
+
+    skipQuestion() {
+        if (!this.socket || !this.isGameActive) return;
+        
+        console.log('Skipping current question');
+        this.socket.emit('quiz/skip_question', {});
+    }
+
+    // UI Update Methods
+    showLoading() {
+        if (this.loading) {
+            this.loading.classList.add('active');
+        }
+    }
+
+    hideLoading() {
+        if (this.loading) {
+            this.loading.classList.remove('active');
+        }
+    }
+
+    setGameState(active) {
+        this.isGameActive = active;
+        
+        if (this.startButton) {
+            this.startButton.disabled = active;
+        }
+        
+        if (this.stopButton) {
+            this.stopButton.disabled = !active;
+        }
+        
+        if (this.skipButton) {
+            this.skipButton.disabled = !active;
+        }
+    }
+
+    updateStatus(text) {
+        if (this.statusText) {
+            this.statusText.textContent = text;
+        }
+    }
+
+    updateQuestionCount(current, total) {
+        if (this.currentQuestion) {
+            this.currentQuestion.textContent = current;
+        }
+        
+        if (this.totalQuestions) {
+            this.totalQuestions.textContent = total;
+        }
     }
 
     onGameStarted() {
@@ -176,6 +344,12 @@ class QuizGameControls {
             this.questionCount.style.display = 'none';
         }
         
+        // Re-enable filters
+        if (this.questionSetSelect) this.questionSetSelect.disabled = false;
+        if (this.questionTypeSelect && this.selectedQuestionSet !== 'all') {
+            this.questionTypeSelect.disabled = false;
+        }
+        
         // Emit custom event
         this.emitEvent('quiz_game_stopped');
     }
@@ -184,6 +358,12 @@ class QuizGameControls {
         this.isGameActive = false;
         this.setGameState(false);
         this.updateStatus('Game Over');
+        
+        // Re-enable filters
+        if (this.questionSetSelect) this.questionSetSelect.disabled = false;
+        if (this.questionTypeSelect && this.selectedQuestionSet !== 'all') {
+            this.questionTypeSelect.disabled = false;
+        }
         
         // Emit custom event
         this.emitEvent('quiz_game_over');
@@ -203,76 +383,22 @@ class QuizGameControls {
             'waiting': 'Ready to Start',
             'question_display': 'Displaying question...',
             'accepting_buzzes': 'Buzzers active!',
-            'team_answering': `Team answering...`,
-            'answer_result': 'Processing answer...',
+            'team_answering': 'Team answering...',
+            'answer_result': 'Showing result...',
             'game_over': 'Game Over'
         };
         
-        if (stateMessages[data.state]) {
-            this.updateStatus(stateMessages[data.state]);
-        }
-        
-        // Enable/disable skip button based on state
-        if (this.skipButton) {
-            this.skipButton.disabled = !this.isGameActive || 
-                data.state === 'answer_result' || 
-                data.state === 'game_over';
-        }
+        this.updateStatus(stateMessages[data.state] || data.state);
     }
 
-    updateQuestionCount(current, total) {
-        if (this.currentQuestion) {
-            this.currentQuestion.textContent = current;
-        }
-        if (this.totalQuestions) {
-            this.totalQuestions.textContent = total;
-        }
-    }
-
-    setGameState(isActive) {
-        this.isGameActive = isActive;
-        
-        if (this.startButton) {
-            this.startButton.disabled = isActive;
-        }
-        
-        if (this.stopButton) {
-            this.stopButton.disabled = !isActive;
-        }
-        
-        if (this.skipButton) {
-            this.skipButton.disabled = !isActive;
-        }
-
-        this.showLoading(false);
-    }
-
-    updateStatus(message) {
-        if (this.statusText) {
-            this.statusText.textContent = message;
-        }
-    }
-
-    showLoading(show) {
-        if (this.loading) {
-            if (show) {
-                this.loading.classList.add('active');
-            } else {
-                this.loading.classList.remove('active');
-            }
-        }
-    }
-
-    emitEvent(eventName, data = {}) {
-        const event = new CustomEvent(eventName, {
-            detail: data,
-            bubbles: true
-        });
-        this.container.dispatchEvent(event);
+    // Helper method to emit custom events
+    emitEvent(eventName, detail = {}) {
+        const event = new CustomEvent(eventName, { detail });
+        document.dispatchEvent(event);
     }
 }
 
-// Auto-initialize when DOM is ready
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         window.quizGameControls = new QuizGameControls();

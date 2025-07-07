@@ -3,6 +3,8 @@
 .quiz-question-display {
     position: relative;
     display: flex;
+    flex-direction: column;
+    padding: 10px;
     align-items: center;
     justify-content: center;
     background-color: var(--background-white);
@@ -179,5 +181,58 @@
     
     .quiz-question-display__container {
         padding: var(--space-lg);
+    }
+}
+
+/* Answer options styling */
+.quiz-question-display__answers {
+    width: 100%;
+    margin-top: var(--space-xl);
+}
+
+.quiz-question-display__answers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.quiz-question-display__answer-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--background-light);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+    cursor: default;
+}
+
+.quiz-question-display__answer-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-dark-blue);
+    color: white;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: var(--font-size-large);
+}
+
+.quiz-question-display__answer-text {
+    flex: 1;
+    font-size: var(--font-size-base);
+    color: var(--text-dark);
+    text-align: left;
+}
+
+/* Responsive for answer options */
+@media (max-width: 768px) {
+    .quiz-question-display__answers-grid {
+        grid-template-columns: 1fr;
     }
 }

@@ -260,6 +260,81 @@ class QuizQuestionDisplay {
         });
         this.container.dispatchEvent(event);
     }
+    displayQuestion(data) {
+        // Hide instruction
+        if (this.instruction) {
+            this.instruction.style.display = 'none';
+        }
+
+        // Display question text
+        if (this.questionText) {
+            this.questionText.textContent = data.question;
+            this.questionText.style.display = 'block';
+        }
+
+        // Display answer options
+        const answersContainer = this.container.querySelector('.quiz-question-display__answers');
+        if (answersContainer && data.options) {
+            answersContainer.style.display = 'block';
+
+            console.log('QuizQuestionDisplay: Displaying question with options:', data.options);
+            let options = data.options[0]; // Assuming options is an object with keys like "a", "b", "c", "d"
+            // Looks like: {"a": "Steven Spielberg", "b": "Martin Scorsese", "c": "Christopher Nolan", "d": "George Lucas"}
+
+            const answerGrid = answersContainer.querySelector('.quiz-question-display__answers-grid');
+            if (answerGrid) {
+                const answerOptions = answerGrid.querySelectorAll('.quiz-question-display__answer-option');
+                const optionKeys = Object.keys(options);
+                
+                answerOptions.forEach((option, index) => {
+                    const textElement = option.querySelector('.quiz-question-display__answer-text');
+                    if (textElement && optionKeys[index]) {
+                        textElement.textContent = options[optionKeys[index]];
+                    }
+                });
+            }
+        }
+
+        // Display points
+        if (this.pointsValue && this.pointsContainer) {
+            this.pointsValue.textContent = data.points;
+            this.pointsContainer.style.display = 'flex';
+        }
+
+        // Hide buzzer indicator initially
+        if (this.buzzerIndicator) {
+            this.buzzerIndicator.style.display = 'none';
+        }
+
+        // Update state
+        this.updateState('question');
+        
+        // Emit event
+        this.emitEvent('question_displayed', data);
+    }
+
+    clearQuestion() {
+        if (this.questionText) {
+            this.questionText.textContent = '';
+            this.questionText.style.display = 'none';
+        }
+        
+        // Hide answer options
+        const answersContainer = this.container.querySelector('.quiz-question-display__answers');
+        if (answersContainer) {
+            answersContainer.style.display = 'none';
+        }
+        
+        if (this.pointsContainer) {
+            this.pointsContainer.style.display = 'none';
+        }
+        
+        if (this.buzzerIndicator) {
+            this.buzzerIndicator.style.display = 'none';
+        }
+        
+        this.updateState('waiting');
+    }
 }
 
 // Auto-initialize when DOM is ready
@@ -270,3 +345,4 @@ if (document.readyState === 'loading') {
 } else {
     window.quizQuestionDisplay = new QuizQuestionDisplay();
 }
+

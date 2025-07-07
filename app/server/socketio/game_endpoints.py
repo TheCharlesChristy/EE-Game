@@ -52,9 +52,28 @@ def create_game_endpoints(app, socketio, game_service: GameService):
     @socketio.on('quiz/start_game')
     def start_quiz_game(data):
         """Handle the start quiz game event."""
-        logger.info("Received quiz/start_game event")
+        logger.info(f"Received quiz/start_game event with data: {data}")
+        
+        # Extract filter parameters from the data
+        question_set = data.get('question_set', 'all')
+        question_type = data.get('question_type', 'all')
+        
+        logger.info(f"Starting quiz with question_set: {question_set}, question_type: {question_type}")
+        
+        # Set the filters on the quiz game instance
+        if game_service.quiz_game:
+            game_service.quiz_game.set_question_set(question_set)
+            game_service.quiz_game.set_question_type(question_type)
+        
+        # Start the game
         game_service.start_quiz_game()
-        emit('quiz/game_started', {'message': 'Quiz game started'}, broadcast=True)
+        
+        # Emit game started with filter information
+        emit('quiz/game_started', {
+            'message': 'Quiz game started',
+            'question_set': question_set,
+            'question_type': question_type
+        }, broadcast=True)
 
     @socketio.on('quiz/stop_game')
     def stop_quiz_game(data):
@@ -82,3 +101,18 @@ def create_game_endpoints(app, socketio, game_service: GameService):
         logger.info("Received quiz/get_game_state event")
         game_service.quiz_game.emit_game_state()
         game_service.quiz_game.emit_team_scores()
+
+    @socketio.on('quiz/get_question_sets')
+    def get_quiz_game_state(data):
+        """Handle request for current game state."""
+        logger.info("Received quiz/get_game_state event")
+        question_sets = game_service.data_service.get_all_question_sets_names()
+        emit('quiz/question_sets', {'question_sets': question_sets})
+
+    @socketio.on('quiz/get_question_types')
+    def get_quiz_game_state(data):
+        """Handle request for current game state."""
+        logger.info("Received quiz/get_game_state event")
+        question_set = data.get('question_set', 'all')
+        question_types = game_service.data_service.get_all_question_types(question_set)
+        emit('quiz/question_types', {'question_types': question_types})
