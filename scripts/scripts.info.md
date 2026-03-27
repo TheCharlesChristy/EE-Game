@@ -1,1 +1,0 @@
-This directory contains scripts that are used to automate various tasks related to development of the project.
