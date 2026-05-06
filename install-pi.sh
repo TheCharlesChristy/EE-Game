@@ -20,8 +20,13 @@ BUILD_FRONTEND=true
 CONFIGURE_WIFI_AP=false
 WIFI_SSID="ee-game"
 WIFI_CHANNEL=7
+WIFI_PASSWORD=""
 DRY_RUN=false
 SKIP_DEPS=false
+PROD=false
+LOG_LEVEL="INFO"
+AUTO_START=false
+RUN_SMOKE_TEST=false
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -41,6 +46,12 @@ Install EE-Game onto this Raspberry Pi. Run as a normal user with sudo access
 from inside the cloned repository.
 
 Options:
+      --prod                Production preset: enables WiFi AP, sets log level
+                            to WARNING, auto-starts the service, and runs a
+                            smoke test. Prompts for a WiFi password if
+                            --wifi-password is not provided. Individual flags
+                            set after --prod override the preset.
+
   -d, --install-dir DIR     Destination directory            (default: /opt/ee-game)
   -u, --user USER           System user to run the service   (default: ee-game)
   -p, --port PORT           Backend HTTP port                (default: 8000)
@@ -48,6 +59,12 @@ Options:
       --configure-wifi-ap   Set up hostapd + dnsmasq access point on wlan0
       --wifi-ssid SSID      WiFi network name for AP mode    (default: ee-game)
       --wifi-channel N      WiFi channel for AP mode         (default: 7)
+      --wifi-password PASS  WiFi passphrase (min 8 chars). Prompted if omitted
+                            when --prod or --configure-wifi-ap is used.
+      --log-level LEVEL     Backend log level: DEBUG|INFO|WARNING|ERROR
+                                                              (default: INFO)
+      --auto-start          Start the systemd service after installation
+      --smoke-test          Run a health + API smoke test after installation
       --skip-deps           Skip pip install (use if venv is already up to date)
       --dry-run             Print actions without executing them
   -h, --help                Show this help and exit
@@ -56,20 +73,26 @@ Examples:
   # Standard first-time install:
   ./install-pi.sh
 
-  # Custom install dir and port:
-  ./install-pi.sh --install-dir /home/pi/ee-game --port 9000
+  # Event-day classroom deployment (single command):
+  ./install-pi.sh --prod --wifi-ssid "Physics Club" --wifi-password "circuits2024"
+
+  # Production preset but keep the default log level:
+  ./install-pi.sh --prod --log-level INFO
 
   # Update an existing install without rebuilding the frontend:
   ./install-pi.sh --no-frontend-build --skip-deps
 
-  # Full classroom setup including WiFi access point:
-  ./install-pi.sh --configure-wifi-ap --wifi-ssid "EE-Game" --wifi-channel 6
+  # Custom install dir and port:
+  ./install-pi.sh --install-dir /home/pi/ee-game --port 9000
 EOF
 }
 
 # ── Argument parsing ──────────────────────────────────────────────────────────
 while [[ $# -gt 0 ]]; do
     case "$1" in
+           --prod)             PROD=true; CONFIGURE_WIFI_AP=true;
+                               LOG_LEVEL="WARNING"; AUTO_START=true;
+                               RUN_SMOKE_TEST=true; shift ;;
         -d|--install-dir)      INSTALL_DIR="$2";       shift 2 ;;
         -u|--user)             SERVICE_USER="$2";      shift 2 ;;
         -p|--port)             PORT="$2";              shift 2 ;;
@@ -77,12 +100,32 @@ while [[ $# -gt 0 ]]; do
            --configure-wifi-ap) CONFIGURE_WIFI_AP=true; shift  ;;
            --wifi-ssid)        WIFI_SSID="$2";         shift 2 ;;
            --wifi-channel)     WIFI_CHANNEL="$2";      shift 2 ;;
+           --wifi-password)    WIFI_PASSWORD="$2";     shift 2 ;;
+           --log-level)        LOG_LEVEL="$2";         shift 2 ;;
+           --auto-start)       AUTO_START=true;        shift   ;;
+           --smoke-test)       RUN_SMOKE_TEST=true;    shift   ;;
            --skip-deps)        SKIP_DEPS=true;         shift   ;;
            --dry-run)          DRY_RUN=true;            shift   ;;
         -h|--help)             usage; exit 0 ;;
         *) error "Unknown option: $1"; usage; exit 1 ;;
     esac
 done
+
+# ── Production preset: prompt for WiFi password if still unset ───────────────
+if [[ "$CONFIGURE_WIFI_AP" == true && -z "$WIFI_PASSWORD" ]]; then
+    if [[ "$DRY_RUN" == true ]]; then
+        WIFI_PASSWORD="dry-run-placeholder"
+    else
+        while true; do
+            read -rsp "WiFi passphrase for SSID '$WIFI_SSID' (min 8 chars): " WIFI_PASSWORD
+            echo
+            if [[ ${#WIFI_PASSWORD} -ge 8 ]]; then
+                break
+            fi
+            warn "Passphrase must be at least 8 characters. Try again."
+        done
+    fi
+fi
 
 # ── Preflight checks ──────────────────────────────────────────────────────────
 if [[ ! -f "$ROOT_DIR/host/backend/pyproject.toml" ]]; then
@@ -165,7 +208,7 @@ if [[ ! -f "$ENV_FILE" ]]; then
     run_sudo -u "$SERVICE_USER" bash -c "cat > '$ENV_FILE'" <<EOF
 BACKEND_HOST=0.0.0.0
 BACKEND_PORT=$PORT
-LOG_LEVEL=INFO
+LOG_LEVEL=$LOG_LEVEL
 HEARTBEAT_TIMEOUT_SECONDS=30
 STATIC_FILES_DIR=../../frontend/dist
 EOF
@@ -207,7 +250,7 @@ macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=changeme123
+wpa_passphrase=$WIFI_PASSWORD
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 EOF
@@ -225,8 +268,31 @@ dhcp-range=192.168.4.10,192.168.4.50,255.255.255.0,24h"
     run_sudo systemctl unmask hostapd
     run_sudo systemctl enable hostapd dnsmasq
 
-    warn "WiFi AP configured. Change the passphrase in /etc/hostapd/hostapd.conf before use."
+    info "WiFi AP configured (SSID: $WIFI_SSID)."
     warn "Reboot the Pi for the access point to become active."
+fi
+
+# ── Auto-start service ────────────────────────────────────────────────────────
+if [[ "$AUTO_START" == true ]]; then
+    info "Starting ee-game service..."
+    run_sudo systemctl start ee-game
+    # Brief pause to let the process bind its port before smoke-testing
+    sleep 3
+fi
+
+# ── Smoke test ────────────────────────────────────────────────────────────────
+if [[ "$RUN_SMOKE_TEST" == true ]]; then
+    info "Running smoke test against http://localhost:$PORT ..."
+    if [[ "$DRY_RUN" == true ]]; then
+        echo "[dry-run] scripts/smoke-test.sh"
+    else
+        if EE_GAME_URL="http://localhost:$PORT" bash "$ROOT_DIR/scripts/smoke-test.sh"; then
+            info "Smoke test passed."
+        else
+            error "Smoke test failed — check logs with: sudo journalctl -u ee-game -n 50"
+            exit 1
+        fi
+    fi
 fi
 
 # ── Done ──────────────────────────────────────────────────────────────────────
@@ -236,10 +302,13 @@ echo
 echo "  Install directory : $INSTALL_DIR"
 echo "  Service user      : $SERVICE_USER"
 echo "  Port              : $PORT"
+echo "  Log level         : $LOG_LEVEL"
 echo
-echo "  Start the service :"
-echo "    sudo systemctl start ee-game"
-echo
+if [[ "$AUTO_START" == false ]]; then
+    echo "  Start the service :"
+    echo "    sudo systemctl start ee-game"
+    echo
+fi
 echo "  View logs         :"
 echo "    sudo journalctl -u ee-game -f"
 echo
