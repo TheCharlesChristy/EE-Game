@@ -97,12 +97,12 @@ apt-get install -y --no-install-recommends \
     unzip \
     build-essential
 
-# ── Step 3: Python 3.12 ───────────────────────────────────────────────────────
-# Bookworm ships Python 3.11. Python 3.12 lives in bookworm-backports.
-step "Installing Python 3.12"
+# ── Step 3: Python 3.13 ───────────────────────────────────────────────────────
+# Bookworm ships Python 3.11. Python 3.13 lives in bookworm-backports.
+step "Installing Python 3.13"
 
-if python3.12 --version &>/dev/null 2>&1; then
-    info "Python 3.12 already installed: $(python3.12 --version)"
+if python3.13 --version &>/dev/null 2>&1; then
+    info "Python 3.13 already installed: $(python3.13 --version)"
 else
     info "Enabling bookworm-backports..."
     SOURCES_FILE="/etc/apt/sources.list.d/bookworm-backports.list"
@@ -113,31 +113,31 @@ else
 
     apt-get update -qq
 
-    if apt-get install -y --no-install-recommends -t bookworm-backports python3.12 python3.12-venv python3.12-dev 2>/dev/null; then
-        info "Python 3.12 installed from backports."
+    if apt-get install -y --no-install-recommends -t bookworm-backports python3.13 python3.13-venv python3.13-dev 2>/dev/null; then
+        info "Python 3.13 installed from backports."
     else
         warn "Backports install failed. Trying default repos..."
-        if ! apt-get install -y --no-install-recommends python3.12 python3.12-venv python3.12-dev; then
-            error "Python 3.12 is not available via apt on this system."
+        if ! apt-get install -y --no-install-recommends python3.13 python3.13-venv python3.13-dev; then
+            error "Python 3.13 is not available via apt on this system."
             error "Build from source or use pyenv: https://github.com/pyenv/pyenv"
             exit 1
         fi
     fi
 fi
 
-# Make python3.12 the default python3 if needed
-if [[ "$(python3 --version 2>&1)" != *"3.12"* ]]; then
-    info "Setting python3.12 as the default python3..."
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 10
+# Make python3.13 the default python3 if needed
+if [[ "$(python3 --version 2>&1)" != *"3.13"* ]]; then
+    info "Setting python3.13 as the default python3..."
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 10
 fi
 
-# pip for python3.12
-if ! python3.12 -m pip --version &>/dev/null 2>&1; then
-    info "Installing pip for Python 3.12..."
-    curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.12
+# pip for python3.13
+if ! python3.13 -m pip --version &>/dev/null 2>&1; then
+    info "Installing pip for Python 3.13..."
+    curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.13
 fi
 
-info "Python: $(python3.12 --version) | pip: $(python3.12 -m pip --version | cut -d' ' -f2)"
+info "Python: $(python3.13 --version) | pip: $(python3.13 -m pip --version | cut -d' ' -f2)"
 
 # ── Step 4: Node.js 20 LTS ────────────────────────────────────────────────────
 if [[ "$SKIP_NODEJS" == false ]]; then
@@ -215,10 +215,10 @@ if [[ "$INSTALL_PLATFORMIO" == true ]]; then
     step "Installing PlatformIO CLI"
 
     # Install for the invoking user, not root
-    sudo -u "$USERNAME" python3.12 -m pip install --user platformio
+    sudo -u "$USERNAME" python3.13 -m pip install --user platformio
 
     # Symlink into a system path so it's available without modifying PATH
-    PIO_BIN="$(sudo -u "$USERNAME" python3.12 -m site --user-base)/bin/pio"
+    PIO_BIN="$(sudo -u "$USERNAME" python3.13 -m site --user-base)/bin/pio"
     if [[ -f "$PIO_BIN" ]]; then
         ln -sf "$PIO_BIN" /usr/local/bin/pio
         info "PlatformIO installed: $(pio --version)"
@@ -239,7 +239,7 @@ apt-get clean
 echo
 info "All dependencies installed."
 echo
-echo "  Python  : $(python3.12 --version)"
+echo "  Python  : $(python3.13 --version)"
 if [[ "$SKIP_NODEJS" == false ]]; then
     echo "  Node.js : $(node --version)"
     echo "  npm     : $(npm --version)"
