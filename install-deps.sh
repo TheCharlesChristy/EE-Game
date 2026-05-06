@@ -215,7 +215,7 @@ if [[ "$INSTALL_PLATFORMIO" == true ]]; then
     step "Installing PlatformIO CLI"
 
     # Install for the invoking user, not root
-    sudo -u "$USERNAME" python3.13 -m pip install --user platformio
+    sudo -u "$USERNAME" python3.13 -m pip install --user platformio --break-system-packages
 
     # Symlink into a system path so it's available without modifying PATH
     PIO_BIN="$(sudo -u "$USERNAME" python3.13 -m site --user-base)/bin/pio"
