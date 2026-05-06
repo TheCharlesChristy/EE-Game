@@ -6,8 +6,9 @@ __pycache__/
 dist/
 build/
 
-# Environment — never commit real values
-.env
+# Environment — the root .env is a committed template with safe defaults.
+# Never commit the live installed copy.
+host/backend/.env
 
 # Pytest / coverage
 .pytest_cache/

@@ -1,0 +1,337 @@
+#!/usr/bin/env bash
+# ee-game — Management CLI for the EE-Game platform.
+#
+# Handles everything on the Pi: service lifecycle, status probing,
+# firmware flashing (with WiFi credentials injected from config),
+# log viewing, and updates.
+#
+# After installation this script is symlinked to /usr/local/bin/ee-game
+# and can be run from any directory.
+
+set -euo pipefail
+
+# ── Installation path ─────────────────────────────────────────────────────────
+# Resolved at install time by install-pi.sh; can be overridden via environment.
+INSTALL_DIR="${EE_GAME_DIR:-/opt/ee-game}"
+ENV_FILE="$INSTALL_DIR/host/backend/.env"
+VENV="$INSTALL_DIR/host/backend/.venv"
+FIRMWARE_DIR="$INSTALL_DIR/firmware"
+SERVICE="ee-game"
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'
+CYAN='\033[0;36m'; BOLD='\033[1m'; NC='\033[0m'
+
+info()    { echo -e "${GREEN}✓${NC}  $*"; }
+warn()    { echo -e "${YELLOW}!${NC}  $*"; }
+error()   { echo -e "${RED}✗${NC}  $*" >&2; }
+section() { echo -e "\n${BOLD}${CYAN}$*${NC}"; }
+die()     { error "$*"; exit 1; }
+
+# Read a value from the .env file
+env_get() {
+    local key="$1" default="${2:-}"
+    if [[ -f "$ENV_FILE" ]]; then
+        local val
+        val=$(grep -E "^${key}=" "$ENV_FILE" 2>/dev/null | cut -d= -f2- | tr -d '"' || true)
+        echo "${val:-$default}"
+    else
+        echo "$default"
+    fi
+}
+
+require_install() {
+    [[ -d "$INSTALL_DIR" ]] || die "EE-Game does not appear to be installed at $INSTALL_DIR.\nRun: sudo ./install-pi.sh --prod"
+}
+
+require_root() {
+    [[ "$EUID" -eq 0 ]] || die "This command must be run with sudo."
+}
+
+# ── Usage ─────────────────────────────────────────────────────────────────────
+usage() {
+    cat <<EOF
+${BOLD}ee-game${NC} — EE-Game platform management CLI
+
+${BOLD}USAGE${NC}
+  ee-game <command> [options]
+
+${BOLD}SERVICE COMMANDS${NC}
+  start               Start the backend service
+  stop                Stop the backend service
+  restart             Restart the backend service
+  status              Show service health, connected devices, and config
+  logs [-f]           Show service logs (-f to follow live)
+
+${BOLD}FIRMWARE COMMANDS${NC}
+  flash [options]     Build and flash firmware onto a connected ESP32.
+                      WiFi credentials are read from the installed config
+                      and baked into the firmware automatically.
+
+    -t, --target TARGET   Board environment: esp32-c3 | esp32dev  (default: esp32-c3)
+    -p, --port PORT       Serial port (default: auto-detect)
+    -m, --monitor         Open serial monitor after flashing
+        --build-only      Compile without flashing
+
+${BOLD}MAINTENANCE COMMANDS${NC}
+  update              Pull the latest code and redeploy (keeps data and config)
+  config              Show the current configuration
+  config set KEY VAL  Set a config value in .env (requires sudo)
+
+${BOLD}EXAMPLES${NC}
+  ee-game status
+  ee-game logs -f
+  ee-game flash
+  ee-game flash --port /dev/ttyUSB0 --monitor
+  ee-game flash --target esp32dev
+  sudo ee-game config set WIFI_PASSWORD newpassphrase
+  sudo ee-game update
+
+EOF
+}
+
+# ── Command: start ────────────────────────────────────────────────────────────
+cmd_start() {
+    require_install
+    require_root
+    systemctl start "$SERVICE"
+    sleep 2
+    cmd_status
+}
+
+# ── Command: stop ─────────────────────────────────────────────────────────────
+cmd_stop() {
+    require_install
+    require_root
+    systemctl stop "$SERVICE"
+    info "Service stopped."
+}
+
+# ── Command: restart ──────────────────────────────────────────────────────────
+cmd_restart() {
+    require_install
+    require_root
+    systemctl restart "$SERVICE"
+    sleep 2
+    cmd_status
+}
+
+# ── Command: status ───────────────────────────────────────────────────────────
+cmd_status() {
+    require_install
+
+    local port
+    port=$(env_get "BACKEND_PORT" "8000")
+    local base_url="http://localhost:$port"
+
+    section "Service"
+    if systemctl is-active --quiet "$SERVICE" 2>/dev/null; then
+        info "systemd service is ${GREEN}running${NC}"
+        local uptime
+        uptime=$(systemctl show "$SERVICE" --property=ActiveEnterTimestamp --value 2>/dev/null || echo "unknown")
+        echo "   Started : $uptime"
+    else
+        warn "systemd service is ${RED}not running${NC}"
+        echo "   Start with: sudo ee-game start"
+    fi
+
+    section "Health probe"
+    if curl -fsSo /dev/null --connect-timeout 3 "$base_url/health" 2>/dev/null; then
+        local health
+        health=$(curl -fsS --connect-timeout 3 "$base_url/health" 2>/dev/null || echo '{}')
+        info "Backend responding at $base_url"
+        echo "   Response : $health"
+    else
+        warn "Backend not responding at $base_url"
+    fi
+
+    section "Connected devices"
+    local diag
+    if diag=$(curl -fsS --connect-timeout 3 "$base_url/api/diagnostics" 2>/dev/null); then
+        local devices
+        devices=$(echo "$diag" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('connected_devices', '?'))" 2>/dev/null || echo "?")
+        echo "   Connected : $devices device(s)"
+    else
+        echo "   (backend unreachable)"
+    fi
+
+    section "Configuration"
+    echo "   Install dir : $INSTALL_DIR"
+    echo "   Port        : $port"
+    echo "   Log level   : $(env_get LOG_LEVEL INFO)"
+    local wifi_ssid
+    wifi_ssid=$(env_get "WIFI_SSID" "(not set)")
+    echo "   WiFi SSID   : $wifi_ssid"
+    echo
+}
+
+# ── Command: logs ─────────────────────────────────────────────────────────────
+cmd_logs() {
+    require_install
+    if [[ "${1:-}" == "-f" ]]; then
+        exec journalctl -u "$SERVICE" -f
+    else
+        exec journalctl -u "$SERVICE" -n 100 --no-pager
+    fi
+}
+
+# ── Command: flash ────────────────────────────────────────────────────────────
+cmd_flash() {
+    require_install
+
+    local target="esp32-c3"
+    local serial_port=""
+    local monitor=false
+    local build_only=false
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -t|--target)     target="$2";       shift 2 ;;
+            -p|--port)       serial_port="$2";  shift 2 ;;
+            -m|--monitor)    monitor=true;      shift   ;;
+               --build-only) build_only=true;   shift   ;;
+            *) die "Unknown flash option: $1. Run 'ee-game flash --help' for usage." ;;
+        esac
+    done
+
+    command -v pio &>/dev/null || die "PlatformIO (pio) not found.\nInstall with: sudo ./install-deps.sh --with-platformio"
+
+    # Read WiFi credentials and backend address from the installed config
+    local wifi_ssid wifi_password backend_host backend_port
+    wifi_ssid=$(env_get "WIFI_SSID" "ee-game")
+    wifi_password=$(env_get "WIFI_PASSWORD" "")
+    # BACKEND_AP_HOST is the Pi's address on the WiFi AP subnet (192.168.4.1).
+    # BACKEND_HOST is 0.0.0.0 (bind address) — not useful for firmware.
+    backend_host=$(env_get "BACKEND_AP_HOST" "192.168.4.1")
+    backend_port=$(env_get "BACKEND_PORT" "8000")
+
+    if [[ -z "$wifi_password" ]]; then
+        die "WIFI_PASSWORD is not set in $ENV_FILE.\nSet it with: sudo ee-game config set WIFI_PASSWORD <passphrase>"
+    fi
+
+    section "Firmware build"
+    echo "   Target      : $target"
+    echo "   WiFi SSID   : $wifi_ssid"
+    echo "   Backend     : $backend_host:$backend_port"
+    echo
+
+    # Inject credentials as compile-time defines
+    local build_flags
+    build_flags="-D WIFI_SSID='\"${wifi_ssid}\"'"
+    build_flags+=" -D WIFI_PASSWORD='\"${wifi_password}\"'"
+    build_flags+=" -D BACKEND_HOST='\"${backend_host}\"'"
+    build_flags+=" -D BACKEND_PORT=${backend_port}"
+
+    cd "$FIRMWARE_DIR"
+    PLATFORMIO_BUILD_FLAGS="$build_flags" pio run -e "$target"
+    info "Build complete."
+
+    if [[ "$build_only" == true ]]; then
+        warn "Skipping flash (--build-only). Binary: $FIRMWARE_DIR/.pio/build/$target/firmware.bin"
+        return
+    fi
+
+    section "Flashing device"
+    local upload_args=(-e "$target" --target upload)
+    if [[ -n "$serial_port" ]]; then
+        echo "   Port : $serial_port"
+        upload_args+=(--upload-port "$serial_port")
+    else
+        echo "   Port : auto-detect"
+        warn "If upload fails, specify with: ee-game flash --port /dev/ttyUSB0"
+    fi
+    echo
+
+    PLATFORMIO_BUILD_FLAGS="$build_flags" pio run "${upload_args[@]}"
+    info "Flash complete."
+
+    if [[ "$monitor" == true ]]; then
+        section "Serial monitor (Ctrl+C to exit)"
+        local monitor_args=(device monitor --baud 115200)
+        [[ -n "$serial_port" ]] && monitor_args+=(--port "$serial_port")
+        pio "${monitor_args[@]}"
+    fi
+}
+
+# ── Command: update ───────────────────────────────────────────────────────────
+cmd_update() {
+    require_install
+    require_root
+
+    section "Updating EE-Game"
+
+    # Determine source: git pull if inside a repo, otherwise no-op
+    if git -C "$INSTALL_DIR" rev-parse --git-dir &>/dev/null; then
+        info "Pulling latest code..."
+        git -C "$INSTALL_DIR" pull --ff-only
+    else
+        warn "Install directory is not a git repository. Skipping git pull."
+        warn "To update, copy new files to $INSTALL_DIR manually then re-run."
+    fi
+
+    info "Rebuilding frontend..."
+    cd "$INSTALL_DIR/host/frontend"
+    npm install --silent
+    npm run build
+
+    info "Updating Python dependencies..."
+    "$VENV/bin/pip" install --quiet -e "$INSTALL_DIR/host/backend"
+
+    info "Restarting service..."
+    systemctl restart "$SERVICE"
+    sleep 2
+
+    cmd_status
+}
+
+# ── Command: config ───────────────────────────────────────────────────────────
+cmd_config() {
+    require_install
+
+    if [[ "${1:-}" == "set" ]]; then
+        require_root
+        local key="${2:-}" val="${3:-}"
+        [[ -n "$key" && -n "$val" ]] || die "Usage: ee-game config set KEY VALUE"
+
+        if grep -q "^${key}=" "$ENV_FILE" 2>/dev/null; then
+            sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
+        else
+            echo "${key}=${val}" >> "$ENV_FILE"
+        fi
+        info "Set $key in $ENV_FILE"
+        warn "Restart the service for changes to take effect: sudo ee-game restart"
+        return
+    fi
+
+    section "Current configuration ($ENV_FILE)"
+    if [[ -f "$ENV_FILE" ]]; then
+        # Print each line, masking the WiFi password
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^WIFI_PASSWORD= ]]; then
+                echo "   WIFI_PASSWORD=********"
+            else
+                echo "   $line"
+            fi
+        done < "$ENV_FILE"
+    else
+        warn "No .env file found at $ENV_FILE"
+    fi
+    echo
+}
+
+# ── Dispatch ──────────────────────────────────────────────────────────────────
+COMMAND="${1:-}"
+shift || true
+
+case "$COMMAND" in
+    start)   cmd_start ;;
+    stop)    cmd_stop ;;
+    restart) cmd_restart ;;
+    status)  cmd_status ;;
+    logs)    cmd_logs "$@" ;;
+    flash)   cmd_flash "$@" ;;
+    update)  cmd_update ;;
+    config)  cmd_config "$@" ;;
+    help|--help|-h|"") usage ;;
+    *) error "Unknown command: '$COMMAND'"; echo; usage; exit 1 ;;
+esac
