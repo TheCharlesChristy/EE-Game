@@ -17,29 +17,14 @@
 
 ## Installing on a Raspberry Pi
 
-Clone the repository onto the Pi, then install system dependencies first:
+Edit `.env` in the repository root to set your WiFi name, password, and any other settings, then run:
 
 ```bash
-sudo ./install-deps.sh
+sudo ./install-deps.sh   # once, on a fresh system
+sudo ./install-pi.sh     # installs and starts the app
 ```
 
-For a classroom deployment that also needs a WiFi access point and firmware flashing:
-
-```bash
-sudo ./install-deps.sh --with-wifi-ap --with-platformio
-```
-
-Then install the application:
-
-```bash
-./install-pi.sh
-```
-
-For a full production classroom setup in one command:
-
-```bash
-./install-pi.sh --prod --wifi-ssid "EE-Game" --wifi-password "yourpassphrase"
-```
+That's it. All configuration is read from `.env` — no command-line arguments needed.
 
 Start the service and verify it is healthy:
 

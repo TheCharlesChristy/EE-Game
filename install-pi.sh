@@ -1,71 +1,42 @@
 #!/usr/bin/env bash
 # install-pi.sh — Install EE-Game onto a Raspberry Pi.
 #
-# Builds the frontend, installs the backend, configures the WiFi access point,
-# installs the systemd service, starts it, and runs a smoke test.
+# All configuration is read from .env in the repository root.
+# Edit that file before running this script.
 #
-# Run install-deps.sh first if this is a fresh system.
+# Run install-deps.sh first on a fresh system.
 # This script is idempotent — re-running updates the app without touching the
-# database or existing .env.
+# existing database or installed .env.
 #
-# Usage: sudo ./install-pi.sh --wifi-ssid <SSID> --wifi-password <passphrase>
+# Usage: sudo ./install-pi.sh
 
 set -euo pipefail
 
-# ── Defaults ──────────────────────────────────────────────────────────────────
-INSTALL_DIR="/opt/ee-game"
-PORT=8000
-WIFI_SSID="ee-game"
-WIFI_CHANNEL=7
-WIFI_PASSWORD=""
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; BOLD='\033[1m'; NC='\033[0m'
+ENV_FILE="$ROOT_DIR/.env"
 
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; BOLD='\033[1m'; NC='\033[0m'
 info()  { echo -e "${GREEN}✓${NC}  $*"; }
 warn()  { echo -e "${YELLOW}!${NC}  $*"; }
 error() { echo -e "${RED}✗${NC}  $*" >&2; }
 step()  { echo -e "\n${BOLD}── $* ──${NC}"; }
 
-usage() {
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     cat <<EOF
-Usage: sudo $(basename "$0") [OPTIONS]
+Usage: sudo $(basename "$0")
 
-Installs EE-Game onto this Raspberry Pi in production mode: builds the
-frontend, installs the backend, sets up the WiFi access point, installs and
-starts the systemd service, and runs a smoke test.
+Installs EE-Game onto this Raspberry Pi. All configuration is read from .env
+in the repository root — edit that file before running.
 
 Run install-deps.sh first on a fresh system.
-
-Options:
-      --wifi-ssid SSID      WiFi network name devices connect to  (default: ee-game)
-      --wifi-password PASS  WiFi passphrase, min 8 chars          (prompted if omitted)
-      --wifi-channel N      WiFi channel                          (default: 7)
-  -p, --port PORT           Backend port                          (default: 8000)
-  -d, --install-dir DIR     Installation directory                (default: /opt/ee-game)
-  -h, --help                Show this help and exit
-
-Examples:
-  sudo ./install-pi.sh --wifi-ssid "Physics Lab" --wifi-password "circuits2024"
-  sudo ./install-pi.sh --wifi-ssid "EE-Game" --wifi-password "circuits2024" --port 9000
 EOF
-}
-
-# ── Argument parsing ──────────────────────────────────────────────────────────
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --wifi-ssid)     WIFI_SSID="$2";     shift 2 ;;
-        --wifi-password) WIFI_PASSWORD="$2"; shift 2 ;;
-        --wifi-channel)  WIFI_CHANNEL="$2";  shift 2 ;;
-        -p|--port)       PORT="$2";          shift 2 ;;
-        -d|--install-dir) INSTALL_DIR="$2";  shift 2 ;;
-        -h|--help)       usage; exit 0 ;;
-        *) error "Unknown option: $1"; usage; exit 1 ;;
-    esac
-done
+    exit 0
+fi
 
 # ── Preflight ─────────────────────────────────────────────────────────────────
-[[ "$EUID" -eq 0 ]] || { error "Run with sudo: sudo $0 $*"; exit 1; }
+[[ "$EUID" -eq 0 ]] || { error "Run with sudo: sudo $0"; exit 1; }
+
+[[ -f "$ENV_FILE" ]] || { error ".env not found at $ENV_FILE"; exit 1; }
 
 [[ -f "$ROOT_DIR/host/backend/pyproject.toml" ]] || {
     error "Run from the root of the EE-Game repository."
@@ -77,17 +48,43 @@ command -v npm     &>/dev/null || { error "npm not found — run install-deps.sh
 command -v hostapd &>/dev/null || { error "hostapd not found — run install-deps.sh first."; exit 1; }
 
 python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3,12) else 1)' || {
-    error "Python 3.12+ required. Found: $(python3 --version). Run install-deps.sh first."
+    error "Python 3.12+ required. Found: $(python3 --version)"
     exit 1
 }
 
-# Prompt for WiFi password if not provided
-if [[ -z "$WIFI_PASSWORD" ]]; then
-    while true; do
-        read -rsp "WiFi passphrase for '$WIFI_SSID' (min 8 chars): " WIFI_PASSWORD; echo
-        [[ ${#WIFI_PASSWORD} -ge 8 ]] && break
-        warn "Passphrase must be at least 8 characters."
-    done
+# ── Load configuration ────────────────────────────────────────────────────────
+# Source the .env, skipping blank lines and comments
+set -a
+# shellcheck disable=SC1090
+source <(grep -v '^\s*#' "$ENV_FILE" | grep -v '^\s*$')
+set +a
+
+# Required values
+: "${BACKEND_PORT:?BACKEND_PORT not set in .env}"
+: "${WIFI_SSID:?WIFI_SSID not set in .env}"
+: "${WIFI_PASSWORD:?WIFI_PASSWORD not set in .env}"
+: "${BACKEND_AP_HOST:?BACKEND_AP_HOST not set in .env}"
+
+[[ ${#WIFI_PASSWORD} -ge 8 ]] || { error "WIFI_PASSWORD must be at least 8 characters."; exit 1; }
+
+INSTALL_DIR="${INSTALL_DIR:-/opt/ee-game}"
+WIFI_CHANNEL="${WIFI_CHANNEL:-7}"
+
+echo
+echo -e "${BOLD}EE-Game installation${NC}"
+echo "  Config      : $ENV_FILE"
+echo "  Install dir : $INSTALL_DIR"
+echo "  Port        : $BACKEND_PORT"
+echo "  WiFi SSID   : $WIFI_SSID"
+echo "  AP host     : $BACKEND_AP_HOST"
+echo
+
+# ── Stop any running instance ────────────────────────────────────────────────
+# Prevents port conflicts and file-in-use errors during rsync.
+if systemctl is-active --quiet ee-game 2>/dev/null; then
+    step "Stopping running service"
+    systemctl stop ee-game
+    info "Service stopped"
 fi
 
 # ── Step 1: Build frontend ────────────────────────────────────────────────────
@@ -101,10 +98,7 @@ info "Frontend built"
 step "Installing application to $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
 
-# Create service user if needed
-if ! id "ee-game" &>/dev/null; then
-    useradd --system --shell /bin/false --home "$INSTALL_DIR" ee-game
-fi
+id "ee-game" &>/dev/null || useradd --system --shell /bin/false --home "$INSTALL_DIR" ee-game
 
 rsync -a --delete \
     --exclude='.git/' \
@@ -127,29 +121,20 @@ info "Python environment ready"
 # ── Step 4: Data directory ────────────────────────────────────────────────────
 sudo -u ee-game mkdir -p "$INSTALL_DIR/host/backend/data"
 
-# ── Step 5: Environment file ──────────────────────────────────────────────────
+# ── Step 5: Install .env ──────────────────────────────────────────────────────
 step "Writing configuration"
-ENV_FILE="$INSTALL_DIR/host/backend/.env"
-if [[ -f "$ENV_FILE" ]]; then
-    warn ".env already exists — not overwritten. Edit $ENV_FILE to change settings."
+INSTALLED_ENV="$INSTALL_DIR/host/backend/.env"
+if [[ -f "$INSTALLED_ENV" ]]; then
+    warn ".env already exists at $INSTALLED_ENV — not overwritten."
+    warn "Edit it directly and run 'ee-game restart' to apply changes."
 else
-    sudo -u ee-game tee "$ENV_FILE" > /dev/null <<EOF
-BACKEND_HOST=0.0.0.0
-BACKEND_PORT=$PORT
-LOG_LEVEL=WARNING
-HEARTBEAT_TIMEOUT_SECONDS=30
-STATIC_FILES_DIR=../../frontend/dist
-WIFI_SSID=$WIFI_SSID
-WIFI_PASSWORD=$WIFI_PASSWORD
-BACKEND_AP_HOST=192.168.4.1
-EOF
-    chmod 600 "$ENV_FILE"
-    info "Config written to $ENV_FILE"
+    install -o ee-game -g ee-game -m 600 "$ENV_FILE" "$INSTALLED_ENV"
+    info "Config installed"
 fi
 
 # ── Step 6: systemd service ───────────────────────────────────────────────────
 step "Installing systemd service"
-sed "s|--port [0-9]*|--port $PORT|g" \
+sed "s|--port [0-9]*|--port $BACKEND_PORT|g" \
     "$INSTALL_DIR/docs/deployment/ee-game.service" \
     > /etc/systemd/system/ee-game.service
 systemctl daemon-reload
@@ -159,7 +144,7 @@ info "Service installed and enabled"
 # ── Step 7: ee-game CLI ───────────────────────────────────────────────────────
 ln -sf "$INSTALL_DIR/ee-game" /usr/local/bin/ee-game
 chmod +x "$INSTALL_DIR/ee-game"
-info "ee-game CLI available at /usr/local/bin/ee-game"
+info "ee-game CLI → /usr/local/bin/ee-game"
 
 # ── Step 8: WiFi access point ─────────────────────────────────────────────────
 step "Configuring WiFi access point"
@@ -197,7 +182,7 @@ step "Starting service"
 systemctl start ee-game
 sleep 3
 
-if EE_GAME_URL="http://localhost:$PORT" bash "$ROOT_DIR/scripts/smoke-test.sh"; then
+if EE_GAME_URL="http://localhost:$BACKEND_PORT" bash "$ROOT_DIR/scripts/smoke-test.sh"; then
     info "Smoke test passed"
 else
     error "Smoke test failed — check logs: journalctl -u ee-game -n 50"
@@ -208,13 +193,13 @@ fi
 echo
 echo -e "${GREEN}Installation complete.${NC}"
 echo
-echo "  Service  : running (sudo ee-game status)"
-echo "  Logs     : sudo ee-game logs -f"
+echo "  Service : running  (ee-game status)"
+echo "  Logs    : ee-game logs -f"
 echo
-echo "  Reboot the Pi to activate the WiFi access point, then:"
+echo "  Reboot to activate the WiFi access point, then:"
 echo "    WiFi SSID : $WIFI_SSID"
-echo "    Host UI   : http://192.168.4.1:$PORT/host"
-echo "    Display   : http://192.168.4.1:$PORT/display"
+echo "    Host UI   : http://$BACKEND_AP_HOST:$BACKEND_PORT/host"
+echo "    Display   : http://$BACKEND_AP_HOST:$BACKEND_PORT/display"
 echo
 echo "  Flash an ESP32: ee-game flash"
 echo

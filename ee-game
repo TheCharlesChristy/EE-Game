@@ -44,9 +44,8 @@ require_install() {
     [[ -d "$INSTALL_DIR" ]] || die "EE-Game does not appear to be installed at $INSTALL_DIR.\nRun: sudo ./install-pi.sh --prod"
 }
 
-require_root() {
-    [[ "$EUID" -eq 0 ]] || die "This command must be run with sudo."
-}
+# Run a systemctl command, escalating to sudo only if not already root.
+ctl() { if [[ "$EUID" -eq 0 ]]; then systemctl "$@"; else sudo systemctl "$@"; fi; }
 
 # ── Usage ─────────────────────────────────────────────────────────────────────
 usage() {
@@ -84,8 +83,8 @@ ${BOLD}EXAMPLES${NC}
   ee-game flash
   ee-game flash --port /dev/ttyUSB0 --monitor
   ee-game flash --target esp32dev
-  sudo ee-game config set WIFI_PASSWORD newpassphrase
-  sudo ee-game update
+  ee-game config set WIFI_PASSWORD newpassphrase
+  ee-game update
 
 EOF
 }
@@ -93,8 +92,7 @@ EOF
 # ── Command: start ────────────────────────────────────────────────────────────
 cmd_start() {
     require_install
-    require_root
-    systemctl start "$SERVICE"
+    ctl start "$SERVICE"
     sleep 2
     cmd_status
 }
@@ -102,16 +100,14 @@ cmd_start() {
 # ── Command: stop ─────────────────────────────────────────────────────────────
 cmd_stop() {
     require_install
-    require_root
-    systemctl stop "$SERVICE"
+    ctl stop "$SERVICE"
     info "Service stopped."
 }
 
 # ── Command: restart ──────────────────────────────────────────────────────────
 cmd_restart() {
     require_install
-    require_root
-    systemctl restart "$SERVICE"
+    ctl restart "$SERVICE"
     sleep 2
     cmd_status
 }
@@ -256,17 +252,15 @@ cmd_flash() {
 # ── Command: update ───────────────────────────────────────────────────────────
 cmd_update() {
     require_install
-    require_root
 
     section "Updating EE-Game"
 
-    # Determine source: git pull if inside a repo, otherwise no-op
     if git -C "$INSTALL_DIR" rev-parse --git-dir &>/dev/null; then
         info "Pulling latest code..."
         git -C "$INSTALL_DIR" pull --ff-only
     else
-        warn "Install directory is not a git repository. Skipping git pull."
-        warn "To update, copy new files to $INSTALL_DIR manually then re-run."
+        warn "Install directory is not a git repository — skipping git pull."
+        warn "Copy new files to $INSTALL_DIR manually, then re-run."
     fi
 
     info "Rebuilding frontend..."
@@ -278,7 +272,7 @@ cmd_update() {
     "$VENV/bin/pip" install --quiet -e "$INSTALL_DIR/host/backend"
 
     info "Restarting service..."
-    systemctl restart "$SERVICE"
+    ctl restart "$SERVICE"
     sleep 2
 
     cmd_status
@@ -289,17 +283,25 @@ cmd_config() {
     require_install
 
     if [[ "${1:-}" == "set" ]]; then
-        require_root
         local key="${2:-}" val="${3:-}"
         [[ -n "$key" && -n "$val" ]] || die "Usage: ee-game config set KEY VALUE"
 
+        local set_cmd="sed -i 's|^${key}=.*|${key}=${val}|' '$ENV_FILE'"
         if grep -q "^${key}=" "$ENV_FILE" 2>/dev/null; then
-            sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
+            if [[ "$EUID" -eq 0 ]]; then
+                sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
+            else
+                sudo sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
+            fi
         else
-            echo "${key}=${val}" >> "$ENV_FILE"
+            if [[ "$EUID" -eq 0 ]]; then
+                echo "${key}=${val}" >> "$ENV_FILE"
+            else
+                echo "${key}=${val}" | sudo tee -a "$ENV_FILE" > /dev/null
+            fi
         fi
-        info "Set $key in $ENV_FILE"
-        warn "Restart the service for changes to take effect: sudo ee-game restart"
+        info "Set $key"
+        warn "Restart for changes to take effect: ee-game restart"
         return
     fi
 
