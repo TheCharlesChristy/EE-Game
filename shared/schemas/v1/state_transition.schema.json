@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/state_transition",
+  "title": "StateTransitionMessage",
+  "description": "Backend-to-device command that moves firmware LEDs and input handling between round phases.",
+  "type": "object",
+  "required": ["version", "type", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "const": "state_transition" },
+    "payload": {
+      "type": "object",
+      "required": ["phase", "led_state"],
+      "additionalProperties": true,
+      "properties": {
+        "round_id": { "type": ["string", "null"] },
+        "phase": { "type": "string" },
+        "led_state": {
+          "type": "string",
+          "enum": ["boot", "connecting", "connected", "test_fault", "live"]
+        },
+        "remaining_ms": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

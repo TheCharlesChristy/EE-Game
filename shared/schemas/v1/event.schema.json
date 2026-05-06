@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/event",
+  "title": "DeviceEventMessage",
+  "description": "Live gameplay event emitted by an ESP32 device during the active round.",
+  "type": "object",
+  "required": ["version", "type", "device_id", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "enum": ["event", "test_event"] },
+    "device_id": { "type": "string", "minLength": 1 },
+    "payload": {
+      "type": "object",
+      "required": ["event_type"],
+      "additionalProperties": true,
+      "properties": {
+        "event_type": { "type": "string", "minLength": 1 },
+        "dedupe_key": { "type": "string" },
+        "timestamp_ms": { "type": "integer", "minimum": 0 },
+        "elapsed_ms": { "type": "integer", "minimum": 0 },
+        "correct": { "type": "boolean" },
+        "score_delta": { "type": "integer" }
+      }
+    }
+  }
+}

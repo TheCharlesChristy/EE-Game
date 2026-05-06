@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/register",
+  "title": "DeviceRegisterMessage",
+  "description": "Sent by an ESP32 device on connection to register its identity with the host backend.",
+  "type": "object",
+  "required": ["version", "type", "device_id", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "const": "register" },
+    "device_id": { "type": "string", "minLength": 1, "description": "Stable hardware identifier (e.g. MAC address)." },
+    "payload": {
+      "type": "object",
+      "required": ["firmware_version", "board_target"],
+      "additionalProperties": false,
+      "properties": {
+        "firmware_version": { "type": "string" },
+        "board_target": { "type": "string" }
+      }
+    }
+  }
+}

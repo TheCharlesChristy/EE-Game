@@ -1,0 +1,22 @@
+[Unit]
+Description=EE Game Backend
+Documentation=https://github.com/your-org/ee-game
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=ee-game
+WorkingDirectory=/opt/ee-game/host/backend
+ExecStart=/opt/ee-game/host/backend/.venv/bin/uvicorn ee_game_backend.main:app --host 0.0.0.0 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ee-game
+EnvironmentFile=/opt/ee-game/host/backend/.env
+# Resource limits appropriate for Raspberry Pi 4
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

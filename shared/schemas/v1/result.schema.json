@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/result",
+  "title": "RoundResultMessage",
+  "description": "Backend-to-frontend round result payload.",
+  "type": "object",
+  "required": ["version", "type", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "const": "result" },
+    "payload": {
+      "type": "object",
+      "required": ["round_id", "game_id", "player_scores"],
+      "additionalProperties": true,
+      "properties": {
+        "round_id": { "type": "string" },
+        "game_id": { "type": "string" },
+        "player_scores": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "team_scores": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "highlights": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

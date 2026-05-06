@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/error",
+  "title": "ErrorMessage",
+  "description": "Backend error response for malformed or rejected WebSocket messages.",
+  "type": "object",
+  "required": ["version", "type", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "const": "error" },
+    "payload": {
+      "type": "object",
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

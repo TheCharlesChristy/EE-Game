@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ee-game/v1/heartbeat",
+  "title": "DeviceHeartbeatMessage",
+  "description": "Periodic liveness signal sent by a registered ESP32 device.",
+  "type": "object",
+  "required": ["version", "type", "device_id", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "1" },
+    "type": { "type": "string", "const": "heartbeat" },
+    "device_id": { "type": "string", "minLength": 1 },
+    "payload": {
+      "type": "object",
+      "required": ["timestamp_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "timestamp_ms": { "type": "integer", "minimum": 0, "description": "Device uptime in milliseconds." }
+      }
+    }
+  }
+}
