@@ -126,13 +126,30 @@ def create_app() -> FastAPI:
     app.include_router(devices_router, tags=["websocket"])
     app.include_router(frontend_router, tags=["websocket"])
 
-    # Serve built React frontend as static files if the dist directory exists.
-    # This mount is inactive during development (use `npm run dev` separately).
+    # Serve built React frontend.
+    # StaticFiles(html=True) does NOT do SPA fallback for unknown paths — only for
+    # directory roots. We mount /assets explicitly and add a catch-all that returns
+    # index.html so React Router handles all client-side routes (/host, /display, etc.)
     settings = get_settings()
     static_path = Path(__file__).parent / settings.static_files_dir
     if static_path.exists() and static_path.is_dir():
-        app.mount("/", StaticFiles(directory=str(static_path), html=True), name="frontend")
-        logger.info("Serving frontend from %s", static_path)
+        assets_path = static_path / "assets"
+        if assets_path.exists():
+            app.mount("/assets", StaticFiles(directory=str(assets_path)), name="assets")
+
+        index_html = static_path / "index.html"
+        logger.info("Serving frontend from %s (built %s)",
+                    static_path,
+                    index_html.stat().st_mtime if index_html.exists() else "missing")
+
+        from fastapi.responses import FileResponse  # noqa: PLC0415
+
+        @app.get("/{full_path:path}", include_in_schema=False)
+        async def _spa_fallback(full_path: str) -> FileResponse:
+            candidate = static_path / full_path
+            if candidate.exists() and candidate.is_file():
+                return FileResponse(str(candidate))
+            return FileResponse(str(index_html))
 
     return app
 

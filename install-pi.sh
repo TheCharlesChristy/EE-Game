@@ -148,6 +148,8 @@ info "ee-game CLI → /usr/local/bin/ee-game"
 
 # ── Step 8: WiFi access point ─────────────────────────────────────────────────
 step "Configuring WiFi access point"
+
+# Write hostapd config
 tee /etc/hostapd/hostapd.conf > /dev/null <<EOF
 interface=wlan0
 driver=nl80211
@@ -163,19 +165,65 @@ wpa_passphrase=$WIFI_PASSWORD
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 EOF
-
 grep -q 'DAEMON_CONF' /etc/default/hostapd 2>/dev/null || \
     echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
 
-grep -q 'dhcp-range=192.168.4' /etc/dnsmasq.conf 2>/dev/null || \
-    printf '\ninterface=wlan0\ndhcp-range=192.168.4.10,192.168.4.50,255.255.255.0,24h\n' >> /etc/dnsmasq.conf
+# Write dnsmasq config in a drop-in file (idempotent on re-run)
+tee /etc/dnsmasq.d/ee-game.conf > /dev/null <<EOF
+interface=wlan0
+dhcp-range=192.168.4.10,192.168.4.50,255.255.255.0,24h
+EOF
 
-grep -q 'static ip_address=192.168.4.1' /etc/dhcpcd.conf 2>/dev/null || \
-    printf '\ninterface wlan0\nstatic ip_address=192.168.4.1/24\nnohook wpa_supplicant\n' >> /etc/dhcpcd.conf
+# Detect network management stack.
+# Pi OS Bookworm defaults to NetworkManager; we must unmanage wlan0 so hostapd can run.
+if systemctl is-active --quiet NetworkManager 2>/dev/null; then
+    info "NetworkManager detected — marking wlan0 as unmanaged"
+    mkdir -p /etc/NetworkManager/conf.d
+    tee /etc/NetworkManager/conf.d/99-ee-game.conf > /dev/null <<EOF
+[keyfile]
+unmanaged-devices=interface-name:wlan0
+EOF
+    if command -v nmcli &>/dev/null; then
+        nmcli device set wlan0 managed no 2>/dev/null || true
+    else
+        systemctl reload NetworkManager 2>/dev/null || true
+    fi
+    sleep 1
+else
+    # dhcpcd — add static IP config and restart
+    grep -q 'static ip_address=192.168.4.1' /etc/dhcpcd.conf 2>/dev/null || \
+        printf '\ninterface wlan0\nstatic ip_address=192.168.4.1/24\nnohook wpa_supplicant\n' >> /etc/dhcpcd.conf
+    systemctl restart dhcpcd 2>/dev/null || true
+    sleep 2
+fi
 
+# Assign static IP to wlan0 immediately (effective without reboot)
+ip addr show wlan0 2>/dev/null | grep -q "192.168.4.1" || \
+    ip addr add 192.168.4.1/24 dev wlan0 2>/dev/null || true
+ip link set wlan0 up 2>/dev/null || true
+
+# Enable and start AP services now (not just at next boot)
 systemctl unmask hostapd
 systemctl enable hostapd dnsmasq
-info "WiFi AP configured (SSID: $WIFI_SSID)"
+systemctl restart dnsmasq
+systemctl restart hostapd
+sleep 3
+
+# Verify the AP is actually broadcasting
+AP_UP=false
+for _i in 1 2 3 4 5; do
+    if iw dev wlan0 info 2>/dev/null | grep -q "type AP"; then
+        AP_UP=true; break
+    fi
+    sleep 2
+done
+
+if [[ "$AP_UP" == true ]]; then
+    info "WiFi AP is broadcasting (SSID: $WIFI_SSID)"
+else
+    warn "WiFi AP did not start yet — check: journalctl -u hostapd -n 30"
+    warn "A reboot may be required if the network stack has not fully applied."
+fi
 
 # ── Step 9: Start service and smoke test ──────────────────────────────────────
 step "Starting service"

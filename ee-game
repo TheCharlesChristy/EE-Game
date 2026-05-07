@@ -13,7 +13,17 @@ set -euo pipefail
 # ── Installation path ─────────────────────────────────────────────────────────
 # Resolved at install time by install-pi.sh; can be overridden via environment.
 INSTALL_DIR="${EE_GAME_DIR:-/opt/ee-game}"
-ENV_FILE="$INSTALL_DIR/host/backend/.env"
+
+# Locate the env file: prefer the live installed copy, fall back to the
+# repo-root template when running from a dev checkout (before install-pi.sh).
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$INSTALL_DIR/host/backend/.env" ]]; then
+    ENV_FILE="$INSTALL_DIR/host/backend/.env"
+elif [[ -f "$_SCRIPT_DIR/.env" ]]; then
+    ENV_FILE="$_SCRIPT_DIR/.env"
+else
+    ENV_FILE="$INSTALL_DIR/host/backend/.env"
+fi
 VENV="$INSTALL_DIR/host/backend/.venv"
 FIRMWARE_DIR="$INSTALL_DIR/firmware"
 SERVICE="ee-game"
@@ -152,6 +162,7 @@ cmd_status() {
     fi
 
     section "Configuration"
+    echo "   Config file : $ENV_FILE"
     echo "   Install dir : $INSTALL_DIR"
     echo "   Port        : $port"
     echo "   Log level   : $(env_get LOG_LEVEL INFO)"

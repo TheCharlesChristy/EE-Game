@@ -135,5 +135,5 @@ apt-get autoremove -y -qq && apt-get clean
 echo
 info "All dependencies installed."
 echo
-echo "  Next: sudo ./install-pi.sh --wifi-ssid \"EE-Game\" --wifi-password \"<passphrase>\""
+echo "  Next: edit .env, then run: sudo ./install-pi.sh"
 echo
