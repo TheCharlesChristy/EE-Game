@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # install-deps.sh — Install all system dependencies for EE-Game.
 #
-# Supports Debian-based systems (apt) and RPM-based systems (dnf/yum).
-# Detects the package manager automatically. Installs the latest available
-# Python 3.12+, Node.js LTS, WiFi AP tools, PlatformIO, mDNS, and USB serial
-# access for ESP32 flashing.
+# Uses only the distribution's own package manager (apt or dnf/yum).
+# If a package cannot be installed it is skipped and reported at the end
+# so you can install it manually before running install-pi.sh.
 #
 # Usage: sudo ./install-deps.sh
 
-set -euo pipefail
+set -uo pipefail
 
 USERNAME="${SUDO_USER:-${USER}}"
+MISSING=()   # Populated by try_install; reported at the end.
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; BOLD='\033[1m'; NC='\033[0m'
@@ -23,9 +23,8 @@ if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     cat <<EOF
 Usage: sudo $(basename "$0")
 
-Installs all system dependencies for EE-Game: Python 3.12+ (latest available),
-Node.js LTS, WiFi AP tools (hostapd, dnsmasq), PlatformIO, mDNS, and USB serial
-access for ESP32 flashing.
+Installs EE-Game system dependencies using only the distribution's own package
+manager. Packages that cannot be found are skipped and listed at the end.
 
 Supports Debian-based (apt) and RPM-based (dnf/yum) distributions.
 EOF
@@ -52,13 +51,6 @@ else
     exit 1
 fi
 
-pkg_install() {
-    case "$PKG_MANAGER" in
-        apt)     apt-get install -y --no-install-recommends "$@" ;;
-        dnf|yum) "$PKG_MANAGER" install -y "$@" ;;
-    esac
-}
-
 pkg_update() {
     case "$PKG_MANAGER" in
         apt)     apt-get update -qq ;;
@@ -66,176 +58,131 @@ pkg_update() {
     esac
 }
 
+# Install packages, silently skipping those that are unavailable.
+# Usage: try_install "Human label" pkg1 pkg2 ...
+try_install() {
+    local label="$1"; shift
+    local failed=()
+    for pkg in "$@"; do
+        case "$PKG_MANAGER" in
+            apt)
+                if ! apt-get install -y --no-install-recommends "$pkg" &>/dev/null; then
+                    failed+=("$pkg")
+                fi
+                ;;
+            dnf|yum)
+                if ! "$PKG_MANAGER" install -y "$pkg" &>/dev/null; then
+                    failed+=("$pkg")
+                fi
+                ;;
+        esac
+    done
+    if [[ ${#failed[@]} -gt 0 ]]; then
+        warn "Could not install: ${failed[*]}  (skipping)"
+        MISSING+=("$label: ${failed[*]}")
+        return 1
+    fi
+    return 0
+}
+
 # ── Core utilities ────────────────────────────────────────────────────────────
 step "Core utilities"
 pkg_update
 case "$PKG_MANAGER" in
-    apt)     pkg_install git curl wget ca-certificates gnupg lsb-release unzip build-essential ;;
-    dnf|yum) pkg_install git curl wget ca-certificates gnupg2 unzip make gcc gcc-c++ ;;
+    apt)     try_install "core utilities" git curl wget ca-certificates gnupg lsb-release unzip build-essential ;;
+    dnf|yum) try_install "core utilities" git curl wget ca-certificates gnupg2 unzip make gcc gcc-c++ ;;
 esac
-info "Core utilities ready"
+info "Core utilities done"
 
-# ── Python 3.12+ (latest available) ──────────────────────────────────────────
-step "Python 3.12+ (latest available)"
+# ── Python 3.12+ ──────────────────────────────────────────────────────────────
+step "Python 3.12+"
 
-# Candidates from newest to oldest — extend this list as new releases ship.
-PYTHON_CANDIDATES=(3.15 3.14 3.13 3.12)
-
-# Check for a usable version already installed.
+# Try candidate versions newest-first; all are standard distro packages on
+# modern systems (Ubuntu 24.04, Fedora 40+, Debian 12 backports, etc.).
 PYTHON_BIN=""
-for ver in "${PYTHON_CANDIDATES[@]}"; do
+for ver in 3.15 3.14 3.13 3.12; do
     if command -v "python${ver}" &>/dev/null; then
         PYTHON_BIN="python${ver}"
         info "Already installed: $("${PYTHON_BIN}" --version)"
         break
     fi
-done
-
-if [[ -z "$PYTHON_BIN" ]]; then
     case "$PKG_MANAGER" in
         apt)
-            # Pass 1: try installing each candidate from the default apt repos.
-            for ver in "${PYTHON_CANDIDATES[@]}"; do
-                if apt-get install -y --no-install-recommends \
-                       "python${ver}" "python${ver}-venv" "python${ver}-dev" &>/dev/null; then
-                    PYTHON_BIN="python${ver}"
-                    break
-                fi
-            done
-
-            # Pass 2 (Debian only): try backports.
-            if [[ -z "$PYTHON_BIN" ]] && \
-               { [[ "${ID:-}" == "debian" ]] || [[ "${ID_LIKE:-}" == *"debian"* && "${ID:-}" != "ubuntu" ]]; }; then
-                CODENAME="${VERSION_CODENAME:-bookworm}"
-                SOURCES_FILE="/etc/apt/sources.list.d/${CODENAME}-backports.list"
-                [[ -f "$SOURCES_FILE" ]] || \
-                    echo "deb http://deb.debian.org/debian ${CODENAME}-backports main contrib non-free" \
-                         > "$SOURCES_FILE"
-                apt-get update -qq
-                for ver in "${PYTHON_CANDIDATES[@]}"; do
-                    if apt-get install -y --no-install-recommends \
-                           -t "${CODENAME}-backports" \
-                           "python${ver}" "python${ver}-venv" "python${ver}-dev" &>/dev/null; then
-                        PYTHON_BIN="python${ver}"
-                        break
-                    fi
-                done
-            fi
-
-            # Pass 3 (Ubuntu only): try the deadsnakes PPA.
-            if [[ -z "$PYTHON_BIN" ]] && \
-               { [[ "${ID:-}" == "ubuntu" ]] || [[ "${ID_LIKE:-}" == *"ubuntu"* ]]; }; then
-                pkg_install software-properties-common
-                add-apt-repository -y ppa:deadsnakes/ppa
-                apt-get update -qq
-                for ver in "${PYTHON_CANDIDATES[@]}"; do
-                    if apt-get install -y --no-install-recommends \
-                           "python${ver}" "python${ver}-venv" "python${ver}-dev" &>/dev/null; then
-                        PYTHON_BIN="python${ver}"
-                        break
-                    fi
-                done
+            if apt-get install -y --no-install-recommends \
+                   "python${ver}" "python${ver}-venv" "python${ver}-dev" &>/dev/null; then
+                PYTHON_BIN="python${ver}"
             fi
             ;;
-
         dnf|yum)
-            # Try versioned packages (available on Fedora 37+, RHEL 9+ with EPEL).
-            for ver in "${PYTHON_CANDIDATES[@]}"; do
-                if "$PKG_MANAGER" install -y "python${ver}" "python${ver}-devel" &>/dev/null; then
-                    PYTHON_BIN="python${ver}"
-                    break
-                fi
-            done
-
-            # Fall back to the system python3 if it's already >= 3.12.
-            if [[ -z "$PYTHON_BIN" ]]; then
-                pkg_install python3 python3-devel python3-pip
-                if python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3,12) else 1)' 2>/dev/null; then
-                    PYTHON_BIN="python3"
-                fi
+            if "$PKG_MANAGER" install -y "python${ver}" "python${ver}-devel" &>/dev/null; then
+                PYTHON_BIN="python${ver}"
             fi
             ;;
     esac
+    [[ -n "$PYTHON_BIN" ]] && { info "Installed: $("${PYTHON_BIN}" --version)"; break; }
+done
 
-    if [[ -z "$PYTHON_BIN" ]]; then
-        error "Could not install Python 3.12+ from any known source."
-        error "Install manually via pyenv: https://github.com/pyenv/pyenv"
-        exit 1
+if [[ -z "$PYTHON_BIN" ]]; then
+    # No versioned package found; try the generic python3 and accept it if >= 3.12.
+    case "$PKG_MANAGER" in
+        apt)     apt-get install -y --no-install-recommends python3 python3-venv python3-dev &>/dev/null || true ;;
+        dnf|yum) "$PKG_MANAGER" install -y python3 python3-devel python3-pip &>/dev/null || true ;;
+    esac
+    if python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3,12) else 1)' 2>/dev/null; then
+        PYTHON_BIN="python3"
+        info "Using system python3: $(python3 --version)"
+    else
+        SYS_VER="$(python3 --version 2>/dev/null || echo 'not found')"
+        warn "System python3 is ${SYS_VER} — need 3.12+; install manually"
+        MISSING+=("python3.12+ (system has ${SYS_VER})")
+        PYTHON_BIN="python3"   # Best effort; install-pi.sh will check again.
     fi
-    info "Installed: $("${PYTHON_BIN}" --version)"
 fi
 
-# Register with update-alternatives so 'python3' resolves to our version.
+# Register with update-alternatives so 'python3' points at the chosen version.
 if [[ "$PYTHON_BIN" != "python3" ]] && command -v update-alternatives &>/dev/null; then
     PY_PATH="$(command -v "${PYTHON_BIN}")"
     update-alternatives --install /usr/bin/python3 python3 "$PY_PATH" 10 2>/dev/null || true
 fi
 
-# Ensure pip is present.
-"${PYTHON_BIN}" -m pip --version &>/dev/null || \
-    curl -fsSL https://bootstrap.pypa.io/get-pip.py | "${PYTHON_BIN}"
-
-info "$("${PYTHON_BIN}" --version) | pip $("${PYTHON_BIN}" -m pip --version | cut -d' ' -f2)"
-
-# ── Node.js (>= 18 required for Vite 5) ──────────────────────────────────────
+# ── Node.js ───────────────────────────────────────────────────────────────────
 step "Node.js"
 NODE_MAJOR="$(node --version 2>/dev/null | grep -oE '^v[0-9]+' | tr -d 'v' || echo 0)"
 if [[ "$NODE_MAJOR" -ge 18 ]]; then
     info "Already installed: $(node --version)"
 else
-    # Try the distro's own nodejs package first — modern distros (Ubuntu 24.04,
-    # Debian 12, Fedora 40+) ship Node 18-22 without needing a third-party repo.
-    pkg_install nodejs npm 2>/dev/null || true
+    case "$PKG_MANAGER" in
+        apt)     try_install "nodejs" nodejs npm ;;
+        dnf|yum) try_install "nodejs" nodejs npm ;;
+    esac
     NODE_MAJOR="$(node --version 2>/dev/null | grep -oE '^v[0-9]+' | tr -d 'v' || echo 0)"
-
     if [[ "$NODE_MAJOR" -lt 18 ]]; then
-        # Distro version is too old — fall back to NodeSource LTS.
-        warn "Distro nodejs is v${NODE_MAJOR} (need >= 18); adding NodeSource LTS repo"
-        case "$PKG_MANAGER" in
-            apt)
-                mkdir -p /etc/apt/keyrings
-                curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
-                    | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-                LTS_MAJOR="$(curl -fsSL --max-time 10 https://nodejs.org/dist/index.json 2>/dev/null \
-                    | "${PYTHON_BIN}" -c "
-import json,sys
-d=json.load(sys.stdin); lts=[r for r in d if r.get('lts')]
-print(lts[0]['version'].split('.')[0].lstrip('v')) if lts else print(22)
-" 2>/dev/null || echo 22)"
-                echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] \
-https://deb.nodesource.com/node_${LTS_MAJOR}.x nodistro main" \
-                    | tee /etc/apt/sources.list.d/nodesource.list > /dev/null
-                apt-get update -qq
-                pkg_install nodejs
-                ;;
-            dnf|yum)
-                curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
-                pkg_install nodejs
-                ;;
-        esac
+        warn "Installed Node.js v${NODE_MAJOR} is below the required v18 — install a newer version manually"
+        MISSING+=("nodejs >= 18 (system has v${NODE_MAJOR})")
+    else
+        info "Node $(node --version) | npm $(npm --version)"
     fi
 fi
-info "Node $(node --version) | npm $(npm --version)"
 
 # ── WiFi access point ─────────────────────────────────────────────────────────
 step "WiFi access point (hostapd + dnsmasq)"
 case "$PKG_MANAGER" in
-    apt)     pkg_install hostapd dnsmasq dhcpcd5 ;;
-    dnf|yum) pkg_install hostapd dnsmasq ;;
+    apt)     try_install "hostapd/dnsmasq" hostapd dnsmasq dhcpcd5 ;;
+    dnf|yum) try_install "hostapd/dnsmasq" hostapd dnsmasq ;;
 esac
 # Leave disabled — install-pi.sh configures and enables them.
-systemctl unmask hostapd
+systemctl unmask hostapd 2>/dev/null || true
 systemctl disable --now hostapd dnsmasq 2>/dev/null || true
-info "Installed (will be activated by install-pi.sh)"
+info "WiFi AP packages done (will be activated by install-pi.sh)"
 
 # ── mDNS ─────────────────────────────────────────────────────────────────────
 step "mDNS"
 case "$PKG_MANAGER" in
-    apt)     pkg_install avahi-daemon libnss-mdns ;;
-    dnf|yum) pkg_install avahi nss-mdns ;;
+    apt)     try_install "avahi/mDNS" avahi-daemon libnss-mdns ;;
+    dnf|yum) try_install "avahi/mDNS" avahi nss-mdns ;;
 esac
-systemctl enable --now avahi-daemon
-info "$(hostname).local is now resolvable on the local network"
+systemctl enable --now avahi-daemon 2>/dev/null || true
+info "$(hostname).local should be resolvable on the local network"
 
 # ── USB serial access (ESP32 flashing) ───────────────────────────────────────
 step "USB serial access"
@@ -258,18 +205,28 @@ EOF
 udevadm control --reload-rules && udevadm trigger
 info "udev rules written, dialout group configured"
 
-# ── PlatformIO ────────────────────────────────────────────────────────────────
+# ── PlatformIO (via pip) ──────────────────────────────────────────────────────
 step "PlatformIO CLI"
-# --break-system-packages is required on PEP 668 systems (Debian 12+, Ubuntu 23+);
-# older systems don't recognise the flag, so we fall back without it.
-sudo -u "$USERNAME" "${PYTHON_BIN}" -m pip install --user platformio --break-system-packages 2>/dev/null || \
-    sudo -u "$USERNAME" "${PYTHON_BIN}" -m pip install --user platformio
-PIO_BIN="$(sudo -u "$USERNAME" "${PYTHON_BIN}" -m site --user-base)/bin/pio"
-if [[ -f "$PIO_BIN" ]]; then
-    ln -sf "$PIO_BIN" /usr/local/bin/pio
-    info "$(pio --version)"
+if command -v pio &>/dev/null; then
+    info "Already installed: $(pio --version)"
 else
-    warn "pio not found at $PIO_BIN — add ~/.local/bin to PATH if needed"
+    PIO_INSTALLED=false
+    if command -v "${PYTHON_BIN}" &>/dev/null; then
+        if sudo -u "$USERNAME" "${PYTHON_BIN}" -m pip install --user platformio \
+               --break-system-packages &>/dev/null 2>&1 || \
+           sudo -u "$USERNAME" "${PYTHON_BIN}" -m pip install --user platformio &>/dev/null; then
+            PIO_BIN="$(sudo -u "$USERNAME" "${PYTHON_BIN}" -m site --user-base)/bin/pio"
+            if [[ -f "$PIO_BIN" ]]; then
+                ln -sf "$PIO_BIN" /usr/local/bin/pio
+                info "$(pio --version)"
+                PIO_INSTALLED=true
+            fi
+        fi
+    fi
+    if [[ "$PIO_INSTALLED" == false ]]; then
+        warn "Could not install PlatformIO — install manually: pip install platformio"
+        MISSING+=("platformio (pip install platformio)")
+    fi
 fi
 
 # ── Clean up ──────────────────────────────────────────────────────────────────
@@ -278,9 +235,18 @@ case "$PKG_MANAGER" in
     dnf|yum) "$PKG_MANAGER" autoremove -y -q 2>/dev/null || true ;;
 esac
 
-# ── Done ──────────────────────────────────────────────────────────────────────
+# ── Summary ───────────────────────────────────────────────────────────────────
 echo
-info "All dependencies installed."
+if [[ ${#MISSING[@]} -eq 0 ]]; then
+    info "All dependencies installed successfully."
+else
+    warn "The following could not be installed automatically:"
+    for item in "${MISSING[@]}"; do
+        echo "    •  $item"
+    done
+    echo
+    echo "  Install these manually, then run: sudo ./install-pi.sh"
+fi
 echo
 echo "  Next: edit .env, then run: sudo ./install-pi.sh"
 echo
