@@ -55,6 +55,12 @@ require_install() {
 # Run a systemctl command, escalating to sudo only if not already root.
 ctl() { if [[ "$EUID" -eq 0 ]]; then systemctl "$@"; else sudo systemctl "$@"; fi; }
 
+# Run nmcli, escalating to sudo only if not already root.
+nmc() { if [[ "$EUID" -eq 0 ]]; then nmcli "$@"; else sudo nmcli "$@"; fi; }
+
+# True if NetworkManager is running and nmcli is available.
+has_nm() { command -v nmcli &>/dev/null && systemctl is-active --quiet NetworkManager 2>/dev/null; }
+
 # ── Usage ─────────────────────────────────────────────────────────────────────
 usage() {
     cat <<EOF
@@ -79,14 +85,26 @@ ${BOLD}FIRMWARE COMMANDS${NC}
     -m, --monitor         Open serial monitor after flashing
         --build-only      Compile without flashing
 
+${BOLD}WIFI COMMANDS${NC}
+  wifi                Show current WiFi mode (game AP or home network)
+  wifi ap             Switch to game AP mode  (ESP32s and displays connect here)
+  wifi home           Switch to home/office WiFi so you can reach the internet
+  wifi connect SSID PASSWORD
+                      Switch to a specific WiFi network by name and password
+
 ${BOLD}MAINTENANCE COMMANDS${NC}
   update              Pull the latest code and redeploy (keeps data and config)
+                      Tip: run 'ee-game wifi home' first if you need internet
   config              Show the current configuration
   config set KEY VAL  Set a config value in .env
 
 ${BOLD}EXAMPLES${NC}
   ee-game status
   ee-game logs -f
+  ee-game wifi
+  ee-game wifi home
+  ee-game wifi connect "Home Network" mysecretpassword
+  ee-game wifi ap
   ee-game flash
   ee-game flash --port /dev/ttyUSB0 --monitor
   ee-game flash --target esp32dev
@@ -257,10 +275,152 @@ cmd_flash() {
     fi
 }
 
+# ── Command: wifi ─────────────────────────────────────────────────────────────
+cmd_wifi() {
+    local sub="${1:-status}"
+    shift || true
+
+    case "$sub" in
+        status|"")  _wifi_status ;;
+        ap|game)    _wifi_ap ;;
+        home|client) _wifi_home "" "" ;;
+        connect)
+            local ssid="${1:-}" pass="${2:-}"
+            [[ -n "$ssid" ]] || die "Usage: ee-game wifi connect \"Network Name\" password"
+            _wifi_home "$ssid" "$pass"
+            ;;
+        *) die "Unknown wifi subcommand '$sub'. Use: ap, home, connect SSID [PASSWORD]" ;;
+    esac
+}
+
+_wifi_status() {
+    local game_ssid
+    game_ssid="$(env_get WIFI_SSID "(not set)")"
+
+    section "WiFi mode"
+    if has_nm; then
+        if nmcli connection show --active 2>/dev/null | grep -q "ee-game-ap"; then
+            info "Mode  : ${GREEN}Game AP${NC} — broadcasting '${game_ssid}'"
+            echo "   ESP32 devices and displays connect to this network."
+            echo
+            echo "   To get internet access:  ee-game wifi home"
+        else
+            local active
+            active="$(nmcli -t -f active,ssid dev wifi 2>/dev/null \
+                      | grep '^yes:' | cut -d: -f2 || true)"
+            if [[ -n "$active" ]]; then
+                info "Mode  : ${CYAN}Home WiFi${NC} — connected to '${active}'"
+            else
+                info "Mode  : ${CYAN}Home WiFi${NC} — not connected to any network"
+            fi
+            echo
+            echo "   Game WiFi is off. ESP32s cannot connect."
+            echo "   To start game mode:  ee-game wifi ap"
+        fi
+    elif systemctl is-active --quiet hostapd 2>/dev/null; then
+        info "Mode  : ${GREEN}Game AP${NC} — broadcasting '${game_ssid}'"
+        echo "   To get internet access:  ee-game wifi home"
+    else
+        info "Mode  : ${CYAN}Home WiFi${NC} (hostapd not running)"
+        echo "   To start game mode:  ee-game wifi ap"
+    fi
+    echo
+}
+
+_wifi_ap() {
+    local game_ssid
+    game_ssid="$(env_get WIFI_SSID)"
+    [[ -n "$game_ssid" ]] || die "WIFI_SSID not set in $ENV_FILE"
+
+    section "Switching to Game AP mode"
+
+    if has_nm; then
+        # Gracefully bring down any active client connection on wlan0
+        local client
+        client="$(nmcli -t -f name,device con show --active 2>/dev/null \
+                  | grep ":wlan0$" | grep -v "^ee-game-ap:" | cut -d: -f1 | head -1 || true)"
+        [[ -n "$client" ]] && nmc connection down "$client" &>/dev/null || true
+
+        nmc connection up ee-game-ap &>/dev/null \
+            || die "Could not start game AP. Is the WiFi profile installed? Re-run: sudo ./install.sh"
+    else
+        command -v hostapd &>/dev/null \
+            || die "hostapd not found. Re-run: sudo ./install.sh"
+        ctl start hostapd dnsmasq
+    fi
+
+    sleep 2
+    info "Game WiFi is now active"
+    echo "   SSID : $game_ssid"
+    echo "   Devices can now connect and play."
+    echo
+    echo "   To go back to home WiFi:  ee-game wifi home"
+    echo
+}
+
+_wifi_home() {
+    local ssid="$1" pass="$2"
+
+    section "Switching to home WiFi"
+
+    if has_nm; then
+        # Bring down the game AP
+        nmc connection down ee-game-ap &>/dev/null || true
+
+        if [[ -n "$ssid" ]]; then
+            local connect_args=(device wifi connect "$ssid")
+            [[ -n "$pass" ]] && connect_args+=(password "$pass")
+            info "Connecting to '$ssid'..."
+            nmc "${connect_args[@]}" &>/dev/null \
+                || die "Could not connect to '$ssid'. Check the name and password and try again."
+            info "Connected to '$ssid'"
+        else
+            # Let NM auto-connect to the best known network
+            info "Looking for a known network..."
+            sleep 4
+            local active
+            active="$(nmcli -t -f active,ssid dev wifi 2>/dev/null \
+                      | grep '^yes:' | cut -d: -f2 || true)"
+            if [[ -n "$active" ]]; then
+                info "Connected to '$active'"
+            else
+                warn "Not connected to any network."
+                echo
+                echo "   To connect to a specific network:"
+                echo "     ee-game wifi connect \"Network Name\" password"
+                echo
+                echo "   Nearby networks:"
+                nmcli dev wifi list 2>/dev/null \
+                    | awk 'NR>1 {printf "     %s\n", $0}' | head -8 || true
+            fi
+        fi
+    else
+        ctl stop hostapd dnsmasq 2>/dev/null || true
+        if [[ -n "$ssid" ]]; then
+            warn "Use your system's network settings to connect to '$ssid'."
+        else
+            info "Game AP stopped. Your system will reconnect to a known network."
+        fi
+    fi
+
+    echo
+    info "To switch back to game mode:  ee-game wifi ap"
+    echo
+}
+
 # ── Command: update ───────────────────────────────────────────────────────────
 cmd_update() {
     require_install
     section "Updating EE-Game"
+
+    # Check internet before doing anything that needs it.
+    if ! curl -fsSo /dev/null --connect-timeout 5 https://pypi.org 2>/dev/null; then
+        if has_nm && nmcli connection show --active 2>/dev/null | grep -q "ee-game-ap"; then
+            die "No internet — the Pi is in game AP mode.\nRun:  ee-game wifi home\nThen: ee-game update\nThen: ee-game wifi ap"
+        else
+            die "No internet connection. Connect to a network and try again."
+        fi
+    fi
 
     if git -C "$INSTALL_DIR" rev-parse --git-dir &>/dev/null; then
         info "Pulling latest code..."
@@ -347,6 +507,7 @@ case "$COMMAND" in
     restart) cmd_restart ;;
     status)  cmd_status ;;
     logs)    cmd_logs "$@" ;;
+    wifi)    cmd_wifi "$@" ;;
     flash)   cmd_flash "$@" ;;
     update)  cmd_update ;;
     config)  cmd_config "$@" ;;
