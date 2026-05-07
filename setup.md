@@ -17,15 +17,13 @@
 
 ## Installing on a Raspberry Pi
 
-The git clone **is** the installation — nothing is copied elsewhere.
-
 ```bash
 # 1. Clone the repo (once)
-git clone <repo-url> ~/EE-Game
-cd ~/EE-Game
+git clone https://github.com/TheCharlesChristy/EE-Game.git
+cd EE-Game
 
 # 2. Edit .env — set your WiFi name, password, and backend port
-nano .env
+vi .env
 
 # 3. Install system dependencies (once, on a fresh Pi)
 sudo ./install-deps.sh
