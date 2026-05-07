@@ -1,29 +1,27 @@
 #!/usr/bin/env bash
 # ee-game — Management CLI for the EE-Game platform.
 #
-# Handles everything on the Pi: service lifecycle, status probing,
-# firmware flashing (with WiFi credentials injected from config),
+# Handles service lifecycle, firmware flashing (with WiFi credentials baked in),
 # log viewing, and updates.
 #
-# After installation this script is symlinked to /usr/local/bin/ee-game
-# and can be run from any directory.
+# Symlinked to /usr/local/bin/ee-game by install-pi.sh. The symlink is followed
+# to find the git clone directory automatically — no hardcoded paths.
 
 set -euo pipefail
 
-# ── Installation path ─────────────────────────────────────────────────────────
-# Resolved at install time by install-pi.sh; can be overridden via environment.
-INSTALL_DIR="${EE_GAME_DIR:-/opt/ee-game}"
+# ── Locate the installation ───────────────────────────────────────────────────
+# Follow the symlink so this works whether invoked as /usr/local/bin/ee-game or
+# ./ee-game directly from the repo.
+SCRIPT_REAL="$(readlink -f "${BASH_SOURCE[0]}")"
+INSTALL_DIR="${EE_GAME_DIR:-$(dirname "$SCRIPT_REAL")}"
 
-# Locate the env file: prefer the live installed copy, fall back to the
-# repo-root template when running from a dev checkout (before install-pi.sh).
-_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Env file: prefer the live backend copy; fall back to root template (dev checkout).
 if [[ -f "$INSTALL_DIR/host/backend/.env" ]]; then
     ENV_FILE="$INSTALL_DIR/host/backend/.env"
-elif [[ -f "$_SCRIPT_DIR/.env" ]]; then
-    ENV_FILE="$_SCRIPT_DIR/.env"
 else
-    ENV_FILE="$INSTALL_DIR/host/backend/.env"
+    ENV_FILE="$INSTALL_DIR/.env"
 fi
+
 VENV="$INSTALL_DIR/host/backend/.venv"
 FIRMWARE_DIR="$INSTALL_DIR/firmware"
 SERVICE="ee-game"
@@ -38,7 +36,6 @@ error()   { echo -e "${RED}✗${NC}  $*" >&2; }
 section() { echo -e "\n${BOLD}${CYAN}$*${NC}"; }
 die()     { error "$*"; exit 1; }
 
-# Read a value from the .env file
 env_get() {
     local key="$1" default="${2:-}"
     if [[ -f "$ENV_FILE" ]]; then
@@ -51,7 +48,8 @@ env_get() {
 }
 
 require_install() {
-    [[ -d "$INSTALL_DIR" ]] || die "EE-Game does not appear to be installed at $INSTALL_DIR.\nRun: sudo ./install-pi.sh --prod"
+    [[ -f "$INSTALL_DIR/host/backend/pyproject.toml" ]] || \
+        die "EE-Game does not appear to be installed at $INSTALL_DIR.\nRun: sudo ./install-pi.sh"
 }
 
 # Run a systemctl command, escalating to sudo only if not already root.
@@ -74,8 +72,7 @@ ${BOLD}SERVICE COMMANDS${NC}
 
 ${BOLD}FIRMWARE COMMANDS${NC}
   flash [options]     Build and flash firmware onto a connected ESP32.
-                      WiFi credentials are read from the installed config
-                      and baked into the firmware automatically.
+                      WiFi credentials are read from config and baked in.
 
     -t, --target TARGET   Board environment: esp32-c3 | esp32dev  (default: esp32-c3)
     -p, --port PORT       Serial port (default: auto-detect)
@@ -85,7 +82,7 @@ ${BOLD}FIRMWARE COMMANDS${NC}
 ${BOLD}MAINTENANCE COMMANDS${NC}
   update              Pull the latest code and redeploy (keeps data and config)
   config              Show the current configuration
-  config set KEY VAL  Set a config value in .env (requires sudo)
+  config set KEY VAL  Set a config value in .env
 
 ${BOLD}EXAMPLES${NC}
   ee-game status
@@ -138,7 +135,7 @@ cmd_status() {
         echo "   Started : $uptime"
     else
         warn "systemd service is ${RED}not running${NC}"
-        echo "   Start with: sudo ee-game start"
+        echo "   Start with: ee-game start"
     fi
 
     section "Health probe"
@@ -162,8 +159,8 @@ cmd_status() {
     fi
 
     section "Configuration"
-    echo "   Config file : $ENV_FILE"
     echo "   Install dir : $INSTALL_DIR"
+    echo "   Config file : $ENV_FILE"
     echo "   Port        : $port"
     echo "   Log level   : $(env_get LOG_LEVEL INFO)"
     local wifi_ssid
@@ -197,32 +194,28 @@ cmd_flash() {
             -p|--port)       serial_port="$2";  shift 2 ;;
             -m|--monitor)    monitor=true;      shift   ;;
                --build-only) build_only=true;   shift   ;;
-            *) die "Unknown flash option: $1. Run 'ee-game flash --help' for usage." ;;
+            *) die "Unknown flash option: $1. See 'ee-game help'." ;;
         esac
     done
 
-    command -v pio &>/dev/null || die "PlatformIO (pio) not found.\nInstall with: sudo ./install-deps.sh --with-platformio"
+    command -v pio &>/dev/null || die "PlatformIO (pio) not found. Install with: sudo ./install-deps.sh"
 
-    # Read WiFi credentials and backend address from the installed config
     local wifi_ssid wifi_password backend_host backend_port
     wifi_ssid=$(env_get "WIFI_SSID" "ee-game")
     wifi_password=$(env_get "WIFI_PASSWORD" "")
-    # BACKEND_AP_HOST is the Pi's address on the WiFi AP subnet (192.168.4.1).
-    # BACKEND_HOST is 0.0.0.0 (bind address) — not useful for firmware.
     backend_host=$(env_get "BACKEND_AP_HOST" "192.168.4.1")
     backend_port=$(env_get "BACKEND_PORT" "8000")
 
-    if [[ -z "$wifi_password" ]]; then
-        die "WIFI_PASSWORD is not set in $ENV_FILE.\nSet it with: sudo ee-game config set WIFI_PASSWORD <passphrase>"
-    fi
+    [[ -n "$wifi_password" ]] || \
+        die "WIFI_PASSWORD is not set in $ENV_FILE.\nSet it with: ee-game config set WIFI_PASSWORD <passphrase>"
 
     section "Firmware build"
     echo "   Target      : $target"
     echo "   WiFi SSID   : $wifi_ssid"
     echo "   Backend     : $backend_host:$backend_port"
+    echo "   Config from : $ENV_FILE"
     echo
 
-    # Inject credentials as compile-time defines
     local build_flags
     build_flags="-D WIFI_SSID='\"${wifi_ssid}\"'"
     build_flags+=" -D WIFI_PASSWORD='\"${wifi_password}\"'"
@@ -230,6 +223,10 @@ cmd_flash() {
     build_flags+=" -D BACKEND_PORT=${backend_port}"
 
     cd "$FIRMWARE_DIR"
+
+    # Clean before every build so credential changes are always picked up.
+    # PlatformIO caches compiled objects and won't recompile when only env vars change.
+    pio run -e "$target" --target clean
     PLATFORMIO_BUILD_FLAGS="$build_flags" pio run -e "$target"
     info "Build complete."
 
@@ -263,15 +260,13 @@ cmd_flash() {
 # ── Command: update ───────────────────────────────────────────────────────────
 cmd_update() {
     require_install
-
     section "Updating EE-Game"
 
     if git -C "$INSTALL_DIR" rev-parse --git-dir &>/dev/null; then
         info "Pulling latest code..."
         git -C "$INSTALL_DIR" pull --ff-only
     else
-        warn "Install directory is not a git repository — skipping git pull."
-        warn "Copy new files to $INSTALL_DIR manually, then re-run."
+        warn "Not a git repository — skipping pull."
     fi
 
     info "Rebuilding frontend..."
@@ -297,7 +292,6 @@ cmd_config() {
         local key="${2:-}" val="${3:-}"
         [[ -n "$key" && -n "$val" ]] || die "Usage: ee-game config set KEY VALUE"
 
-        local set_cmd="sed -i 's|^${key}=.*|${key}=${val}|' '$ENV_FILE'"
         if grep -q "^${key}=" "$ENV_FILE" 2>/dev/null; then
             if [[ "$EUID" -eq 0 ]]; then
                 sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
@@ -311,14 +305,13 @@ cmd_config() {
                 echo "${key}=${val}" | sudo tee -a "$ENV_FILE" > /dev/null
             fi
         fi
-        info "Set $key"
+        info "Set $key in $ENV_FILE"
         warn "Restart for changes to take effect: ee-game restart"
         return
     fi
 
     section "Current configuration ($ENV_FILE)"
     if [[ -f "$ENV_FILE" ]]; then
-        # Print each line, masking the WiFi password
         while IFS= read -r line; do
             if [[ "$line" =~ ^WIFI_PASSWORD= ]]; then
                 echo "   WIFI_PASSWORD=********"

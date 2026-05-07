@@ -5,6 +5,7 @@ __pycache__/
 .venv/
 dist/
 build/
+.cache
 
 # Environment — the root .env is a committed template with safe defaults.
 # Never commit the live installed copy.

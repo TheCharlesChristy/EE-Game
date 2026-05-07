@@ -17,47 +17,73 @@
 
 ## Installing on a Raspberry Pi
 
-Edit `.env` in the repository root to set your WiFi name, password, and any other settings, then run:
+The git clone **is** the installation — nothing is copied elsewhere.
 
 ```bash
-sudo ./install-deps.sh   # once, on a fresh system
-sudo ./install-pi.sh     # installs and starts the app
+# 1. Clone the repo (once)
+git clone <repo-url> ~/EE-Game
+cd ~/EE-Game
+
+# 2. Edit .env — set your WiFi name, password, and backend port
+nano .env
+
+# 3. Install system dependencies (once, on a fresh Pi)
+sudo ./install-deps.sh
+
+# 4. Install and start the app
+sudo ./install-pi.sh
 ```
 
-That's it. All configuration is read from `.env` — no command-line arguments needed.
+That's it. The service starts automatically and survives reboots.
 
-Start the service and verify it is healthy:
+**To update after a git pull:**
+```bash
+git pull
+ee-game restart       # or: ee-game update (rebuilds frontend + deps too)
+```
+
+---
+
+## Managing the service
 
 ```bash
-sudo systemctl start ee-game
-curl http://localhost:8000/health
+ee-game status        # health check, connected devices, config
+ee-game logs -f       # live logs
+ee-game restart       # restart after config changes
+ee-game stop
+ee-game start
 ```
 
-Run `./install-pi.sh --help` for all options (custom install path, port, dry-run, etc.).
-
-Full details - offline installation, file permissions, updating - are in
-[docs/deployment/raspberry-pi-setup.md](docs/deployment/raspberry-pi-setup.md).
+**Edit config:**
+```bash
+ee-game config                          # show current config (password masked)
+ee-game config set WIFI_PASSWORD newpw  # change a value
+ee-game restart                         # apply changes
+```
 
 ---
 
 ## Flashing ESP32 devices
 
-With a device connected via USB:
+WiFi credentials are read from `.env` and baked into the firmware automatically.
 
+**On the Pi (after install):**
 ```bash
-./flash-device.sh
+ee-game flash                           # auto-detect port, esp32-c3 target
+ee-game flash --port /dev/ttyUSB0      # specify port
+ee-game flash --target esp32dev        # different board variant
+ee-game flash --monitor                # open serial console after flash
 ```
 
-Common options:
-
+**From a laptop (before or without a Pi):**
 ```bash
-./flash-device.sh --port /dev/ttyUSB0          # specify port explicitly
-./flash-device.sh --target esp32dev            # different board variant
-./flash-device.sh --monitor                    # open serial console after flash
-./flash-device.sh --build-only                 # compile without flashing
+./flash-device.sh                       # reads credentials from .env
+./flash-device.sh --port /dev/ttyUSB0
+./flash-device.sh --target esp32dev --monitor
 ```
 
-Run `./flash-device.sh --help` for all options.
+Both scripts always do a clean build before flashing, so changing the WiFi SSID
+or password in `.env` is always picked up.
 
 ---
 
@@ -79,6 +105,7 @@ cd host/frontend && npm install && npm run dev
 
 | URL | Page |
 |-----|------|
+| `http://localhost:5173/` | Landing (pick host or display) |
 | `http://localhost:5173/host` | Host control panel |
 | `http://localhost:5173/display` | Public display |
 | `http://localhost:8000/health` | Backend health check |

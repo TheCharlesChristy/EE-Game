@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 # install-pi.sh — Install EE-Game onto a Raspberry Pi.
 #
-# All configuration is read from .env in the repository root.
-# Edit that file before running this script.
-#
-# Run install-deps.sh first on a fresh system.
-# This script is idempotent — re-running updates the app without touching the
-# existing database or installed .env.
+# Run this from the root of the git clone. That directory becomes the
+# installation — no files are copied elsewhere. Updates are:
+#   git pull && ee-game restart
 #
 # Usage: sudo ./install-pi.sh
 
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="$ROOT_DIR/.env"
+ROOT_ENV="$ROOT_DIR/.env"
+ENV_FILE="$ROOT_DIR/host/backend/.env"
+VENV="$ROOT_DIR/host/backend/.venv"
 
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; BOLD='\033[1m'; NC='\033[0m'
 info()  { echo -e "${GREEN}✓${NC}  $*"; }
@@ -25,10 +24,12 @@ if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     cat <<EOF
 Usage: sudo $(basename "$0")
 
-Installs EE-Game onto this Raspberry Pi. All configuration is read from .env
-in the repository root — edit that file before running.
+Installs EE-Game onto this Raspberry Pi. Run from the root of the git clone.
 
-Run install-deps.sh first on a fresh system.
+That directory becomes the installation — no files are copied elsewhere.
+To update: git pull && ee-game restart
+
+Edit .env before running to set WiFi credentials and backend port.
 EOF
     exit 0
 fi
@@ -36,12 +37,18 @@ fi
 # ── Preflight ─────────────────────────────────────────────────────────────────
 [[ "$EUID" -eq 0 ]] || { error "Run with sudo: sudo $0"; exit 1; }
 
-[[ -f "$ENV_FILE" ]] || { error ".env not found at $ENV_FILE"; exit 1; }
-
 [[ -f "$ROOT_DIR/host/backend/pyproject.toml" ]] || {
     error "Run from the root of the EE-Game repository."
     exit 1
 }
+
+SERVICE_USER="${SUDO_USER:-}"
+[[ -n "$SERVICE_USER" ]] || {
+    error "Could not determine the installing user. Run with 'sudo ./install-pi.sh', not 'sudo su'."
+    exit 1
+}
+
+[[ -f "$ROOT_ENV" ]] || { error ".env not found at $ROOT_ENV"; exit 1; }
 
 command -v python3 &>/dev/null || { error "python3 not found — run install-deps.sh first."; exit 1; }
 command -v npm     &>/dev/null || { error "npm not found — run install-deps.sh first."; exit 1; }
@@ -53,103 +60,96 @@ python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3,12) else 1)' || {
 }
 
 # ── Load configuration ────────────────────────────────────────────────────────
-# Source the .env, skipping blank lines and comments
 set -a
 # shellcheck disable=SC1090
-source <(grep -v '^\s*#' "$ENV_FILE" | grep -v '^\s*$')
+source <(grep -v '^\s*#' "$ROOT_ENV" | grep -v '^\s*$')
 set +a
 
-# Required values
 : "${BACKEND_PORT:?BACKEND_PORT not set in .env}"
 : "${WIFI_SSID:?WIFI_SSID not set in .env}"
 : "${WIFI_PASSWORD:?WIFI_PASSWORD not set in .env}"
 : "${BACKEND_AP_HOST:?BACKEND_AP_HOST not set in .env}"
-
 [[ ${#WIFI_PASSWORD} -ge 8 ]] || { error "WIFI_PASSWORD must be at least 8 characters."; exit 1; }
 
-INSTALL_DIR="${INSTALL_DIR:-/opt/ee-game}"
 WIFI_CHANNEL="${WIFI_CHANNEL:-7}"
 
 echo
 echo -e "${BOLD}EE-Game installation${NC}"
-echo "  Config      : $ENV_FILE"
-echo "  Install dir : $INSTALL_DIR"
-echo "  Port        : $BACKEND_PORT"
-echo "  WiFi SSID   : $WIFI_SSID"
-echo "  AP host     : $BACKEND_AP_HOST"
+echo "  Install dir  : $ROOT_DIR  (this git clone is the app)"
+echo "  Service user : $SERVICE_USER"
+echo "  Port         : $BACKEND_PORT"
+echo "  WiFi SSID    : $WIFI_SSID"
+echo "  AP host      : $BACKEND_AP_HOST"
 echo
 
-# ── Stop any running instance ────────────────────────────────────────────────
-# Prevents port conflicts and file-in-use errors during rsync.
+# ── Stop any running service ──────────────────────────────────────────────────
 if systemctl is-active --quiet ee-game 2>/dev/null; then
     step "Stopping running service"
     systemctl stop ee-game
+    sleep 2
     info "Service stopped"
 fi
 
 # ── Step 1: Build frontend ────────────────────────────────────────────────────
 step "Building frontend"
-cd "$ROOT_DIR/host/frontend"
-npm install --silent
-npm run build
+sudo -u "$SERVICE_USER" bash -c "cd '$ROOT_DIR/host/frontend' && npm install --silent && npm run build"
 info "Frontend built"
 
-# ── Step 2: Copy application files ───────────────────────────────────────────
-step "Installing application to $INSTALL_DIR"
-mkdir -p "$INSTALL_DIR"
-
-id "ee-game" &>/dev/null || useradd --system --shell /bin/false --home "$INSTALL_DIR" ee-game
-
-rsync -a --delete \
-    --exclude='.git/' \
-    --exclude='host/backend/.venv/' \
-    --exclude='host/backend/data/' \
-    --exclude='host/backend/.env' \
-    --exclude='host/frontend/node_modules/' \
-    --exclude='firmware/.pio/' \
-    "$ROOT_DIR/" "$INSTALL_DIR/"
-chown -R ee-game:ee-game "$INSTALL_DIR"
-info "Files copied"
-
-# ── Step 3: Python virtual environment ───────────────────────────────────────
+# ── Step 2: Python virtual environment ───────────────────────────────────────
 step "Setting up Python environment"
-VENV="$INSTALL_DIR/host/backend/.venv"
-[[ -d "$VENV" ]] || sudo -u ee-game python3 -m venv "$VENV"
-sudo -u ee-game "$VENV/bin/pip" install --quiet -e "$INSTALL_DIR/host/backend"
+[[ -d "$VENV" ]] || sudo -u "$SERVICE_USER" python3 -m venv "$VENV"
+sudo -u "$SERVICE_USER" "$VENV/bin/pip" install --quiet -e "$ROOT_DIR/host/backend"
 info "Python environment ready"
 
-# ── Step 4: Data directory ────────────────────────────────────────────────────
-sudo -u ee-game mkdir -p "$INSTALL_DIR/host/backend/data"
+# ── Step 3: Data directory ────────────────────────────────────────────────────
+sudo -u "$SERVICE_USER" mkdir -p "$ROOT_DIR/host/backend/data"
 
-# ── Step 5: Install .env ──────────────────────────────────────────────────────
+# ── Step 4: Live .env ─────────────────────────────────────────────────────────
 step "Writing configuration"
-INSTALLED_ENV="$INSTALL_DIR/host/backend/.env"
-if [[ -f "$INSTALLED_ENV" ]]; then
-    warn ".env already exists at $INSTALLED_ENV — not overwritten."
-    warn "Edit it directly and run 'ee-game restart' to apply changes."
+if [[ -f "$ENV_FILE" ]]; then
+    warn ".env already exists at $ENV_FILE — not overwritten."
+    warn "Edit it directly, then run: ee-game restart"
 else
-    install -o ee-game -g ee-game -m 600 "$ENV_FILE" "$INSTALLED_ENV"
-    info "Config installed"
+    sudo -u "$SERVICE_USER" cp "$ROOT_ENV" "$ENV_FILE"
+    chmod 600 "$ENV_FILE"
+    info "Config installed at $ENV_FILE"
 fi
 
-# ── Step 6: systemd service ───────────────────────────────────────────────────
+# ── Step 5: systemd service (generated directly, no template needed) ──────────
 step "Installing systemd service"
-sed "s|--port [0-9]*|--port $BACKEND_PORT|g" \
-    "$INSTALL_DIR/docs/deployment/ee-game.service" \
-    > /etc/systemd/system/ee-game.service
+cat > /etc/systemd/system/ee-game.service <<EOF
+[Unit]
+Description=EE Game Backend
+After=network.target
+
+[Service]
+Type=simple
+User=$SERVICE_USER
+WorkingDirectory=$ROOT_DIR/host/backend
+EnvironmentFile=$ENV_FILE
+ExecStart=$VENV/bin/uvicorn ee_game_backend.main:app --host 0.0.0.0 --port $BACKEND_PORT
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ee-game
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+EOF
 systemctl daemon-reload
-systemctl enable ee-game.service
-info "Service installed and enabled"
+systemctl enable ee-game
+info "Service installed (runs as $SERVICE_USER from $ROOT_DIR)"
 
-# ── Step 7: ee-game CLI ───────────────────────────────────────────────────────
-ln -sf "$INSTALL_DIR/ee-game" /usr/local/bin/ee-game
-chmod +x "$INSTALL_DIR/ee-game"
-info "ee-game CLI → /usr/local/bin/ee-game"
+# ── Step 6: ee-game CLI ───────────────────────────────────────────────────────
+chmod +x "$ROOT_DIR/ee-game"
+ln -sf "$ROOT_DIR/ee-game" /usr/local/bin/ee-game
+info "ee-game CLI → /usr/local/bin/ee-game → $ROOT_DIR/ee-game"
 
-# ── Step 8: WiFi access point ─────────────────────────────────────────────────
+# ── Step 7: WiFi access point ─────────────────────────────────────────────────
 step "Configuring WiFi access point"
 
-# Write hostapd config
 tee /etc/hostapd/hostapd.conf > /dev/null <<EOF
 interface=wlan0
 driver=nl80211
@@ -168,14 +168,11 @@ EOF
 grep -q 'DAEMON_CONF' /etc/default/hostapd 2>/dev/null || \
     echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
 
-# Write dnsmasq config in a drop-in file (idempotent on re-run)
 tee /etc/dnsmasq.d/ee-game.conf > /dev/null <<EOF
 interface=wlan0
 dhcp-range=192.168.4.10,192.168.4.50,255.255.255.0,24h
 EOF
 
-# Detect network management stack.
-# Pi OS Bookworm defaults to NetworkManager; we must unmanage wlan0 so hostapd can run.
 if systemctl is-active --quiet NetworkManager 2>/dev/null; then
     info "NetworkManager detected — marking wlan0 as unmanaged"
     mkdir -p /etc/NetworkManager/conf.d
@@ -190,26 +187,22 @@ EOF
     fi
     sleep 1
 else
-    # dhcpcd — add static IP config and restart
     grep -q 'static ip_address=192.168.4.1' /etc/dhcpcd.conf 2>/dev/null || \
         printf '\ninterface wlan0\nstatic ip_address=192.168.4.1/24\nnohook wpa_supplicant\n' >> /etc/dhcpcd.conf
     systemctl restart dhcpcd 2>/dev/null || true
     sleep 2
 fi
 
-# Assign static IP to wlan0 immediately (effective without reboot)
 ip addr show wlan0 2>/dev/null | grep -q "192.168.4.1" || \
     ip addr add 192.168.4.1/24 dev wlan0 2>/dev/null || true
 ip link set wlan0 up 2>/dev/null || true
 
-# Enable and start AP services now (not just at next boot)
 systemctl unmask hostapd
 systemctl enable hostapd dnsmasq
 systemctl restart dnsmasq
 systemctl restart hostapd
 sleep 3
 
-# Verify the AP is actually broadcasting
 AP_UP=false
 for _i in 1 2 3 4 5; do
     if iw dev wlan0 info 2>/dev/null | grep -q "type AP"; then
@@ -225,7 +218,7 @@ else
     warn "A reboot may be required if the network stack has not fully applied."
 fi
 
-# ── Step 9: Start service and smoke test ──────────────────────────────────────
+# ── Step 8: Start and smoke test ──────────────────────────────────────────────
 step "Starting service"
 systemctl start ee-game
 sleep 3
@@ -241,10 +234,10 @@ fi
 echo
 echo -e "${GREEN}Installation complete.${NC}"
 echo
-echo "  Service : running  (ee-game status)"
-echo "  Logs    : ee-game logs -f"
+echo "  Install dir : $ROOT_DIR  ← this git clone is the app"
+echo "  Update      : git pull && ee-game restart"
 echo
-echo "  Reboot to activate the WiFi access point, then:"
+echo "  Reboot to ensure the WiFi AP comes up cleanly, then connect to:"
 echo "    WiFi SSID : $WIFI_SSID"
 echo "    Host UI   : http://$BACKEND_AP_HOST:$BACKEND_PORT/host"
 echo "    Display   : http://$BACKEND_AP_HOST:$BACKEND_PORT/display"
