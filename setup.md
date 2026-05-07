@@ -1,43 +1,60 @@
-# EE-Game - Setup Guide
+# EE-Game — Setup Guide
 
-## Hardware required
+## What you need
 
-**Host (game server)**
-- Raspberry Pi 4 or 5, 2 GB RAM minimum (4 GB+ recommended)
-- 16 GB microSD card, Class 10 or better
+**Game server (runs once, stays at the venue)**
+- Raspberry Pi 4 or 5, 2 GB RAM minimum
+- 16 GB microSD card (Class 10 or faster)
 - Official USB-C power supply (5 V / 3 A)
-- Second screen + HDMI cable for the public leaderboard display
+- A screen + HDMI cable for the public leaderboard display
+- Internet connection for the initial install (Ethernet recommended)
 
 **Player devices** (one per player, up to 20)
 - ESP32-C3 development board
-- Breadboard + component kit (parts list shown on-screen per game)
+- Breadboard + component kit (the game tells you which parts per round)
 - USB cable for initial flashing
 
 ---
 
 ## Installing on a Raspberry Pi
 
-```bash
-# 1. Clone the repo (once)
-git clone https://github.com/TheCharlesChristy/EE-Game.git
-cd EE-Game
+### Step 1 — Fill in your WiFi details
 
-# 2. Edit .env — set your WiFi name, password, and backend port
-vi .env
+Open the `.env` file in the repository root and set the name and password
+for the game WiFi network the Pi will create:
 
-# 3. Install system dependencies (once, on a fresh Pi)
-sudo ./install-deps.sh
-
-# 4. Install and start the app
-sudo ./install-pi.sh
+```
+WIFI_SSID=YourGameName
+WIFI_PASSWORD=YourPassword
 ```
 
-That's it. The service starts automatically and survives reboots.
+The password must be at least 8 characters.
 
-**To update after a git pull:**
+### Step 2 — Run the installer
+
+Connect the Pi to the internet (Ethernet is simplest), then run:
+
 ```bash
-git pull
-ee-game restart       # or: ee-game update (rebuilds frontend + deps too)
+sudo ./install.sh
+```
+
+That's it. The script handles everything — packages, backend, frontend,
+and WiFi configuration. It takes about 5 minutes.
+
+> **Note:** Your current network connection is not affected during the
+> install. The game WiFi only starts after you reboot.
+
+### Step 3 — Reboot
+
+```bash
+sudo reboot
+```
+
+After the reboot, the Pi broadcasts the game WiFi and the backend starts
+automatically. Connect any device to the game WiFi and open the host panel:
+
+```
+http://192.168.4.1:8000/host
 ```
 
 ---
@@ -45,18 +62,17 @@ ee-game restart       # or: ee-game update (rebuilds frontend + deps too)
 ## Managing the service
 
 ```bash
-ee-game status        # health check, connected devices, config
-ee-game logs -f       # live logs
-ee-game restart       # restart after config changes
+ee-game status        # is everything running?
+ee-game logs -f       # live log output
+ee-game restart       # restart after a config change
 ee-game stop
 ee-game start
 ```
 
-**Edit config:**
+**Change a config value:**
 ```bash
-ee-game config                          # show current config (password masked)
-ee-game config set WIFI_PASSWORD newpw  # change a value
-ee-game restart                         # apply changes
+ee-game config set WIFI_PASSWORD newpassword
+sudo reboot           # WiFi password changes need a reboot
 ```
 
 ---
@@ -65,31 +81,35 @@ ee-game restart                         # apply changes
 
 WiFi credentials are read from `.env` and baked into the firmware automatically.
 
-**On the Pi (after install):**
+**From the Pi (after install):**
 ```bash
 ee-game flash                           # auto-detect port, esp32-c3 target
 ee-game flash --port /dev/ttyUSB0      # specify port
-ee-game flash --target esp32dev        # different board variant
 ee-game flash --monitor                # open serial console after flash
 ```
 
 **From a laptop (before or without a Pi):**
 ```bash
-./flash-device.sh                       # reads credentials from .env
+./flash-device.sh
 ./flash-device.sh --port /dev/ttyUSB0
 ./flash-device.sh --target esp32dev --monitor
 ```
 
-Both scripts always do a clean build before flashing, so changing the WiFi SSID
-or password in `.env` is always picked up.
+Both always do a clean build, so changing WiFi credentials in `.env`
+is always picked up.
+
+---
+
+## Updating after a code change
+
+```bash
+git pull
+ee-game update        # rebuilds frontend + backend, restarts service
+```
 
 ---
 
 ## Local development
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development workflow.
-
-Quick start:
 
 ```bash
 # Backend
@@ -107,3 +127,8 @@ cd host/frontend && npm install && npm run dev
 | `http://localhost:5173/host` | Host control panel |
 | `http://localhost:5173/display` | Public display |
 | `http://localhost:8000/health` | Backend health check |
+
+Developer tools (PlatformIO for ESP32 flashing):
+```bash
+sudo ./install-deps.sh
+```
