@@ -181,7 +181,7 @@ class MessageRouter:
             firmware_version=firmware_version,
             board_target=board_target,
             connection_state=CONN_CONNECTED,
-            last_seen_at=datetime.datetime.utcnow(),
+            last_seen_at=datetime.datetime.now(datetime.UTC),
         )
 
         await manager.broadcast_to_frontends(
@@ -228,7 +228,7 @@ class MessageRouter:
 
         await manager.update_device_info(
             device_id,
-            last_seen_at=datetime.datetime.utcnow(),
+            last_seen_at=datetime.datetime.now(datetime.UTC),
             connection_state=CONN_CONNECTED,
         )
 

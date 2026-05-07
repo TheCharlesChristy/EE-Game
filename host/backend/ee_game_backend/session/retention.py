@@ -24,7 +24,7 @@ class RetentionSweeper:
         self._retention_days = retention_days
 
     async def sweep(self, now: datetime.datetime | None = None) -> RetentionResult:
-        current = now or datetime.datetime.utcnow()
+        current = now or datetime.datetime.now(datetime.UTC)
         cutoff = current - datetime.timedelta(days=self._retention_days)
         expired = await self._repo.expire_archives_before(cutoff)
         return RetentionResult(expired_count=expired, cutoff=cutoff)

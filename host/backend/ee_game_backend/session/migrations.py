@@ -164,5 +164,5 @@ async def _record_schema_version(db: Any, version: int) -> None:
         INSERT OR IGNORE INTO schema_version (version, applied_at)
         VALUES (?, ?)
         """,
-        (version, datetime.datetime.utcnow().isoformat()),
+        (version, datetime.datetime.now(datetime.UTC).isoformat()),
     )

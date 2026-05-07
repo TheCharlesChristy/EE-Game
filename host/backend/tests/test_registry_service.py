@@ -43,7 +43,7 @@ def _make_player_dict(
     colour: str = "#E6194B",
     connection_state: str = "connected",
 ) -> dict:
-    now = datetime.datetime.utcnow().isoformat()
+    now = datetime.datetime.now(datetime.UTC).isoformat()
     return {
         "player_id": player_id,
         "device_id": device_id,
@@ -238,7 +238,7 @@ class TestHandleHeartbeat:
         service, ss, repo, _ = _make_service(session)
         ss.current_session = session
 
-        before = datetime.datetime.utcnow()
+        before = datetime.datetime.now(datetime.UTC)
         await service.handle_heartbeat("dev-001")
 
         repo.upsert_session.assert_called()

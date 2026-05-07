@@ -41,7 +41,7 @@ class Session:
 
     @staticmethod
     def new() -> "Session":
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now(datetime.UTC)
         return Session(
             id=str(uuid.uuid4()),
             status=SessionStatus.ACTIVE,
@@ -109,11 +109,11 @@ class SessionArchive:
         return SessionArchive(
             id=str(uuid.uuid4()),
             session_id=session.id,
-            finished_at=datetime.datetime.utcnow(),
+            finished_at=datetime.datetime.now(datetime.UTC),
             anonymised_payload={
                 "session_id": session.id,
                 "created_at": session.created_at.isoformat(),
-                "finished_at": datetime.datetime.utcnow().isoformat(),
+                "finished_at": datetime.datetime.now(datetime.UTC).isoformat(),
                 "players": anon_players,
                 "standings": session.standings,
                 "active_game": session.active_game,
@@ -148,7 +148,7 @@ class AuditEvent:
             action_type=action_type,
             actor_type=actor_type,
             payload_summary=payload_summary,
-            created_at=datetime.datetime.utcnow(),
+            created_at=datetime.datetime.now(datetime.UTC),
         )
 
 

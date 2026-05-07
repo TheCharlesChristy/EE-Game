@@ -56,7 +56,7 @@ async def test_upsert_session_updates_existing_session(repo):
     await repo.upsert_session(session)
 
     session.status = SessionStatus.PAUSED
-    session.updated_at = datetime.datetime.utcnow()
+    session.updated_at = datetime.datetime.now(datetime.UTC)
     await repo.upsert_session(session)
 
     result = await repo.get_session_by_id(session.id)

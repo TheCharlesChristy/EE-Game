@@ -8,6 +8,7 @@ class EeWebSocketClient {
 public:
     EeWebSocketClient();
     void begin(const char* host, uint16_t port, const char* deviceId, LedManager* ledManager);
+    void disconnect();
     void loop();
     bool isConnected() const;
     void sendRegister(const char* firmwareVersion, const char* boardTarget);

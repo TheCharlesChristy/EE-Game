@@ -116,7 +116,7 @@ class PlayerRegistryService:
                     "— old WebSocket connection was likely dropped without a clean disconnect",
                     device_id,
                 )
-            now = datetime.datetime.utcnow()
+            now = datetime.datetime.now(datetime.UTC)
             existing.connection_state = CONN_CONNECTED
             existing.last_seen_at = now
             existing.firmware_version = firmware_version
@@ -148,7 +148,7 @@ class PlayerRegistryService:
         colour = self._colour_allocator.allocate(exclude=existing_colours)
         username = self._username_generator.generate(exclude=existing_usernames)
 
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now(datetime.UTC)
         player = Player(
             player_id=str(uuid.uuid4()),
             device_id=device_id,
@@ -195,7 +195,7 @@ class PlayerRegistryService:
             if player is None:
                 return
             player.connection_state = CONN_CONNECTED
-            player.last_seen_at = datetime.datetime.utcnow()
+            player.last_seen_at = datetime.datetime.now(datetime.UTC)
             await self._save_players(session, players)
         except Exception:
             logger.error(
@@ -220,7 +220,7 @@ class PlayerRegistryService:
             if player is None:
                 return
             player.connection_state = CONN_DISCONNECTED
-            player.last_seen_at = datetime.datetime.utcnow()
+            player.last_seen_at = datetime.datetime.now(datetime.UTC)
             await self._save_players(session, players)
             await self._broadcast_player_list(
                 players,
@@ -258,7 +258,7 @@ class PlayerRegistryService:
             for player in players:
                 if player.device_id in device_id_set:
                     player.connection_state = CONN_STALE
-                    player.last_seen_at = datetime.datetime.utcnow()
+                    player.last_seen_at = datetime.datetime.now(datetime.UTC)
                     affected.append(player.device_id)
             if not affected:
                 return
@@ -444,7 +444,7 @@ class PlayerRegistryService:
         Serialise Player objects back to dicts, update session.players, and persist.
         """
         session.players = [p.to_dict() for p in players]
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.upsert_session(session)
 
     async def _broadcast_player_list(

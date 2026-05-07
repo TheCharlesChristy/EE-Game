@@ -57,7 +57,7 @@ def to_assignment_records(
 ) -> list[dict[str, Any]]:
     import datetime
 
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.UTC)
     records: list[dict[str, Any]] = []
     for team in teams:
         for player_id in team.player_ids:

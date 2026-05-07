@@ -16,7 +16,7 @@ export function Intermission() {
         className="adjust-form"
         onSubmit={(event) => {
           event.preventDefault();
-          if (playerId && reason) actions.adjustScore(playerId, delta, reason);
+          if (playerId && reason && delta !== 0) actions.adjustScore(playerId, delta, reason);
         }}
       >
         <select value={playerId} onChange={(event) => setPlayerId(event.target.value)} aria-label="Player">

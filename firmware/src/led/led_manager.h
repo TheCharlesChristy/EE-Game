@@ -6,11 +6,12 @@
  * These must remain in sync with the backend's LED state model.
  */
 enum class LedState {
-    BOOT,        ///< Device booting up
-    CONNECTING,  ///< Attempting WiFi / backend connection
-    CONNECTED,   ///< Registered with backend, idle
-    TEST_FAULT,  ///< Test phase failure or circuit fault
-    LIVE,        ///< Active gameplay
+    BOOT,          ///< Device booting up
+    CONNECTING,    ///< Searching for WiFi — no network connection
+    CONNECTING_WS, ///< WiFi connected, WebSocket handshake in progress
+    CONNECTED,     ///< Registered with backend, idle
+    TEST_FAULT,    ///< Test phase failure or circuit fault
+    LIVE,          ///< Active gameplay
 };
 
 /**

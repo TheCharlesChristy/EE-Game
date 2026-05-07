@@ -74,7 +74,7 @@ void setup() {
         deviceId = WiFi.macAddress();
         deviceId.replace(":", "");
         deviceId.toLowerCase();
-        ledManager.setState(LedState::CONNECTING);
+        ledManager.setState(LedState::CONNECTING_WS);
         wsClient.begin(BACKEND_HOST, BACKEND_PORT, deviceId.c_str(), &ledManager);
         Serial.printf("[EE-Game] Device id %s firmware %s\n", deviceId.c_str(), FIRMWARE_VERSION);
     } else {
@@ -95,6 +95,7 @@ void loop() {
                 deviceId.replace(":", "");
                 deviceId.toLowerCase();
             }
+            wsClient.disconnect();
             wsClient.begin(BACKEND_HOST, BACKEND_PORT, deviceId.c_str(), &ledManager);
         }
         return;

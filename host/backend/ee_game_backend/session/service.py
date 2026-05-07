@@ -108,7 +108,7 @@ class SessionService:
         SRS: FR-003.
         """
         session = self._require_mutable_session("save")
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
 
         await self._repo.upsert_session(session)
         await self._repo.insert_audit_event(
@@ -136,7 +136,7 @@ class SessionService:
             )
 
         session.status = SessionStatus.PAUSED
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
 
         await self._repo.upsert_session(session)
         await self._repo.insert_audit_event(
@@ -182,7 +182,7 @@ class SessionService:
             self._current = session
 
         session.status = SessionStatus.ACTIVE
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
 
         await self._repo.upsert_session(session)
         await self._repo.insert_audit_event(
@@ -246,7 +246,7 @@ class SessionService:
 
         # Archive persisted — now mark the session as finished.
         session.status = SessionStatus.FINISHED
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.upsert_session(session)
 
         await self._repo.insert_audit_event(

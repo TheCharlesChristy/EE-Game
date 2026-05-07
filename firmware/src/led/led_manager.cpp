@@ -34,11 +34,12 @@ void LedManager::setPin(bool on) {
 
 unsigned long LedManager::blinkIntervalMs() const {
     switch (_state) {
-        case LedState::BOOT:        return 500;   // slow blink: booting
-        case LedState::CONNECTING:  return 200;   // fast blink: searching
-        case LedState::CONNECTED:   return 0;     // solid: ready
-        case LedState::TEST_FAULT:  return 100;   // very fast: error
-        case LedState::LIVE:        return 0;     // solid: in game
-        default:                    return 500;
+        case LedState::BOOT:          return 500;   // slow blink: booting
+        case LedState::CONNECTING:    return 200;   // fast blink: no WiFi
+        case LedState::CONNECTING_WS: return 400;   // medium blink: WiFi ok, WS pending
+        case LedState::CONNECTED:     return 0;     // solid: ready
+        case LedState::TEST_FAULT:    return 100;   // very fast: error
+        case LedState::LIVE:          return 0;     // solid: in game
+        default:                      return 500;
     }
 }

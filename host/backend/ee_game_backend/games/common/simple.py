@@ -93,12 +93,17 @@ class SimpleEventGame(Game):
             payload = event.get("event_payload", {})
             if payload.get("correct") is False:
                 player_scores[player_id] += int(payload.get("score_delta", 0))
+                team_id = assignments.get(player_id)
+                if team_id:
+                    team_scores[team_id] += int(payload.get("score_delta", 0))
                 continue
 
             points = int(payload.get("score_delta", self.base_points))
             if payload.get("correct") is True:
                 points += self.correct_bonus
-            elapsed_ms = payload.get("elapsed_ms") or payload.get("reaction_ms")
+            elapsed_ms = payload.get("elapsed_ms")
+            if elapsed_ms is None:
+                elapsed_ms = payload.get("reaction_ms")
             if isinstance(elapsed_ms, int) and elapsed_ms <= self.speed_bonus_under_ms:
                 points += self.speed_bonus_points
             player_scores[player_id] += points

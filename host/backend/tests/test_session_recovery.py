@@ -65,7 +65,7 @@ async def _insert_corrupt_session(db, session_id: str, status: str = "active") -
     """
     Insert a session row with a deliberately wrong checksum to simulate corruption.
     """
-    now = datetime.datetime.utcnow().isoformat()
+    now = datetime.datetime.now(datetime.UTC).isoformat()
     payload = json.dumps(
         {
             "id": session_id,

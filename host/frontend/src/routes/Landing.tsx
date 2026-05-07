@@ -12,10 +12,12 @@ export function Landing() {
   const [server, setServer] = useState<ServerInfo | null>(null);
 
   useEffect(() => {
-    fetch('/api/diagnostics')
+    const controller = new AbortController();
+    fetch('/api/diagnostics', { signal: controller.signal })
       .then((r) => r.json())
       .then((d) => setServer({ ok: true, wifi_ssid: d.wifi_ssid, backend_ap_host: d.backend_ap_host }))
-      .catch(() => setServer({ ok: false }));
+      .catch(() => { if (!controller.signal.aborted) setServer({ ok: false }); });
+    return () => controller.abort();
   }, []);
 
   return (

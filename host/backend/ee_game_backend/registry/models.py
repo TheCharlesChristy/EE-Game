@@ -57,10 +57,10 @@ class Player:
             colour=data.get("colour", "#808080"),
             connection_state=data.get("connection_state", "disconnected"),
             last_seen_at=datetime.datetime.fromisoformat(
-                data.get("last_seen_at", datetime.datetime.utcnow().isoformat())
+                data.get("last_seen_at", datetime.datetime.now(datetime.UTC).isoformat())
             ),
             registered_at=datetime.datetime.fromisoformat(
-                data.get("registered_at", datetime.datetime.utcnow().isoformat())
+                data.get("registered_at", datetime.datetime.now(datetime.UTC).isoformat())
             ),
             firmware_version=data.get("firmware_version", "unknown"),
             board_target=data.get("board_target", "unknown"),

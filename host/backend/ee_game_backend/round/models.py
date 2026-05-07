@@ -39,7 +39,7 @@ class Round:
 
     @staticmethod
     def new(session_id: str, game_id: str, timer_total_ms: int) -> "Round":
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now(datetime.UTC)
         return Round(
             id=str(uuid.uuid4()),
             session_id=session_id,

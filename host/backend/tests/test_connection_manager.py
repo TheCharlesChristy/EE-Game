@@ -89,7 +89,7 @@ async def test_mark_devices_stale_marks_old_devices():
     # Backdate last_seen_at so the device appears stale.
     async with manager._lock:
         manager._device_info["old-device"].last_seen_at = (
-            datetime.datetime.utcnow() - datetime.timedelta(seconds=100)
+            datetime.datetime.now(datetime.UTC) - datetime.timedelta(seconds=100)
         )
 
     stale = await manager.mark_devices_stale(timeout_seconds=30)
@@ -117,7 +117,7 @@ async def test_mark_devices_stale_ignores_disconnected_devices():
     # Backdate and then disconnect.
     async with manager._lock:
         manager._device_info["device-1"].last_seen_at = (
-            datetime.datetime.utcnow() - datetime.timedelta(seconds=200)
+            datetime.datetime.now(datetime.UTC) - datetime.timedelta(seconds=200)
         )
     await manager.disconnect_device("device-1")
 

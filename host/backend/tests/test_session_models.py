@@ -33,9 +33,9 @@ class TestSessionNew:
         assert s1.id != s2.id
 
     def test_created_at_and_updated_at_are_set(self):
-        before = datetime.datetime.utcnow()
+        before = datetime.datetime.now(datetime.UTC)
         session = Session.new()
-        after = datetime.datetime.utcnow()
+        after = datetime.datetime.now(datetime.UTC)
         assert before <= session.created_at <= after
         assert before <= session.updated_at <= after
 
@@ -195,7 +195,7 @@ class TestAuditEventNew:
         assert event.payload_summary == ""
 
     def test_created_at_is_recent(self):
-        before = datetime.datetime.utcnow()
+        before = datetime.datetime.now(datetime.UTC)
         event = AuditEvent.new(session_id=None, action_type="test")
-        after = datetime.datetime.utcnow()
+        after = datetime.datetime.now(datetime.UTC)
         assert before <= event.created_at <= after

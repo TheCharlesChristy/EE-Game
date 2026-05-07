@@ -23,7 +23,7 @@ class DeviceInfo:
     firmware_version: str
     board_target: str
     connection_state: str
-    last_seen_at: datetime.datetime = field(default_factory=datetime.datetime.utcnow)
+    last_seen_at: datetime.datetime = field(default_factory=lambda: datetime.datetime.now(datetime.UTC))
 
 
 class ConnectionManager:
@@ -59,7 +59,7 @@ class ConnectionManager:
                 )
             else:
                 self._device_info[device_id].connection_state = "connected"
-                self._device_info[device_id].last_seen_at = datetime.datetime.utcnow()
+                self._device_info[device_id].last_seen_at = datetime.datetime.now(datetime.UTC)
 
     async def disconnect_device(self, device_id: str) -> None:
         """Remove a device from the registry."""
@@ -183,7 +183,7 @@ class ConnectionManager:
         stale device IDs.  Only considers currently connected devices.
         SRS reference: NFR-006, FR-023, FR-024.
         """
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now(datetime.UTC)
         cutoff = datetime.timedelta(seconds=timeout_seconds)
         stale_ids: list[str] = []
 

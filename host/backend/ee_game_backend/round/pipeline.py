@@ -27,5 +27,5 @@ def build_event_record(
         "phase": phase,
         "dedupe_key": payload.get("dedupe_key"),
         "event_payload": payload,
-        "received_at": datetime.datetime.utcnow(),
+        "received_at": datetime.datetime.now(datetime.UTC),
     }

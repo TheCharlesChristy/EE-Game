@@ -14,6 +14,11 @@ void EeWebSocketClient::begin(const char* host, uint16_t port, const char* devic
     _client.setReconnectInterval(3000);
 }
 
+void EeWebSocketClient::disconnect() {
+    _client.disconnect();
+    _connected = false;
+}
+
 void EeWebSocketClient::loop() {
     _client.loop();
 }

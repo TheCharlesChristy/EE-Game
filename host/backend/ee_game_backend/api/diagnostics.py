@@ -31,7 +31,7 @@ async def get_diagnostics(request: Request) -> DiagnosticsResponse:
     settings = get_settings()
     return DiagnosticsResponse(
         ok=True,
-        generated_at=datetime.datetime.utcnow().isoformat(),
+        generated_at=datetime.datetime.now(datetime.UTC).isoformat(),
         schema_version=await repo.get_schema_version(),
         connected_devices=await manager.get_device_count(),
         current_session=session_service.get_summary(),

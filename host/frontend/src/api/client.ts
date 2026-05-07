@@ -6,24 +6,35 @@ export interface ApiResponse<T> {
 const API_BASE = import.meta.env.VITE_API_URL ?? '';
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const response = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(init.headers ?? {}),
-    },
-    ...init,
-  });
-  if (!response.ok) {
-    let detail = response.statusText;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(init.headers ?? {}),
+      },
+      ...init,
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+  if (!response!.ok) {
+    let detail = response!.statusText;
     try {
-      const body = await response.json();
+      const body = await response!.json();
       detail = body.detail ?? detail;
     } catch {
       // Ignore non-JSON error bodies.
     }
     throw new Error(detail);
   }
-  return response.json() as Promise<T>;
+  if (response!.status === 204 || !response!.headers.get('content-type')?.includes('application/json')) {
+    return undefined as T;
+  }
+  return response!.json() as Promise<T>;
 }
 
 export const apiClient = {

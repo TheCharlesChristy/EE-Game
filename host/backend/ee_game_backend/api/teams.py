@@ -58,7 +58,7 @@ async def confirm_teams(body: TeamPreviewRequest, request: Request) -> dict:
             action_type="teams_allocated",
             payload_summary=(
                 f"round_id={round_state.id} teams={len(teams)} "
-                f"at={datetime.datetime.utcnow().isoformat()}"
+                f"at={datetime.datetime.now(datetime.UTC).isoformat()}"
             ),
         )
     )

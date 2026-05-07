@@ -51,7 +51,7 @@ class RoundService:
         self._current = round_state
         session.current_round_id = round_state.id
         session.active_game = game_id
-        session.updated_at = datetime.datetime.utcnow()
+        session.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.upsert_round(round_state.to_record())
         await self._repo.upsert_session(session)
         await self._repo.insert_audit_event(
@@ -76,17 +76,18 @@ class RoundService:
             self._timer.pause(round_state)
         if target_phase == RoundPhase.LIVE:
             if round_state.started_at is None:
-                round_state.started_at = datetime.datetime.utcnow()
+                round_state.started_at = datetime.datetime.now(datetime.UTC)
             self._timer.enter_live(round_state)
         if target_phase == RoundPhase.COMPLETED:
             if round_state.phase == RoundPhase.LIVE:
                 self._timer.pause(round_state)
-            round_state.ended_at = datetime.datetime.utcnow()
+            round_state.ended_at = datetime.datetime.now(datetime.UTC)
             round_state.timer_remaining_ms = self._timer.snapshot_remaining_ms(round_state)
 
         round_state.phase = target_phase
-        round_state.updated_at = datetime.datetime.utcnow()
-        await self._repo.upsert_round(round_state.to_record())
+        round_state.updated_at = datetime.datetime.now(datetime.UTC)
+        if target_phase != RoundPhase.COMPLETED:
+            await self._repo.upsert_round(round_state.to_record())
         await self._repo.insert_audit_event(
             AuditEvent.new(
                 session_id=round_state.session_id,
@@ -110,8 +111,8 @@ class RoundService:
         if round_state.phase == RoundPhase.LIVE:
             self._timer.pause(round_state)
         round_state.phase = RoundPhase.COMPLETED
-        round_state.ended_at = round_state.ended_at or datetime.datetime.utcnow()
-        round_state.updated_at = datetime.datetime.utcnow()
+        round_state.ended_at = round_state.ended_at or datetime.datetime.now(datetime.UTC)
+        round_state.updated_at = datetime.datetime.now(datetime.UTC)
         round_state.timer_remaining_ms = self._timer.snapshot_remaining_ms(round_state)
         await self._repo.upsert_round(round_state.to_record())
 
@@ -119,7 +120,7 @@ class RoundService:
         result = await self._scoring_service.score_round(round_state, session.players)
         round_state.result = result
         round_state.phase = RoundPhase.RESULTS
-        round_state.updated_at = datetime.datetime.utcnow()
+        round_state.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.upsert_round(round_state.to_record())
         await self._broadcast("round_completed", self._round_payload(round_state))
         return round_state
@@ -156,9 +157,9 @@ class RoundService:
             "passed": passed,
             "reason": reason,
             "device_id": device_id,
-            "updated_at": datetime.datetime.utcnow().isoformat(),
+            "updated_at": datetime.datetime.now(datetime.UTC).isoformat(),
         }
-        round_state.updated_at = datetime.datetime.utcnow()
+        round_state.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.upsert_round(round_state.to_record())
         await self._broadcast("test_event_recorded", self._round_payload(round_state))
         return {"accepted": passed, "message": reason, "code": "TEST_FAILED" if not passed else "OK"}
@@ -191,7 +192,7 @@ class RoundService:
         game = self._game_registry.require(round_state.game_id)
         round_state.game_state = game.handle_live_event(round_state.game_state, event)
         round_state.timer_remaining_ms = self._timer.snapshot_remaining_ms(round_state)
-        round_state.updated_at = datetime.datetime.utcnow()
+        round_state.updated_at = datetime.datetime.now(datetime.UTC)
         await self._repo.insert_round_event(event)
         await self._repo.upsert_round(round_state.to_record())
         await self._broadcast("round_event_recorded", self._round_payload(round_state))

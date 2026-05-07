@@ -17,6 +17,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -63,6 +64,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [diagnostics, setDiagnostics] = useState<Diagnostics | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const run = useCallback(async (label: string, fn: () => Promise<unknown>) => {
     setError(null);
@@ -103,8 +105,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setTeams,
     });
     if (lastMessage.type === 'state_update') {
-      refresh().catch(() => undefined);
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current);
+      refreshTimerRef.current = setTimeout(() => {
+        refresh().catch(() => undefined);
+      }, 300);
     }
+    return () => {
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current);
+    };
   }, [lastMessage, refresh]);
 
   const actions = useMemo(
@@ -166,7 +174,7 @@ function applyMessage(
   setters: {
     setPlayers: (players: Player[]) => void;
     setSession: (fn: (prev: SessionSummary | null) => SessionSummary | null) => void;
-    setRound: (round: RoundSummary | null) => void;
+    setRound: (fn: (prev: RoundSummary | null) => RoundSummary | null) => void;
     setTeams: (teams: Team[]) => void;
   },
 ) {
@@ -176,13 +184,23 @@ function applyMessage(
   const data = payload.data ?? {};
   if (Array.isArray(data.players)) setters.setPlayers(data.players as Player[]);
   if (payload.event === 'round_selected' || payload.event === 'round_transitioned' || payload.event === 'round_completed') {
-    setters.setRound(data as unknown as RoundSummary);
+    setters.setRound((prev) => prev ? { ...prev, ...(data as Partial<RoundSummary>) } : (data as unknown as RoundSummary));
   }
   if (payload.event === 'teams_allocated' && Array.isArray(data.teams)) {
     setters.setTeams(data.teams as Team[]);
   }
   if ('session_id' in data) {
-    setters.setSession((prev) => ({ ...(prev ?? emptySession()), ...(data as Partial<SessionSummary>) }));
+    setters.setSession((prev) => {
+      const base = prev ?? emptySession();
+      const update = data as Record<string, unknown>;
+      const merged = { ...base };
+      for (const k of Object.keys(update)) {
+        if (update[k] !== undefined) {
+          (merged as Record<string, unknown>)[k] = update[k];
+        }
+      }
+      return merged as SessionSummary;
+    });
   }
 }
 

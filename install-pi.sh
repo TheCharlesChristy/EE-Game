@@ -153,7 +153,7 @@ step "Configuring WiFi access point"
 tee /etc/hostapd/hostapd.conf > /dev/null <<EOF
 interface=wlan0
 driver=nl80211
-ssid=$WIFI_SSID
+ssid="$WIFI_SSID"
 hw_mode=g
 channel=$WIFI_CHANNEL
 wmm_enabled=0
