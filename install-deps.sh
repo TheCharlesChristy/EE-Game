@@ -177,17 +177,43 @@ fi
 
 info "$("${PYTHON_BIN}" --version) | pip $("${PYTHON_BIN}" -m pip --version | cut -d' ' -f2)"
 
-# ── Node.js LTS ───────────────────────────────────────────────────────────────
-step "Node.js LTS"
+# ── Node.js (>= 18 required for Vite 5) ──────────────────────────────────────
+step "Node.js"
 NODE_MAJOR="$(node --version 2>/dev/null | grep -oE '^v[0-9]+' | tr -d 'v' || echo 0)"
-if [[ "$NODE_MAJOR" -ge 20 ]]; then
+if [[ "$NODE_MAJOR" -ge 18 ]]; then
     info "Already installed: $(node --version)"
 else
-    case "$PKG_MANAGER" in
-        apt)     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - ;;
-        dnf|yum) curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - ;;
-    esac
-    pkg_install nodejs
+    # Try the distro's own nodejs package first — modern distros (Ubuntu 24.04,
+    # Debian 12, Fedora 40+) ship Node 18-22 without needing a third-party repo.
+    pkg_install nodejs npm 2>/dev/null || true
+    NODE_MAJOR="$(node --version 2>/dev/null | grep -oE '^v[0-9]+' | tr -d 'v' || echo 0)"
+
+    if [[ "$NODE_MAJOR" -lt 18 ]]; then
+        # Distro version is too old — fall back to NodeSource LTS.
+        warn "Distro nodejs is v${NODE_MAJOR} (need >= 18); adding NodeSource LTS repo"
+        case "$PKG_MANAGER" in
+            apt)
+                mkdir -p /etc/apt/keyrings
+                curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+                    | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+                LTS_MAJOR="$(curl -fsSL --max-time 10 https://nodejs.org/dist/index.json 2>/dev/null \
+                    | "${PYTHON_BIN}" -c "
+import json,sys
+d=json.load(sys.stdin); lts=[r for r in d if r.get('lts')]
+print(lts[0]['version'].split('.')[0].lstrip('v')) if lts else print(22)
+" 2>/dev/null || echo 22)"
+                echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] \
+https://deb.nodesource.com/node_${LTS_MAJOR}.x nodistro main" \
+                    | tee /etc/apt/sources.list.d/nodesource.list > /dev/null
+                apt-get update -qq
+                pkg_install nodejs
+                ;;
+            dnf|yum)
+                curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
+                pkg_install nodejs
+                ;;
+        esac
+    fi
 fi
 info "Node $(node --version) | npm $(npm --version)"
 
